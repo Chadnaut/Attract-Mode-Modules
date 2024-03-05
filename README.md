@@ -4,4 +4,4 @@ Attract-Mode Modules and Plugins
 
 ## Contents
 
-- [Perspective](./modules/perspective/README.md) - Perspective correct texture mapping for pinched textures.
+- [Perspective v0.1](./modules/perspective/README.md) - Perspective correct texture mapping for pinched objects.

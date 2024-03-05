@@ -1,10 +1,15 @@
-# Perspective v0.1
+# Perspective
 
-Perspective correct texture mapping for pinched textures.
+> Perspective correct texture mapping for pinched objects.  
+> Version 0.1  
+> Chadnaut 2024  
+> https://github.com/Chadnaut/Attract-Mode-Modules
 
 ## Quickstart
 
 ```cpp
+fe.load_module("perspective");
+
 local object = fe.add_artwork("snap", 0, 0, 400 400);
 object = Perspective(object);
 object.pinch_x = 100;
@@ -13,7 +18,8 @@ object.pinch_y = 100;
 
 Wrap your Image, Artwork or Surface with the `Perspective()` class and use the resulting instance in its place. The `pinch` and `skew` properties are applied using **shaders**, and all other properties fall through to the original object.
 
-<img src="example.png">
+![Perspective Example](example.png)
+*Native pinch (left), Perspective pinch (right)*
 
 ## Advanced
 

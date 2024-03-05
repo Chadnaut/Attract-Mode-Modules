@@ -1,10 +1,3 @@
-/*
-    Perspective correct texture mapping for pinched objects.
-    Version 0.1
-    Chadnaut 2024
-    https://github.com/Chadnaut/Attract-Mode-Modules
-*/
-
 class Perspective {
     _obj = null;
     _prop = null;

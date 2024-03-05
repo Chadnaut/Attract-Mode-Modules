@@ -1,6 +1,6 @@
 # Perspective
 
-> Perspective correct texture mapping for pinched objects.  
+> Perspective correct texture mapping for pinched objects  
 > Version 0.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
@@ -42,7 +42,7 @@ Vertex offsets may be set individually rather than using the pinch and skew shor
 
 ## Further Reading
 
-- [ArbitraryQuadrilateralsActivity](https://github.com/bitlush/android-arbitrary-quadrilaterals-in-opengl-es-2-0/blob/master/ArbitraryQuadrilateralsActivity.java)
+- [Arbitrary Quadrilaterals in OpenGL ES 2.0 for Android](https://github.com/bitlush/android-arbitrary-quadrilaterals-in-opengl-es-2-0/blob/master/ArbitraryQuadrilateralsActivity.java)
 - [Bilinear Interpolated Texture Mapping](https://pumpkin-games.net/wp/?p=215)
 - [Quadrilateral Interpolation, Part 1](https://www.reedbeta.com/blog/quadrilateral-interpolation-part-1/)
 - [WebGL 3D Perspective Correct Texture Mapping](https://webglfundamentals.org/webgl/lessons/webgl-3d-perspective-correct-texturemapping.html)

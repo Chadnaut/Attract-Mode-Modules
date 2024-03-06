@@ -29,7 +29,7 @@ Sends a keypress to *all* matching windows, or foreground window if none provide
 - `F5` - string gets prefixed with VK_ to create win32con constant
 - `VK_F5` - matching constant from [win32con](https://github.com/SublimeText/Pywin32/blob/master/lib/x32/win32/lib/win32con.py)
 
-## Usage
+## Example
 
 During development it is extremely useful to automatically reload the layout after you've made a change. In this example the `ReloadHotkey` plugin is setup to reload when `F5` is pressed.
 

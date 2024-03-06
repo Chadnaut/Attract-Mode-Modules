@@ -9,6 +9,7 @@
 ### Modules
 
 - [Chart](./modules/chart/README.md) **v0.2** - Plot events over time
+- [Console](./modules/console/README.md) **v0.2** - Debug logging
 - [Perspective](./modules/perspective/README.md) **v0.1** - Perspective correct texture mapping
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
 
@@ -19,3 +20,4 @@
 ### Scripts
 
 - [Keypress](./scripts/keypress/README.md) **v0.2** - Send keypress to a window
+- [Link](./scripts/link/README.md) **v0.2** - Create a series of symlinks

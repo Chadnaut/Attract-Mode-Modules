@@ -1,16 +1,21 @@
 # Attract Mode Modules
 
-Attract-Mode Modules and Plugins
+> Attract-Mode Modules, Plugins, and Scripts  
+> Chadnaut 2024  
+> https://github.com/Chadnaut/Attract-Mode-Modules
 
-## Modules
+## Contents
 
-- [Perspective v0.1](./modules/perspective/README.md) - Perspective correct texture mapping for pinched objects
-- [Stringify v0.1](./modules/stringify/README.md) - JSON-like stringify turns values into strings
+### Modules
 
-## Plugins
+- [Chart](./modules/chart/README.md) **v0.2** - Plot events over time
+- [Perspective](./modules/perspective/README.md) **v0.1** - Perspective correct texture mapping
+- [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
 
-- [ReloadHotkey v0.1](./plugins/ReloadHotkey/README.md) - Reload the layout when custom key pressed
+### Plugins
 
-## Scripts
+- [ReloadHotkey](./plugins/ReloadHotkey/README.md) **v0.1** - Reload layout when custom key pressed
 
-- [Keypress v0.2](./scripts/keypress/README.md) - Send a keypress to the target window  
+### Scripts
+
+- [Keypress](./scripts/keypress/README.md) **v0.2** - Send keypress to a window

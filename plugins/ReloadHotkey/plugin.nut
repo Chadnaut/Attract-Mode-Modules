@@ -1,4 +1,4 @@
-class UserConfig</ help="Reload the layout when custom key pressed (v0.1)" /> {
+class UserConfig</ help="Reload layout when custom key pressed (v0.1)" /> {
     </  label="Hotkey",
         options="Custom1,Custom2,Custom3,Custom4,Custom5,Custom6",
         help="Key to reload the layout",

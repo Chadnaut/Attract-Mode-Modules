@@ -1,6 +1,6 @@
 # Stringify
 
-> JSON-like stringify turns values into strings  
+> JSON-like value stringification  
 > Version 0.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules

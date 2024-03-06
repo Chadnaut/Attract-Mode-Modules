@@ -1,6 +1,6 @@
 # Perspective
 
-> Perspective correct texture mapping for pinched objects  
+> Perspective correct texture mapping  
 > Version 0.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
@@ -19,6 +19,7 @@ object.pinch_y = 100;
 Wrap your Image, Artwork or Surface with the `Perspective()` class and use the resulting instance in its place. The `pinch` and `skew` properties are applied using **shaders**, and all other properties fall through to the original object.
 
 ![Perspective Example](example.png)
+
 *Native pinch (left), Perspective pinch (right)*
 
 ## Advanced

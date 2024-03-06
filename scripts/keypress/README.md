@@ -1,6 +1,6 @@
 # Send Keypress
 
-> Send a keypress to the target window  
+> Send keypress to a window  
 > Version 0.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
@@ -17,25 +17,24 @@ python -m pip install --upgrade pywin32
 ## Usage
 ```sh
 python send_keypress.py F5 Attract-Mode SFML_Window
-# python send_keypress.py key window_name class_name(optional)
+# python send_keypress.py key window_name(optional) class_name(optional)
 ```
 
-Sends a keypress to *all* matching windows.
+Sends a keypress to *all* matching windows, or foreground window if none provided.
 
-## Key Values
+`key` accepts different value types:
+- `9` - keycode 9 (which is VK_TAB)
+- `Q` - char, uses `ord` to find keycode
+- `"'9'"` - double-quoted char, uses `ord` to find keycode
+- `F5` - string gets prefixed with VK_ to create win32con constant
+- `VK_F5` - matching constant from [win32con](https://github.com/SublimeText/Pywin32/blob/master/lib/x32/win32/lib/win32con.py)
 
-- 7 = keycode
-- Q = char, uses `ord` to find keycode
-- "'7'" = quoted char, uses `ord` to find keycode
-- F5 = string gets prefixed with VK_ to create win32con constant
-- VK_F5 = full constant from [win32con](https://github.com/SublimeText/Pywin32/blob/master/lib/x32/win32/lib/win32con.py)
+## Usage
 
-## Development
-
-During development it is useful to automatically reload the layout whenever you save a file. In this example the `ReloadHotkey` plugin is setup to reload when `F5` is pressed.
+During development it is extremely useful to automatically reload the layout after you've made a change. In this example the `ReloadHotkey` plugin is setup to reload when `F5` is pressed.
 
 ```sh
-# First send ESCAPE to exit open menus
+# First send ESCAPE to exit any open menus
 python ./scripts/keypress/send_keypress.py VK_ESCAPE Attract-Mode SFML_Window
 
 # Then send F5 to trigger a layout reload

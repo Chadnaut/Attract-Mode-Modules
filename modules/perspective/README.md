@@ -26,14 +26,14 @@ Wrap your Image, Artwork or Surface with the `Perspective()` class and use the r
 
 Vertex offsets may be set individually rather than using the pinch and skew shortcuts.
 
-- `offset_tl_x` Top Left X offset
-- `offset_tl_y` Top Left Y offset
-- `offset_bl_x` Bottom Left X offset
-- `offset_bl_y` Bottom Left Y offset
-- `offset_tr_x` Top Right X offset
-- `offset_tr_y` Top Right Y offset
-- `offset_br_x` Bottom Right X offset
-- `offset_br_y` Bottom Right Y offset
+- `offset_tl_x` *int* - Top Left X offset
+- `offset_tl_y` *int* - Top Left Y offset
+- `offset_bl_x` *int* - Bottom Left X offset
+- `offset_bl_y` *int* - Bottom Left Y offset
+- `offset_tr_x` *int* - Top Right X offset
+- `offset_tr_y` *int* - Top Right Y offset
+- `offset_br_x` *int* - Bottom Right X offset
+- `offset_br_y` *int* - Bottom Right Y offset
 
 ## Notes
 

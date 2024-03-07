@@ -45,6 +45,8 @@ The first time `chart.add()` is called the timeline is created; each subsequent 
 - `width` *int* - width of chart
 - `size` *int* - height of each timeline
 - `alpha` *int* - alpha of chart
+- `char_size` *int* - size of label font
+- `margin` *int* - margin for label font
 - `thickness` *int* - thickness of timeline bars
 - `scroll` *bool* - animate timeline body
 - `grid` *int* - millisecond interval for grid-lines

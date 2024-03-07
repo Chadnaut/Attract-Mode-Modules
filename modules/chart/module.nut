@@ -5,6 +5,8 @@ class Chart {
     width = fe.layout.width;
     size = 60;
     alpha = 235;
+    char_size = 15;
+    margin = 10;
     thickness = 1;
     scroll = false;
     grid = 1000;
@@ -31,7 +33,7 @@ class Chart {
 
     constructor(config = null) {
         if (config) foreach (k, v in config) if (k in this) this[k] = v;
-        if (!theme) theme = themes.metro;
+        if (!theme) theme = themes.neon;
 
         _nv_visible = "chart_" + global.id++;
         if (!(_nv_visible in fe.nv)) fe.nv[_nv_visible] <- true;
@@ -99,9 +101,9 @@ class Chart {
 
             local text = fe.add_text(title, x, y + top, width, size);
             text.align = scroll ? Align.TopRight : Align.TopLeft;
-            text.char_size = 15;
-            text.margin = 10;
-            text.msg = (size >= 30) ? title : "";
+            text.char_size = char_size;
+            text.margin = margin;
+            text.msg = (char_size && size >= (char_size + margin * 2)) ? title : "";
             text.alpha = 235;
             text.set_rgb(text_colour[0], text_colour[1], text_colour[2]);
             text.zorder = zorder;

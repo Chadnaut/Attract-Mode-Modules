@@ -9,7 +9,7 @@
 ### Modules
 
 - [Chart](./modules/chart/README.md) **v0.2** - Plot events over time
-- [Console](./modules/console/README.md) **v0.2** - Debug logging
+- [Console](./modules/console/README.md) **v0.3** - Debug logging
 - [Perspective](./modules/perspective/README.md) **v0.1** - Perspective correct texture mapping
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
 

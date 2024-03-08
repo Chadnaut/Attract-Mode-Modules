@@ -95,7 +95,7 @@ class Console {
         local value = format_value.acall(vargv);
         if (!value) return;
         print_log(value);
-        print_message(value, 2);
+        print_message(value.slice(9), 2);
     }
 
     function info(...) {
@@ -105,7 +105,7 @@ class Console {
         local value = format_value.acall(vargv);
         if (!value) return;
         print_log(value);
-        print_message(value, 1);
+        print_message(value.slice(6), 1);
     }
 
     function log(...) {
@@ -231,7 +231,8 @@ class Console {
     // Add lines to the corresponding message array
     function print_message(value, index) {
         if (!_text) return;
-        foreach (line in split(value, "\n")) {
+        local parts = (value == "\n") ? [""] : split(value, "\n");
+        foreach (line in parts) {
             foreach (i, lines in _textlines) {
                 lines.push((i == index) ? line : "");
             }

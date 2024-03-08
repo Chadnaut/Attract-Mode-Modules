@@ -6,6 +6,10 @@
 
 ## Contents
 
+### Layouts
+
+- Working examples of the modules below
+
 ### Modules
 
 - [Chart](./modules/chart/README.md) **v0.2** - Plot events over time

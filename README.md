@@ -14,8 +14,10 @@
 
 - [Chart](./modules/chart/README.md) **v1.0** - Plot events over time
 - [Console](./modules/console/README.md) **v0.5** - Coloured message list
+- [Ease](./modules/ease/README.md) **v0.8** - Easing methods
 - [Logfile](./modules/logfile/README.md) **v0.4** - Debug logging to last_run.log
 - [Perspective](./modules/perspective/README.md) **v0.2** - Perspective correct texture mapping
+- [Retention](./modules/retention/README.md) **v0.5** - Surface image persistance 
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
 - [UnitTest](./modules/unittest/README.md) **v1.0** - Testing and benchmarking
 

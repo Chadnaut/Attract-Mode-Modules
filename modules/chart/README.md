@@ -24,7 +24,7 @@ function on_tick(ttime) {
 
 The first time `add()` is called the timeline is created; each subsequent call increments its value, which is reset every frame.
 
-![Chart Example](example.png)\
+![Example](example.png)\
 *Example chart showing frame spikes and various method calls*
 
 ## Properties

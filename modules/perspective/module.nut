@@ -1,4 +1,5 @@
 class Perspective {
+    _dir = ::fe.module_dir;
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -18,7 +19,7 @@ class Perspective {
 
     constructor(obj) {
         _obj = obj;
-        _obj.shader = ::fe.add_shader(Shader.VertexAndFragment, ::fe.module_dir + "perspective.vert", ::fe.module_dir + "perspective.frag");
+        _obj.shader = ::fe.add_shader(Shader.VertexAndFragment, _dir + "perspective.vert", _dir + "perspective.frag");
         _prop = clone _prop_defaults;
 
         // re-set existing props to update shader

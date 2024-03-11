@@ -18,7 +18,7 @@ object.pinch_y = 100;
 
 Wrap your Image, Artwork or Surface with the `Perspective()` class and use the resulting instance in its place. The `pinch` and `skew` properties are applied using **shaders**, and all other properties fall through to the original object.
 
-![Perspective Example](example.png)\
+![Example](example.png)\
 *Native pinch (left), Perspective pinch (right)*
 
 ## Properties

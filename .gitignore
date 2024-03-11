@@ -3,6 +3,7 @@
 fonts/
 scripts/link/*.ini
 *.code-workspace
+TODO.md
 
 attract.am
 attract.cfg

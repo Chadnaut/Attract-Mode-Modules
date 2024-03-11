@@ -22,7 +22,7 @@ fe.load_module("console");
 ::console.print("Failure", null, [200, 0, 0, 255]);
 ```
 
-![Perspective Example](example.png)\
+![Example](example.png)\
 *Example console output*
 
 ## Properties

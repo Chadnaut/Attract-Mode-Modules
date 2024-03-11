@@ -12,13 +12,19 @@ fe.load_module("stringify");
 
 local object = {a = 1, b = 2.0, c = ["d", "e"]};
 print(stringify(object) + "\n");
+```
 
-/* last_run.log
+```log
 {a = 1, b = 2.0, c = ["d", "e"]}
-*/
+```
 
+Pretty printing:
+
+```cpp
 print(stringify(object, "  ") + "\n");
-/* last_run.log
+```
+
+```log
 {
   a = 1, 
   b = 2.0, 
@@ -27,7 +33,6 @@ print(stringify(object, "  ") + "\n");
     "e"
   ]
 }
-*/
 ```
 
 Pass `stringify` any value and it will convert it into a string, handy for printing to `last_run.log`.

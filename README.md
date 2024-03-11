@@ -17,6 +17,7 @@
 - [Logfile](./modules/logfile/README.md) **v0.4** - Debug logging to last_run.log
 - [Perspective](./modules/perspective/README.md) **v0.2** - Perspective correct texture mapping
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
+- [UnitTest](./modules/unittest/README.md) **v1.0** - Testing and benchmarking
 
 ### Plugins
 

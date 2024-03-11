@@ -8,11 +8,14 @@ local ut = UnitTest();
 ::fdescribe <- ut.fdescribe.bindenv(ut);
 ::xdescribe <- ut.xdescribe.bindenv(ut);
 
-fe.do_nut("suite/unittest.nut");
-fe.do_nut("suite/fe.list.index.nut");
-fe.do_nut("suite/fe.list.filter_index.nut");
+fe.do_nut("suite/array.clear.nut");
+fe.do_nut("suite/array.clone.nut");
+fe.do_nut("suite/array.extend.nut");
+fe.do_nut("suite/array.filter.nut");
+fe.do_nut("suite/array.loop.nut");
+fe.do_nut("suite/array.map.nut");
+fe.do_nut("suite/array.reduce.nut");
+fe.do_nut("suite/array.top.nut");
+fe.do_nut("suite/array.unique.nut");
 
-// Requires ALL displays to use this layout
-// fe.do_nut("suite/fe.list.display_index.nut");
-
-ut.test();
+ut.benchmark(100);

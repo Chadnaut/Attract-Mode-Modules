@@ -19,16 +19,16 @@ fe.load_module("logfile");
 ::logfile.info("Info");
 ::logfile.error("Error");
 ::logfile.time("Time");
+```
 
-/* last_run.log
+```log
 "Hello", 1, 2, 3
 INFO, "Info"
 WARNING, "Error"
 0:00:00.123 +0123 [0000], "Time"
-*/
 ```
 
-Note that the AM window requires focus to update the log file.
+Note that the AM window requires focus to update `last_run.log`.
 
 ## Filters
 

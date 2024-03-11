@@ -28,8 +28,6 @@ WARNING, "Error"
 */
 ```
 
-Use `::logfile.log(...)` in your code to print variables to `last_run.log` to assist in debugging.
-
 Note that the AM window requires focus to update the log file.
 
 ## Filters

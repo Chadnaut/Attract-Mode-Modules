@@ -12,7 +12,7 @@ fe.load_module("console");
 ::console.bg_alpha = 80;
 
 ::console.print("Success", [0, 255, 0]);
-::console.print("Neutral");
+::console.print("Info");
 ::console.print({ a = 1, b = 2.0 });
 ::console.print();
 ::console.print("Failure", null, [200, 0, 0, 255]);

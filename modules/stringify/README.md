@@ -16,17 +16,8 @@ print(stringify(object) + "\n");
 /* last_run.log
 {a = 1, b = 2.0, c = ["d", "e"]}
 */
-```
 
-Pass `stringify` any value and it will convert it into a string, handy for printing to `last_run.log`.
-
-## Advanced
-
-An optional second argument accepts a `space` string for pretty-printing.
-
-```cpp
 print(stringify(object, "  ") + "\n");
-
 /* last_run.log
 {
   a = 1, 
@@ -38,3 +29,11 @@ print(stringify(object, "  ") + "\n");
 }
 */
 ```
+
+Pass `stringify` any value and it will convert it into a string, handy for printing to `last_run.log`.
+
+## Function
+
+- `stringify(value, space?)` - Returns a string.
+  - `value` *any* - The value to stringify.
+  - `space` *string* - (Optional) Indent for pretty-printing.

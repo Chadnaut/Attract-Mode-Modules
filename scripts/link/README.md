@@ -19,9 +19,9 @@ python -m pip install --upgrade pyuac
 python add_symlinks.py
 ```
 
-Symbolic links are created for each listing in `config.ini`, removing the need to copy files from your development path to various AM locations.
-
 On first run `config.ini` will be created - edit this file with your preferred links then run the script again.
+
+Symbolic links are created for each listing in `config.ini`, removing the need to copy files from your development path to various AM locations.
 
 ## Config
 
@@ -31,19 +31,17 @@ root = ../../
 src =
   modules/chart
   modules/console
-  modules/perspective
   modules/stringify
-  plugins/ReloadHotkey
 dest =
   C:/attract-mode
   C:/attract-mode-plus
   C:/attract-mode-plus-alpha
 ```
 
-`section` - The section name must be unique
-- `root` - Relative path from the script to your source root (may also be absolute path)
-- `src` - List of dirs/files within the root to create symlinks for
-- `dest` - List of dirs to create symlinks in
+- `link` - A unique name for the section
+  - `root` - Relative path from the script to your source root (may also be absolute path).
+  - `src` - List of dirs/files within the root to create symlinks for.
+  - `dest` - List of dirs to create symlinks in.
 
 Note - in VSCode a `Run Python File` play button will appear in the top-right corner when the script is open - press it to run the script.
 
@@ -57,6 +55,8 @@ The `config.ini` may contain multiple sections:
 root = ../../
 src =
   modules/chart
+  modules/console
+  modules/stringify
 dest =
   C:/attract-mode
 

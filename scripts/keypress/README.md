@@ -15,23 +15,25 @@ python -m pip install --upgrade pywin32
 ```
 
 ## Usage
+
 ```sh
-python send_keypress.py F5 Attract-Mode SFML_Window
-# python send_keypress.py key window_name(optional) class_name(optional)
+python send_keypress.py key window_name? class_name?
 ```
 
-Sends a keypress to *all* matching windows, or foreground window if none provided.
+- `key` - Key to press & release.
+  - `9` - keycode 9 (which is VK_TAB).
+  - `Q` - char, uses `ord` to find keycode.
+  - `"'9'"` - double-quoted char, uses `ord` to find keycode.
+  - `F5` - string gets prefixed with VK_ to create win32con constant.
+  - `VK_F5` - matching constant from [win32con](https://github.com/SublimeText/Pywin32/blob/master/lib/x32/win32/lib/win32con.py).
+- `window_name` - (Optional) Title of the target window.
+- `class_name` - (Optional) Class of the target window.
 
-`key` accepts different value types:
-- `9` - keycode 9 (which is VK_TAB)
-- `Q` - char, uses `ord` to find keycode
-- `"'9'"` - double-quoted char, uses `ord` to find keycode
-- `F5` - string gets prefixed with VK_ to create win32con constant
-- `VK_F5` - matching constant from [win32con](https://github.com/SublimeText/Pywin32/blob/master/lib/x32/win32/lib/win32con.py)
+Note - sends a keypress to *all* matching windows, or foreground window if none provided.
 
 ## Example
 
-During development it is extremely useful to automatically reload the layout after you've made a change. In this example the `ReloadHotkey` plugin is setup to reload when `F5` is pressed.
+During development it is useful to automatically reload the layout after you've made a change. In this example the `ReloadHotkey` plugin is setup to reload when `F5` is pressed.
 
 ```sh
 # First send ESCAPE to exit any open menus
@@ -55,5 +57,4 @@ When using [VSCode](https://code.visualstudio.com/download) the extension [RunOn
   }
 }
 ```
-
 *Edit the path to point to the script relative to your .code-workspace file.*

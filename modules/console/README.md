@@ -17,8 +17,13 @@ fe.load_module("console");
 
 ::console.print("Success", [0, 255, 0]);
 ::console.print("Info");
-::console.print("Failure", [255, 255, 255], [255, 0, 0]);
+::console.print({ a = 1, b = 2.0 });
+::console.print();
+::console.print("Failure", null, [200, 0, 0, 255]);
 ```
+
+![Perspective Example](example.png)\
+*Example console output*
 
 ## Properties
 

@@ -46,8 +46,8 @@ for section in config.sections():
             if not os.path.isdir(d):
                 continue
             link = f"{d}/{s}"
-            if os.path.isdir(link) or os.path.isfile(link):
-                continue
             if os.path.islink(link):
                 os.unlink(link)
+            if os.path.isdir(link) or os.path.isfile(link):
+                continue
             os.symlink(os.path.realpath(s), link, isdir)

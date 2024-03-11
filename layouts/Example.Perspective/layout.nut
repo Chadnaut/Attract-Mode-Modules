@@ -1,3 +1,6 @@
+fe.add_text(split(fe.script_dir, "/").top(), 0, fe.layout.height * 19 / 20, fe.layout.width, fe.layout.height / 20).align = Align.BottomLeft;
+//===================================================
+
 fe.load_module("perspective");
 
 local img = "check.png";

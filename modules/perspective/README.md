@@ -1,7 +1,7 @@
 # Perspective
 
 > Perspective correct texture mapping  
-> Version 0.1  
+> Version 0.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -22,21 +22,20 @@ Wrap your Image, Artwork or Surface with the `Perspective()` class and use the r
 
 *Native pinch (left), Perspective pinch (right)*
 
-## Advanced
+## Properties
 
-Vertex offsets may be set individually rather than using the pinch and skew shortcuts.
-
-- `offset_tl_x` *int* - Top Left X offset
-- `offset_tl_y` *int* - Top Left Y offset
-- `offset_bl_x` *int* - Bottom Left X offset
-- `offset_bl_y` *int* - Bottom Left Y offset
-- `offset_tr_x` *int* - Top Right X offset
-- `offset_tr_y` *int* - Top Right Y offset
-- `offset_br_x` *int* - Bottom Right X offset
-- `offset_br_y` *int* - Bottom Right Y offset
+- `offset_tl_x` *int* - Get/set the top-left x offset.
+- `offset_tl_y` *int* - Get/set the top-left y offset.
+- `offset_bl_x` *int* - Get/set the bottom-left x offset.
+- `offset_bl_y` *int* - Get/set the bottom-left y offset.
+- `offset_tr_x` *int* - Get/set the top-right x offset.
+- `offset_tr_y` *int* - Get/set the top-right y offset.
+- `offset_br_x` *int* - Get/set the bottom-right x offset.
+- `offset_br_y` *int* - Get/set the bottom-right y offset.
 
 ## Notes
 
+- Setting `offset_*` properties does not update `pinch` or `skew`, which will now be invalid.
 - Perspective fails when `pinch_x >= width/2.0` or `pinch_y >= height/2.0`, please consume responsibly.
 - Requires shader `#version 130` to provide `gl_VertexID` which is used to find the correct vertex to offset.
 - Over-pinching no longer creates "bow-ties", since the mesh remains a 4-point object rather than a 256-sliced [triangle strip](https://github.com/oomek/attractplus/blob/master/src/sprite.cpp#L300).

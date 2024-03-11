@@ -1,13 +1,13 @@
 # Console
 
-> Debug logging  
-> Version 0.3  
+> Coloured message list  
+> Version 0.5  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
 ## Requirements
 
-- `stringify` - Module found in the above repo
+- `stringify` - Module found in the above repo.
 
 ## Quickstart
 
@@ -15,67 +15,41 @@
 fe.load_module("console");
 ::console <- Console();
 
-::console.log("Hello", 1, 2, 3);
-::console.info("Info");
-::console.error("Error");
-::console.time("Time");
-
-/* last_run.log
-"Hello", 1, 2, 3
-INFO, "Info"
-WARNING, "Error"
-0:00:00.123 +0123 [0000], "Time"
-*/
+::console.print("Success", [0, 255, 0]);
+::console.print("Info");
+::console.print("Failure", [255, 255, 255], [255, 0, 0]);
 ```
 
-Use `::console.log(...)` in your code to print variables to `last_run.log` to assist in debugging.
+## Properties
 
-Note that the AM window requires focus to update the log file.
+- `x` *int* - Get/set x position of console.
+- `y` *int* - Get/set y position of console.
+- `width` *int* - Get/set<sup>1</sup> width of console.
+- `height` *int* - Get/set<sup>1</sup> height of console.
+- `font` *string* - Get/set<sup>1</sup> console font.
+- `char_size` *int* - Get/set<sup>1</sup> console font size.
+- `line_space` *int* - Get/set<sup>1</sup> console font line space.
+- `text_red` *int* - Get/set red colour level of console text.
+- `text_green` *int* - Get/set green component of console text.
+- `text_blue` *int* - Get/set blue component of console text.
+- `text_alpha` *int* - Get/set alpha component of console text.
+- `bg_red` *int* - Get/set bg_red component of console background.
+- `bg_green` *int* - Get/set bg_green component of console background.
+- `bg_blue` *int* - Get/set bg_blue component of console background.
+- `bg_alpha` *int* - Get/set bg_alpha component of console background.
+- `alpha` *int* - Get/set alpha of console.
+- `zorder` *int* - Get/set zorder of console.
+- `visible` *bool* - Get/set visibility of console.
 
-## Filters
+Note<sup>1</sup> - Cannot be set once messages are printed.
 
-```cpp
-::console.filter = "good";
-::console.log("hello");
-::console.log("goodbye");
+## Functions
 
-/* last_run.log
-console.filter = "good"
-"goodbye"
-*/
-```
-
-- `level` *int* - Log level, `0 = NONE, 1 = ERROR, 2 = INFO, 3 = LOG/TIME`
-- `limit` *int* - Maximum number of messages to print
-- `before` *int* - Only allow messages before elapsed time
-- `after` *int* - Only allow messages after elapsed time
-- `filter` *string* - Regular expression to filter messages
-- `space` *string* - Stringify pretty-print space
-
-Limits and filters can be useful when debugging high-frequency logs.
-
-## Advanced
-
-If a config object is passed to `Console()` it will draw an onscreen element.
-
-```cpp
-fe.load_module("console");
-::console <- Console({
-    toggle = "custom2",
-});
-
-::console.log("white");
-::console.info("green");
-::console.error("red");
-```
-
-`options` *object* (optional)
-- `x` *int* - x position of console
-- `y` *int* - y position of console
-- `width` *int* - width of console
-- `height` *int* - height of console
-- `char_size` *int* - size of console font
-- `margin` *int* - margin for console font
-- `toggle` *string* - signal to show/hide console
-- `zorder` *int* - zorder for console
-- `log_file` *bool* - print messages to `last_run.log`
+- `print(message, text_rgb?, bg_rgb?)` - Add message to the console, rgb = [r,g,b,a?].
+- `clear()` - Clear all messages.
+- `get_message(index)` - Return message for line.
+- `set_message(index, message)` - Set message for line.
+- `get_text_rgb(index)` - Get text_rgb for line.
+- `set_text_rgb(index, r, g, b, a?)` - Set text_rgb for line.
+- `get_bg_rgb(index)` - Set bg_rgb for line.
+- `set_bg_rgb(index, r, g, b, a?)` - Get bg_rgb for line.

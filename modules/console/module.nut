@@ -1,270 +1,186 @@
 fe.load_module("stringify");
 
 class Console {
-    x = 0;
-    y = 0;
-    width = fe.layout.width;
-    height = fe.layout.height;
-    char_size = 20;
-    toggle = null;
-    zorder = 2147483647;
-    margin = 10;
-    log_file = true;
+    _once = null;
+    _once_defaults = {
+        width = fe.layout.width,
+        height = fe.layout.height,
+        font = fe.layout.font,
+        char_size = 24,
+        line_space = 0,
+    };
 
-    text_colour = [[255,255,255], [0,255,0], [255,0,0]];
-    bg_colour = [[0,0,0,200], [0,40,0,200], [40,0,0,200]];
+    _prop = null;
+    _prop_defaults = {
+        x = 0,
+        y = 0,
+        text_red = 255,
+        text_green = 255,
+        text_blue = 255,
+        text_alpha = 255,
+        bg_red = 0,
+        bg_green = 0,
+        bg_blue = 0,
+        bg_alpha = 0,
+        alpha = 255,
+        zorder = 2147483647,
+        visible = true,
+    };
 
-    _space = "    ";
-    _level = 3;
-    _limit = null;
-    _before = null;
-    _after = null;
-    _filter = null;
+    _container = null;
+    _texts = null;
+    _data = null;
+    _item_default = null;
+    _lines = 0;
 
-    _nv_visible = "";
-    _count = 0;
-    _frame = 0;
-    _last_time = 0;
-    _text = null;
-    _textlines = null;
-    _maxlines = 0;
+    // =============================================
 
-    // patterns for special values
-    OBJ = @"{.*}|<.*>";
-    BULLET = @"[\s\t\r\n\-]+";
-    KEYWORD = @"INFO|NOTICE|ALERT|DEBUG|ERROR|WARN(ING)?";
-    DATETIME = @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}";
-    TIMEINFO = @"\d+:\d{2}:\d{2}\.\d{3}(\s\+[\d#]+)?(\s\[[\d#]+\])?";
-
-    static global = { id = 0 };
-
-    constructor(config = null) {
-        if (config) foreach (k, v in config) if (k in this) this[k] = v;
-        _nv_visible = "console_" + global.id++;
-        if (!(_nv_visible in fe.nv)) fe.nv[_nv_visible] <- false;
-        if (!toggle) fe.nv[_nv_visible] = true;
-        if (config) create_messages();
-
-        fe.add_ticks_callback(this, "on_tick");
-        fe.add_signal_handler(this, "on_signal");
-    }
-
-    function on_tick(ttime) {
-        _frame++;
-    }
-
-    function on_signal(signal) {
-        if (signal == toggle) {
-            fe.nv[_nv_visible] = !fe.nv[_nv_visible];
-            refresh_messages();
-        }
+    constructor() {
+        _once = clone _once_defaults;
+        _prop = clone _prop_defaults;
+        _texts = [];
+        _data = [];
+        refresh_default();
     }
 
     // =============================================
 
     function _get(idx) {
-        switch (idx) {
-            case "space":   return _space;
-            case "level":   return _level;
-            case "limit":   return _limit;
-            case "before":  return _before;
-            case "after":   return _after;
-            case "filter":  return _filter;
-            default:        throw null;
+        if (idx in _prop) {
+            return _prop[idx];
+        } else if (idx in _once) {
+            return _once[idx];
+        } else {
+            switch (idx) {
+                case "lines": return _lines;
+                case "lines_total": return _data.len();
+            }
+            throw null;
         }
     }
 
     function _set(idx, val) {
+        if (typeof val == "float") val = val.tointeger();
+        if (idx in _prop) _prop[idx] = val;
+        if (idx in _once && !_container) _once[idx] = val;
+        refresh_default();
         switch (idx) {
-            case "space":   _space = val; break;
-            case "level":   _level = val; break;
-            case "limit":   _limit = val; break;
-            case "before":  _before = val; break;
-            case "after":   _after = val; break;
-            case "filter":  _filter = val; print_log(@"console.filter = """ + val + @"""" + "\n"); break;
-            default:        throw null;
+            case "x":           refresh_container(); break;
+            case "y":           refresh_container(); break;
+            case "alpha":       refresh_container(); break;
+            case "zorder":      refresh_container(); break;
+            case "visible":     refresh_container(); break;
+            default:            if (!(idx in _prop) && !(idx in _once)) throw null;
         }
+    }
+
+    function get_message(index) {   return index < _data.len() ? _data[index].message : null; }
+    function get_text_rgb(index) {  return index < _data.len() ? _data[index].text_rgb : null; }
+    function get_bg_rgb(index) {    return index < _data.len() ? _data[index].bg_rgb : null; }
+
+    function set_message(index, message) {          if (index < _data.len()) { _data[index].message = message; redraw(); } }
+    function set_text_rgb(index, r, g, b, a = 255) {if (index < _data.len()) { _data[index].text_rgb = [r,g,b,a]; redraw(); } }
+    function set_bg_rgb(index, r, g, b, a = 255) {  if (index < _data.len()) { _data[index].bg_rgb = [r,g,b,a]; redraw(); } }
+
+    // =============================================
+
+    function init_container() {
+        if (_container) return;
+        _container = fe.add_surface(width, height);
+
+        // measure line height
+        local first = _container.add_text("", 0, 0, width, height);
+        if (font && font != "") first.font = font;
+        first.char_size = char_size;
+        first.margin = 0;
+        first.word_wrap = true;
+        first.msg = "M";
+        local h1 = first.msg_height;
+        first.msg = first.msg + "\n" + first.msg;
+        local h2 = first.msg_height;
+        first.msg = "";
+
+        // calc total lines
+        local line_height = h2 - h1 + line_space;
+        local line_head = h2 - h1 - char_size;
+        _lines = floor(height / line_height);
+        first.height = line_height;
+        local remainder = _lines * line_height < height;
+
+        // create text objects
+        for (local i=0, n = _lines + (remainder ? 1 : 0); i<n; i++) {
+            local line = (i == 0) ? first : _container.add_text("", 0, i * line_height, width, line_height);
+            if (font && font != "") line.font = font;
+            line.char_size = char_size;
+            line.word_wrap = false;
+            line.margin = line_head;
+            line.align = Align.MiddleLeft;
+            _texts.push(line);
+        }
+
+        refresh_container();
+    }
+
+    function refresh_container() {
+        if (!_container) return;
+        _container.x = x;
+        _container.y = y;
+        _container.alpha = alpha;
+        _container.zorder = zorder;
+        _container.visible = visible;
+    }
+
+    function refresh_default() {
+        _item_default = {
+            message = "",
+            text_rgb = [text_red, text_green, text_blue, text_alpha],
+            bg_rgb = [bg_red, bg_green, bg_blue, bg_alpha],
+        };
     }
 
     // =============================================
 
-    function error(...) {
-        if (_level < 1) return;
-        vargv.insert(0, "WARNING");
-        vargv.insert(0, this);
-        local value = format_value.acall(vargv);
-        if (!value) return;
-        print_log(value);
-        print_message(value.slice(9), 2);
+    // Add message to console
+    function print(message = "", text_rgb = null, bg_rgb = null) {
+        init_container();
+
+        // split message into parts around carriage return
+        if (message == "") message = " ";
+        if (typeof message != "string") message = stringify(message, "    ");
+        local messages = split(message, "\n");
+
+        // add each part to lines array
+        foreach (message in messages) _data.push({
+            message = message,
+            text_rgb = text_rgb || clone _item_default.text_rgb,
+            bg_rgb = bg_rgb || clone _item_default.bg_rgb,
+        });
+
+        // get the tail of the line array and redraw
+        if (_data.len() > _lines) _data = _data.slice(-_lines);
+        redraw();
     }
 
-    function info(...) {
-        if (_level < 2) return;
-        vargv.insert(0, "INFO");
-        vargv.insert(0, this);
-        local value = format_value.acall(vargv);
-        if (!value) return;
-        print_log(value);
-        print_message(value.slice(6), 1);
-    }
-
-    function log(...) {
-        if (_level < 3) return;
-        vargv.insert(0, this);
-        local value = format_value.acall(vargv);
-        if (!value) return;
-        print_log(value);
-        print_message(value, 0);
-    }
-
-    function time(...) {
-        if (_level < 3) return;
-        vargv.insert(0, time_info());
-        vargv.insert(0, this);
-        local value = format_value.acall(vargv);
-        if (!value) return;
-        print_log(value);
-        print_message(value, 0);
+    // Clear lines and redraw
+    function clear(theme_index = 0) {
+        _data.clear();
+        redraw();
     }
 
     // =============================================
 
-    // Filter, compose and print
-    function format_value(...) {
-        if (_limit && _count >= _limit) return null;
-        if (_before && fe.layout.time > _before) return null;
-        if (_after && fe.layout.time < _after) return null;
-        local value = compose(vargv) + "\n";
-        if (_filter && !regexp(_filter).capture(value)) return null;
-
-        _count++
-        return value;
-    }
-
-    // Format args so they're ready for printing
-    function compose(args, delimiter = ", ") {
-        local value = "";
-        local head = 1;
-        local arg;
-
-        foreach (i, v in args) {
-            arg = stringify(v, _space);
-
-            if (i < head) {
-                // no quotes if first value special
-                arg = !!regexp(@"^""("+OBJ+"|"+BULLET+"|"+KEYWORD+"|"+DATETIME+"|"+TIMEINFO+@")""$").capture(arg)
-                    ? arg.slice(1, arg.len() - 1)
-                    : arg;
-
-                // no comma if first value indent/bullet
-                if (!!regexp(@"^[\s\-]*$").capture(arg)) head++;
-            } else {
-                value += delimiter;
-            }
-
-            value += (typeof arg != "string")
-                ? "WARNING\n" + (typeof arg) + "\n" + v
-                : arg;
+    // Redraw all lines
+    function redraw() {
+        local len = _data.len();
+        foreach (i, text in _texts) {
+            local item = (i < len) ? _data[i] : _item_default;
+            text.msg = item.message;
+            local text_rgb = item.text_rgb;
+            text.set_rgb(text_rgb[0], text_rgb[1], text_rgb[2]);
+            text.alpha = (text_rgb.len() == 4) ? text_rgb[3] : 255;
+            local bg_rgb = item.bg_rgb;
+            text.set_bg_rgb(bg_rgb[0], bg_rgb[1], bg_rgb[2])
+            text.bg_alpha = (bg_rgb.len() == 4) ? bg_rgb[3] : 255;
         }
-
-        return value;
-    }
-
-    // Chunk up value for printing, as print() crops long strings
-    function print_log(value, chunk = 2047) {
-        if (!log_file) return;
-        local start = 0;
-        local end = 0;
-        local chunk = 2048 - 1;
-        local length = value.len();
-
-        while (end < length) {
-            end += chunk;
-            if (end > length) end = length;
-            print(value.slice(start, end));
-            start = end;
-        }
-    }
-
-    // Returns time, diff, frame information
-    function time_info() {
-        local next_time = fe.layout.time;
-        local t_diff = next_time - _last_time;
-        _last_time = next_time;
-
-        local t = (next_time / 3600000)
-            + ":" + ("00" + (next_time / 60000 % 60)).slice(-2)
-            + ":" + ("00" + (next_time / 1000 % 60)).slice(-2)
-            + "." + ("000" + (next_time % 1000)).slice(-3);
-        local d = (t_diff > 9999) ? "####" : ("0000" + t_diff).slice(-4);
-        local f = (_frame > 9999) ? "####" : ("0000" + _frame).slice(-4);
-        return t + " +" + d + " [" + f + "]";
-    }
-
-    // =============================================
-
-    // Create a text object for message display
-    function create_text() {
-        local obj = fe.add_text("", x, y, width, height);
-        obj.char_size = char_size;
-        obj.word_wrap = true;
-        obj.align = Align.TopLeft;
-        obj.margin = margin;
-        obj.zorder = zorder;
-        return obj;
-    }
-
-    // Create a series of text objects for message colours
-    function create_messages() {
-        _text = [];
-        _textlines = [];
-        foreach (col in text_colour) {
-            local text = create_text();
-            text.set_rgb(col[0], col[1], col[2]);
-            _text.push(text);
-            _textlines.push([]);
-        }
-        _maxlines = _text[0].lines;
-        clear_messages();
-    }
-
-    // Add lines to the corresponding message array
-    function print_message(value, index) {
-        if (!_text) return;
-        local parts = (value == "\n") ? [""] : split(value, "\n");
-        foreach (line in parts) {
-            foreach (i, lines in _textlines) {
-                lines.push((i == index) ? line : "");
-            }
-        }
-        foreach (i, lines in _textlines) {
-            if (lines.len() > _maxlines) _textlines[i] = lines.slice(-_maxlines);
-        }
-        refresh_messages();
-    }
-
-    // Clear all messages
-    function clear_messages() {
-        foreach (line in _textlines) line.clear();
-        refresh_messages();
-        background(0);
-    }
-
-    // Draw the message arrays in the display objects
-    function refresh_messages() {
-        foreach (i, text in _text) {
-            text.visible = fe.nv[_nv_visible];
-            if (!text.visible) continue;
-            local msg = "";
-            foreach (line in _textlines[i]) msg += line + "\n";
-            text.msg = msg;
-        }
-    }
-
-    // Set the background colour
-    function background(index) {
-        local col = bg_colour[index];
-        _text[0].set_bg_rgb(col[0], col[1], col[2]);
-        _text[0].bg_alpha = col[3];
     }
 }

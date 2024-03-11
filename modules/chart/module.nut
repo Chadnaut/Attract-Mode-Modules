@@ -1,20 +1,29 @@
 class Chart {
 
-    x = 0;
-    y = 50;
-    width = fe.layout.width;
-    size = 60;
-    alpha = 235;
-    char_size = 15;
-    margin = 10;
-    thickness = 1;
-    scroll = false;
-    grid = 1000;
-    theme = null;
-    toggle = null;
-    zorder = 2147483647;
+    _once = null;
+    _once_defaults = {
+        width = fe.layout.width,
+        thickness = 1,
+    };
 
-    _nv_visible = "";
+    _prop = null;
+    _prop_defaults = {
+        x = 0,
+        y = 0,
+        height = 60,
+        alpha = 235,
+        font = fe.layout.font,
+        char_size = 20,
+        outline = 0,
+        align = null,
+        margin = 10,
+        scroll = false,
+        grid = 1000,
+        theme = [[0, 0, 0], [40, 40, 40], [255, 255, 255, 255], [170, 255, 0], [255, 170, 0], [255, 0, 170], [170, 0, 255], [0, 170, 255]],
+        zorder = 2147483647,
+        visible = true,
+    };
+
     _frame = 0;
     _last_time = 0;
     _timelines = null;
@@ -22,94 +31,150 @@ class Chart {
     _bg = null;
     _head = null;
 
-    static global = { id = 0 };
+    // =============================================
 
-    // the first three colours are bg, grid, text, the remaining are for timelines
-    static themes = {
-        neon =   [[0, 0, 0], [40, 40, 40], [255, 255, 255], [170, 255,   0], [255, 170,   0], [255,   0, 170], [170,   0, 255], [  0, 170, 255]],
-        autumn = [[0, 0, 0], [40, 40, 40], [255, 255, 255], [250, 222, 125], [253, 186, 149], [255, 107, 107], [129, 166, 132], [ 85, 161, 153]],
-        metro =  [[0, 0, 0], [40, 40, 40], [255, 255, 255], [142, 193,  39], [244, 120,  53], [212,  18,  67], [162,   0, 255], [  0, 174, 219]],
-    };
+    constructor() {
+        _once = clone _once_defaults;
+        _prop = clone _prop_defaults;
+        _timelines = {};
+        foreach (key, val in _prop) this[key] = val;
+        fe.add_ticks_callback(this, "on_tick");
+    }
 
-    constructor(config = null) {
-        if (config) foreach (k, v in config) if (k in this) this[k] = v;
-        if (!theme) theme = themes.neon;
+    // =============================================
 
-        _nv_visible = "chart_" + global.id++;
-        if (!(_nv_visible in fe.nv)) fe.nv[_nv_visible] <- true;
-        if (!toggle) fe.nv[_nv_visible] = true;
+    function _get(idx) {
+        if (idx in _prop) {
+            return _prop[idx];
+        } else if (idx in _once) {
+            return _once[idx];
+        } else {
+            throw null;
+        }
+    }
 
-        _container = fe.add_surface(width + thickness, fe.layout.height - y);
-        _container.x = x;
-        _container.y = y;
+    function _set(idx, val) {
+        if (typeof val == "float") val = val.tointeger();
+        if (idx in _prop) _prop[idx] = val;
+        if (idx in _once && !_container) _once[idx] = val;
+        switch (idx) {
+            case "x":           refresh_container(); refresh_texts(); break;
+            case "y":           refresh_container(); refresh_texts(); break;
+            case "height":      refresh_container(); refresh_texts(); refresh_bars(); clear(); break;
+            case "alpha":       refresh_container(); break;
+            case "font":        refresh_texts(); break;
+            case "char_size":   refresh_texts(); break;
+            case "outline":     refresh_texts(); break;
+            case "align":       refresh_texts(); break;
+            case "margin":      refresh_texts(); break;
+            case "scroll":      refresh_texts(); refresh_container(); break;
+            case "theme":       refresh_texts(); refresh_bars(); break;
+            case "zorder":      refresh_container(); refresh_texts(); break;
+            case "visible":     refresh_container(); refresh_texts(); clear(); break;
+            default:            if (!(idx in _prop) && !(idx in _once)) throw null;
+        }
+    }
+
+    // =============================================
+
+    function init_container() {
+        if (_container) return;
+        _container = fe.add_surface(width + thickness, fe.layout.height);
         _container.width = width;
         _container.subimg_width = width;
         _container.repeat = true;
-        _container.zorder = zorder;
-        _container.alpha = alpha;
 
         _bg = _container.add_image(fe.module_dir + "pixel.png", 0, 0, 0, 0);
         _bg.width = thickness;
 
         _head = _container.add_clone(_bg);
         _head.width = thickness;
+
+        refresh_container();
+        clear();
+        _frame = -1;
+    }
+
+    function refresh_container() {
+        if (!_container) return;
+        _container.set_pos(x, y);
+        _container.alpha = alpha;
+        _container.zorder = zorder;
+        _container.visible = visible && _timelines.len();
+
+        local total_height = _timelines.len() * height;
         _head.visible = !scroll;
-
-        _timelines = {};
-
-        reset();
-        fe.add_ticks_callback(this, "on_tick");
-        if (toggle) fe.add_signal_handler(this, "on_signal");
+        _bg.height = total_height;
+        _head.height = total_height;
     }
 
-    function on_signal(signal) {
-        if (signal == toggle) {
-            fe.nv[_nv_visible] = !fe.nv[_nv_visible];
-            reset();
+    function refresh_texts() {
+        foreach (timeline in _timelines) refresh_text(timeline.text, timeline.index);
+    }
+
+    function refresh_text(text, index) {
+        text.set_pos(x, y + index * height, width, height);
+        if (font && font != "") text.font = font;
+        text.char_size = char_size;
+        text.margin = margin;
+        text.zorder = zorder;
+        text.align = align ? align : scroll ? Align.TopRight : Align.TopLeft;
+
+        local text_col = theme[2];
+        text.set_rgb(text_col[0], text_col[1], text_col[2]);
+        text.alpha = text_col[3];
+
+        local bg_col = theme[0];
+        if ("get_url" in fe) {
+            text.set_outline_rgb(bg_col[0], bg_col[1], bg_col[2]);
+            text.outline = outline;
         }
+
+        text.visible = visible && char_size && height >= (char_size + margin * 2);
     }
 
-    function reset() {
+    function refresh_bars() {
+        foreach (timeline in _timelines) refresh_bar(timeline.bar, timeline.index);
+    }
+
+    function refresh_bar(bar, index) {
+        local col = theme[3 + (index % (theme.len() - 3))];
+        bar.set_rgb(col[0], col[1], col[2]);
+        bar.height = height;
+        bar.y = index * height + height;
+    }
+
+    // =============================================
+
+    function clear() {
         _frame = 0;
         _last_time = fe.layout.time;
-        _container.clear = !fe.nv[_nv_visible];
-        _container.visible = fe.nv[_nv_visible] && _timelines.len();
-        _bg.x = 0;
-        _head.x = 0;
-        foreach (timeline in _timelines) {
-            timeline.text.visible = fe.nv[_nv_visible];
-            timeline.bar.x = 0;
+        if (_container) {
+            _container.clear = true;
+            _bg.x = 0;
+            _head.x = 0;
+            foreach (timeline in _timelines) timeline.bar.x = 0;
         }
-        return this
     }
 
     function add(title, max = 100, step = 1, callback = null) {
+        init_container();
         if (!(title in _timelines)) {
             local index = _timelines.len();
-            local colour = theme[3 + (index % (theme.len() - 3))];
-            local text_colour = theme[2];
-            local top = index * size;
 
             local bar = _container.add_clone(_bg);
             bar.width = thickness;
-            bar.height = size;
-            bar.set_rgb(colour[0], colour[1], colour[2]);
-            bar.rotation = 180;
-            bar.y = top + size;
             bar.origin_x = thickness;
+            bar.rotation = 180;
             bar.visible = false;
+            refresh_bar(bar, index);
 
-            local text = fe.add_text(title, x, y + top, width, size);
-            text.align = scroll ? Align.TopRight : Align.TopLeft;
-            text.char_size = char_size;
-            text.margin = margin;
-            text.msg = (char_size && size >= (char_size + margin * 2)) ? title : "";
-            text.alpha = 235;
-            text.set_rgb(text_colour[0], text_colour[1], text_colour[2]);
-            text.zorder = zorder;
-            text.visible = fe.nv[_nv_visible];
+            local text = fe.add_text(title, 0, 0, 0, 0);
+            text.msg = title;
+            refresh_text(text, index);
 
             _timelines[title] <- {
+                index = index,
                 text = text,
                 bar = bar,
                 max = max.tofloat(),
@@ -117,10 +182,7 @@ class Chart {
                 value = 0,
             };
 
-            local total_height = (index + 1) * size;
-            _bg.height = total_height;
-            _head.height = total_height;
-            _container.visible = fe.nv[_nv_visible];
+            refresh_container();
         }
 
         _timelines[title].value += step;
@@ -128,7 +190,8 @@ class Chart {
     }
 
     function on_tick(ttime) {
-        if (!fe.nv[_nv_visible]) return;
+        if (!_container || !visible) return;
+        _container.clear = false;
 
         local next_time = fe.layout.time;
         local frame_time = next_time - _last_time;
@@ -143,8 +206,8 @@ class Chart {
         local value;
         foreach (timeline in _timelines) {
             value = timeline.callback ? timeline.callback(timeline.value, frame_time) : timeline.value;
-            value = ceil(value / timeline.max * size);
-            value = (value > size) ? size : (value < 0) ? 0 : value;
+            value = ceil(value / timeline.max * height);
+            value = (value > height) ? height : (value < 0) ? 0 : value;
             timeline.value = 0;
             timeline.bar.x = pos;
             timeline.bar.height = value;

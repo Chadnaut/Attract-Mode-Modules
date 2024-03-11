@@ -1,7 +1,7 @@
 # Link
 
 > Create a series of symlinks  
-> Version 0.2  
+> Version 0.3  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -37,6 +37,7 @@ src =
 dest =
   C:/attract-mode
   C:/attract-mode-plus
+  C:/attract-mode-plus-alpha
 ```
 
 `section` - The section name must be unique
@@ -69,7 +70,7 @@ src =
   script.nv
   window.am
 dest =
-  C:\dev\Attract-Mode-Modules
+  C:/dev/Attract-Mode-Modules
 ```
 
 It's useful having AM config & logs accessible in your workspace for debugging.

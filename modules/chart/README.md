@@ -1,89 +1,60 @@
 # Chart
 
 > Plot events over time  
-> Version 0.2  
+> Version 1.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
 ## Quickstart
 
 ```cpp
-// Create a global chart instance
 fe.load_module("chart");
 ::chart <- Chart();
 
-// Add a timeline to your method
 function my_method() {
     ::chart.add("My Chart", 100);
 }
 
-// Example of calling your method
+// Example calls method a random number of times per frame
 fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     for (local i=0, n=(100.0 * rand() / RAND_MAX); i < n; i++) my_method();
 }
 ```
 
-The first time `chart.add()` is called the timeline is created; each subsequent call (per-frame) increments its value.
+The first time `add()` is called the timeline is created; each subsequent call increments its value, which is reset every frame.
 
-![Chart Example](example.png)
-
+![Chart Example](example.png)\
 *Example chart showing frame spikes and various method calls*
 
-## Usage
+## Properties
 
-```cpp
-::chart <- Chart({
-    toggle = "custom2",
-    theme = Chart.themes.neon,
-});
-```
+- `x` *int* - Get/set x position of chart.
+- `y` *int* - Get/set y position of chart.
+- `width` *int* - Get/set<sup>1</sup> width of chart.
+- `height` *int* - Get/set height of each timeline.
+- `thickness` *int* - Get/set<sup>1</sup> thickness of timeline bars.
+- `alpha` *int* - Get/set timeline bar alpha.
+- `font` *string* - Get/set timeline label font.
+- `char_size` *int* - Get/set timeline label size.
+- `outline` *int* - Get/set timeline label outline.
+- `align` *Align* - Get/set timeline label alignment.
+- `margin` *int* - Get/set timeline label margin.
+- `scroll` *bool* - Get/set timeline animation.
+- `grid` *int* - Get/set millisecond interval of timeline grid.
+- `theme` *array* - Get/set theme colours for [bg, grid, label, timelines...] `[[r,g,b], ...]`.
+- `zorder` *int* - Get/set zorder of chart.
+- `visible` *bool* - Get/set visibility of chart.
 
-`options` *object* (optional)
-- `x` *int* - x position of chart
-- `y` *int* - y position of chart
-- `width` *int* - width of chart
-- `size` *int* - height of each timeline
-- `alpha` *int* - alpha of chart
-- `char_size` *int* - size of label font
-- `margin` *int* - margin for label font
-- `thickness` *int* - thickness of timeline bars
-- `scroll` *bool* - animate timeline body
-- `grid` *int* - millisecond interval for grid-lines
-- `theme` *array* - colours for chart `[[r,g,b], ...]` (see code for theme examples)
-- `toggle` *string* - signal to show/hide chart
-- `zorder` *int* - zorder for chart
+Note<sup>1</sup> - Cannot be changed once timelines added.
 
-```cpp
-::chart.add(title, max, step, callback)
-```
+## Functions
 
-- `title` *string* - Label for the timeline
-- `max` *int* - Maximum value (default = 100), adjust to suit your results
-- `step` *int* - Increment value (default = 1)
-- `callback` *function* - Value formatter (default = null)
-  - `function (value, frame_time) { return value; }`
-  - `@(v, t) v` Same as above but written as a lambda
-
-## Advanced
-
-Use the chart to show frame times:
-
-```cpp
-fe.load_module("chart");
-::chart <- Chart();
-
-local f = 1000.0 / ScreenRefreshRate; // 16.6666ms
-
-::chart
-    .add("FrameOver", f, 0, @(v, t) t - f)
-    .add("FrameUnder", f, 0, @(v, t) t);
-```
-
-- `max` is the frame budget
-- `step` is zero (unused)
-- `callback` returns the *frame_time* value
-
-In development you'll likely only require "FrameOver", which indicates processing spikes and dropped frames.
-
-Note that image loading nearly always goes over-budget (then under-budget in the next frame if possible). [Attract-Mode Plus](https://github.com/oomek/attractplus/actions) is actively developing *Async Loader* to remedy this.
+- `add(title, max?, step?, callback?)` - Add a timeline to the chart.
+    - `title` *string* - Label for the timeline.
+    - `max` *int* - (Optional, default = 100) Maximum value, adjust to suit your results.
+    - `step` *int* - (Optional, default = 1) Increment value.
+    - `callback` *function* - (Optional, default = null) Value formatter.
+        - `function (value, frame_time) { return value; }`
+        - `@(v, t) v` Same as above but written as a lambda.
+- `clear()` - Clear the chart.

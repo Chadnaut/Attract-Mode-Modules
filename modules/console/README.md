@@ -1,7 +1,7 @@
 # Console
 
 > Coloured message list  
-> Version 0.5  
+> Version 0.6  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

@@ -11,6 +11,12 @@ class Console {
     };
 
     _prop = null;
+    _prop_int = {
+        x = true,
+        y = true,
+        width = true,
+        height = true,
+    };
     _prop_defaults = {
         x = 0,
         y = 0,
@@ -40,7 +46,11 @@ class Console {
         _prop = clone _prop_defaults;
         _texts = [];
         _data = [];
-        refresh_default();
+        _item_default = {
+            message = "",
+            text_rgb = [text_red, text_green, text_blue, text_alpha],
+            bg_rgb = [bg_red, bg_green, bg_blue, bg_alpha],
+        };
     }
 
     // =============================================
@@ -60,27 +70,48 @@ class Console {
     }
 
     function _set(idx, val) {
-        if (typeof val == "float") val = val.tointeger();
-        if (idx in _prop) _prop[idx] = val;
-        if (idx in _once && !_container) _once[idx] = val;
-        refresh_default();
+        if (idx in _prop_int) val = val.tointeger();
+        if (idx in _prop) {
+            _prop[idx] = val;
+        } else if (idx in _once) {
+            if (!_container) _once[idx] = val;
+        } else {
+            throw null;
+        }
+
         switch (idx) {
-            case "x":           refresh_container(); break;
-            case "y":           refresh_container(); break;
-            case "alpha":       refresh_container(); break;
-            case "zorder":      refresh_container(); break;
-            case "visible":     refresh_container(); break;
-            default:            if (!(idx in _prop) && !(idx in _once)) throw null;
+            case "x":
+            case "y":
+            case "alpha":
+            case "zorder":
+            case "visible":
+                refresh_container();
+                break;
+
+            case "text_red":
+            case "text_green":
+            case "text_blue":
+            case "text_alpha":
+                _item_default.text_rgb = [text_red, text_green, text_blue, text_alpha];
+                break;
+
+            case "bg_red":
+            case "bg_green":
+            case "bg_blue":
+            case "bg_alpha":
+                _item_default.bg_rgb = [bg_red, bg_green, bg_blue, bg_alpha];
+                break;
         }
     }
 
-    function get_message(index) {   return index < _data.len() ? _data[index].message : null; }
-    function get_text_rgb(index) {  return index < _data.len() ? _data[index].text_rgb : null; }
-    function get_bg_rgb(index) {    return index < _data.len() ? _data[index].bg_rgb : null; }
+    function in_range(index) {      return index < _data.len(); }
+    function get_message(index) {   return in_range(index) ? _data[index].message : null; }
+    function get_text_rgb(index) {  return in_range(index) ? _data[index].text_rgb : null; }
+    function get_bg_rgb(index) {    return in_range(index) ? _data[index].bg_rgb : null; }
 
-    function set_message(index, message) {          if (index < _data.len()) { _data[index].message = message; redraw(); } }
-    function set_text_rgb(index, r, g, b, a = 255) {if (index < _data.len()) { _data[index].text_rgb = [r,g,b,a]; redraw(); } }
-    function set_bg_rgb(index, r, g, b, a = 255) {  if (index < _data.len()) { _data[index].bg_rgb = [r,g,b,a]; redraw(); } }
+    function set_message(index, message) {          if (in_range(index)) { _data[index].message = message; redraw(); } }
+    function set_text_rgb(index, r, g, b, a = 255) {if (in_range(index)) { _data[index].text_rgb = [r,g,b,a]; redraw(); } }
+    function set_bg_rgb(index, r, g, b, a = 255) {  if (in_range(index)) { _data[index].bg_rgb = [r,g,b,a]; redraw(); } }
 
     // =============================================
 
@@ -128,14 +159,6 @@ class Console {
         _container.alpha = alpha;
         _container.zorder = zorder;
         _container.visible = visible;
-    }
-
-    function refresh_default() {
-        _item_default = {
-            message = "",
-            text_rgb = [text_red, text_green, text_blue, text_alpha],
-            bg_rgb = [bg_red, bg_green, bg_blue, bg_alpha],
-        };
     }
 
     // =============================================

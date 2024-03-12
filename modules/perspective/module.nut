@@ -43,38 +43,28 @@ class Perspective {
     }
 
     function _set(idx, val) {
+        if (idx in _prop) _prop[idx] = val; else _obj[idx] = val;
         switch (idx) {
-            // capture props to replicate classic AM skew & pinch
             case "skew_x":
-                _prop[idx] = val;
-                offset_bl_x = _prop.skew_x + _prop.pinch_x;
-                offset_br_x = _prop.skew_x - _prop.pinch_x;
+                offset_bl_x = skew_x + pinch_x;
+                offset_br_x = skew_x - pinch_x;
                 break;
             case "skew_y":
-                _prop[idx] = val;
-                offset_tr_y = _prop.skew_y + _prop.pinch_y;
-                offset_br_y = _prop.skew_y - _prop.pinch_y;
+                offset_tr_y = skew_y + pinch_y;
+                offset_br_y = skew_y - pinch_y;
                 break;
             case "pinch_x":
-                _prop[idx] = val;
-                offset_bl_x = _prop.skew_x + _prop.pinch_x;
-                offset_br_x = _prop.skew_x - _prop.pinch_x;
+                offset_bl_x = skew_x + pinch_x;
+                offset_br_x = skew_x - pinch_x;
                 break;
             case "pinch_y":
-                _prop[idx] = val;
-                offset_tr_y = _prop.skew_y + _prop.pinch_y;
-                offset_br_y = _prop.skew_y - _prop.pinch_y;
+                offset_tr_y = skew_y + pinch_y;
+                offset_br_y = skew_y - pinch_y;
                 break;
 
-            // additional values required by the shader
             case "width":
             case "height":
             case "rotation":
-                _obj[idx] = val;
-                _obj.shader.set_param(idx, val);
-                break;
-
-            // vertex offsets may be set directly
             case "offset_tl_x":
             case "offset_tl_y":
             case "offset_bl_x":
@@ -83,13 +73,7 @@ class Perspective {
             case "offset_tr_y":
             case "offset_br_x":
             case "offset_br_y":
-                _prop[idx] = val;
                 _obj.shader.set_param(idx, val);
-                break;
-
-            // pass through all other props
-            default:
-                _obj[idx] = val;
                 break;
         }
     }

@@ -1,6 +1,7 @@
 .work/
 .scripts/
 fonts/
+modules/extend
 scripts/link/*.ini
 *.code-workspace
 TODO.md

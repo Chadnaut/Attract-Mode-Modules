@@ -1,4 +1,5 @@
 class Chart {
+    _dir = fe.module_dir;
 
     _once = null;
     _once_defaults = {
@@ -7,6 +8,12 @@ class Chart {
     };
 
     _prop = null;
+    _prop_int = {
+        x = true,
+        y = true,
+        width = true,
+        height = true,
+    };
     _prop_defaults = {
         x = 0,
         y = 0,
@@ -37,7 +44,6 @@ class Chart {
         _once = clone _once_defaults;
         _prop = clone _prop_defaults;
         _timelines = {};
-        foreach (key, val in _prop) this[key] = val;
         fe.add_ticks_callback(this, "on_tick");
     }
 
@@ -54,9 +60,15 @@ class Chart {
     }
 
     function _set(idx, val) {
-        if (typeof val == "float") val = val.tointeger();
-        if (idx in _prop) _prop[idx] = val;
-        if (idx in _once && !_container) _once[idx] = val;
+        if (idx in _prop_int) val = val.tointeger();
+        if (idx in _prop) {
+            _prop[idx] = val;
+        } else if (idx in _once) {
+            if (!_container) _once[idx] = val;
+        } else {
+            throw null;
+        }
+
         switch (idx) {
             case "x":           refresh_container(); refresh_texts(); break;
             case "y":           refresh_container(); refresh_texts(); break;
@@ -71,7 +83,6 @@ class Chart {
             case "theme":       refresh_texts(); refresh_bars(); break;
             case "zorder":      refresh_container(); refresh_texts(); break;
             case "visible":     refresh_container(); refresh_texts(); clear(); break;
-            default:            if (!(idx in _prop) && !(idx in _once)) throw null;
         }
     }
 
@@ -84,7 +95,7 @@ class Chart {
         _container.subimg_width = width;
         _container.repeat = true;
 
-        _bg = _container.add_image(fe.module_dir + "pixel.png", 0, 0, 0, 0);
+        _bg = _container.add_image(_dir + "pixel.png", 0, 0, 0, 0);
         _bg.width = thickness;
 
         _head = _container.add_clone(_bg);
@@ -97,12 +108,13 @@ class Chart {
 
     function refresh_container() {
         if (!_container) return;
+        local total_height = _timelines.len() * height;
+
         _container.set_pos(x, y);
         _container.alpha = alpha;
         _container.zorder = zorder;
-        _container.visible = visible && _timelines.len();
+        _container.visible = visible && total_height;
 
-        local total_height = _timelines.len() * height;
         _head.visible = !scroll;
         _bg.height = total_height;
         _head.height = total_height;

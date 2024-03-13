@@ -11,4 +11,11 @@ describe("Array Reduce", function() {
         return r;
     });
 
+    it("while", function () {
+        local r = 0;
+        local arr = clone arr1;
+        while (arr.len()) r += arr.pop();
+        return r;
+    });
+
 });

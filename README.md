@@ -19,6 +19,7 @@
 - [Perspective](./modules/perspective/README.md) **v0.3** - Perspective correct texture mapping
 - [Retention](./modules/retention/README.md) **v0.5** - Surface image persistance 
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
+- [Timer](./modules/timer/README.md) **v0.2** - Call a function at a later time
 - [UnitTest](./modules/unittest/README.md) **v1.0** - Testing and benchmarking
 
 ### Plugins

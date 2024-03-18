@@ -1,10 +1,19 @@
-.work/
+*.work*
 .scripts/
 fonts/
 modules/extend
 scripts/link/*.ini
 *.code-workspace
 TODO.md
+
+color/
+group/
+relativity/
+sequence/
+Example.Color/
+Example.Group/
+Example.Relativity/
+Example.Sequence/
 
 attract.am
 attract.cfg

@@ -5,7 +5,7 @@ describe("Array Map", function() {
         return arr1.map(@(value) value * 2);
     });
 
-    it("foreach", function () {
+    it("push", function () {
         local arr = [];
         foreach (value in arr1) arr.push(value * 2);
         return arr;

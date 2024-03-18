@@ -30,3 +30,26 @@ function on_tick(ttime) {
 ## Properties
 
 - `persistance` *float* - Get/set strength of the image retention [0.0...1.0].
+
+## About
+
+The module adds a handful of extra elements to "exploit the one frame delay of surfaces".
+
+1. `A` - original surface, contains artwork
+2. `B` - worker surface, hidden
+3. `C` - clone of `A` within `B`
+4. `D` - clone of `A` within `A`, shader uses `B` texture
+
+```
+----------    ----------
+|A       |    |B       |
+| D(A+B) |    |  C(A)  |
+|        |    |        |
+----------    ----------
+```
+
+The net result is that when `D`'s shader is run the texture of `B` contains the previous frame of `A`.
+
+## Further Reading
+
+- [Phosphor retention effect](http://forum.attractmode.org/index.php?topic=2496.msg17029)

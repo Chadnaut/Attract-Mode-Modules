@@ -10,6 +10,7 @@ local ut = UnitTest();
 
 fe.do_nut("suite/array.clear.nut");
 fe.do_nut("suite/array.clone.nut");
+fe.do_nut("suite/array.create.nut");
 fe.do_nut("suite/array.extend.nut");
 fe.do_nut("suite/array.filter.nut");
 fe.do_nut("suite/array.loop.nut");
@@ -17,5 +18,8 @@ fe.do_nut("suite/array.map.nut");
 fe.do_nut("suite/array.reduce.nut");
 fe.do_nut("suite/array.top.nut");
 fe.do_nut("suite/array.unique.nut");
+fe.do_nut("suite/func.call.nut");
+fe.do_nut("suite/func.nest.nut");
+fe.do_nut("suite/variable.getter.nut");
 
 ut.benchmark(100);

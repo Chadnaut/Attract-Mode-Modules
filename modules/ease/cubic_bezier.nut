@@ -36,7 +36,7 @@ local newton_raphson_iterate = function(x, t, x1, x2) {
 }
 
 // Returns an easing function
-::ease.cubicBezier <- function(x1, y1, x2, y2) {
+::ease.get_cubic_bezier <- function(x1, y1, x2, y2) {
     if (!(0 <= x1 && x1 <= 1 && 0 <= x2 && x2 <= 1)) {
         throw "Cubic Bezier x values must be in [0, 1] range";
     }

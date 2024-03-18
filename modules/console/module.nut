@@ -172,11 +172,14 @@ class Console {
         if (typeof message != "string") message = stringify(message, "    ");
         local messages = split(message, "\n");
 
+        if (!text_rgb || typeof text_rgb != "array") text_rgb = clone _item_default.text_rgb;
+        if (!bg_rgb || typeof bg_rgb != "array") bg_rgb = clone _item_default.bg_rgb;
+
         // add each part to lines array
         foreach (message in messages) _data.push({
             message = message,
-            text_rgb = text_rgb || clone _item_default.text_rgb,
-            bg_rgb = bg_rgb || clone _item_default.bg_rgb,
+            text_rgb = text_rgb,
+            bg_rgb = bg_rgb,
         });
 
         // get the tail of the line array and redraw

@@ -1,4 +1,5 @@
-#version 130
+#version 120
+#extension GL_EXT_gpu_shader4 : require
 
 // object size in pixels
 uniform float width = 0.0;

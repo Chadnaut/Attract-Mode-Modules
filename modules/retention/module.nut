@@ -9,13 +9,13 @@ class Retention {
     constructor(obj) {
         _prop = clone _prop_defaults;
 
-        local a = ::fe.add_surface(obj.width, obj.height);
-        local b = a.add_clone(obj);
-        a.visible = false;
+        local b = ::fe.add_surface(obj.width, obj.height);
+        local c = b.add_clone(obj);
+        b.visible = false;
 
-        _obj = obj.add_surface(obj.width, obj.height);
+        _obj = obj.add_clone(obj);
         _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "retention.frag")
-        _obj.shader.set_texture_param("texture2", a);
+        _obj.shader.set_texture_param("texture2", b);
     }
 
     function _get(idx) {
@@ -39,11 +39,10 @@ class Retention {
     function fix_masked_image() {           _obj.fix_masked_image(); }
     function rawset_index_offset(offset) {  _obj.rawset_index_offset(offset); }
     function rawset_filter_offset(offset) { _obj.rawset_filter_offset(offset); }
-
-    function add_image(...) {   return _obj.add_image.acall(vargv.insert(0, _obj) || vargv);    }
-    function add_artwork(...) { return _obj.add_artwork.acall(vargv.insert(0, _obj) || vargv);  }
-    function add_clone(...) {   return _obj.add_clone.acall(vargv.insert(0, _obj) || vargv);    }
-    function add_text(...) {    return _obj.add_text.acall(vargv.insert(0, _obj) || vargv);     }
-    function add_listbox(...) { return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv);  }
-    function add_surface(...) { return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv);  }
+    function add_image(...) {        return _obj.add_image.acall(vargv.insert(0, _obj) || vargv); }
+    function add_artwork(...) {      return _obj.add_artwork.acall(vargv.insert(0, _obj) || vargv); }
+    function add_clone(...) {        return _obj.add_clone.acall(vargv.insert(0, _obj) || vargv); }
+    function add_text(...) {         return _obj.add_text.acall(vargv.insert(0, _obj) || vargv); }
+    function add_listbox(...) {      return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv); }
+    function add_surface(...) {      return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv); }
 }

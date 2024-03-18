@@ -97,11 +97,10 @@ class Perspective {
     function fix_masked_image() {           _obj.fix_masked_image(); }
     function rawset_index_offset(offset) {  _obj.rawset_index_offset(offset); }
     function rawset_filter_offset(offset) { _obj.rawset_filter_offset(offset); }
-
-    function add_image(...) {   return _obj.add_image.acall(vargv.insert(0, _obj) || vargv);    }
-    function add_artwork(...) { return _obj.add_artwork.acall(vargv.insert(0, _obj) || vargv);  }
-    function add_clone(...) {   return _obj.add_clone.acall(vargv.insert(0, _obj) || vargv);    }
-    function add_text(...) {    return _obj.add_text.acall(vargv.insert(0, _obj) || vargv);     }
-    function add_listbox(...) { return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv);  }
-    function add_surface(...) { return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv);  }
+    function add_image(...) {        return _obj.add_image.acall(vargv.insert(0, _obj) || vargv); }
+    function add_artwork(...) {      return _obj.add_artwork.acall(vargv.insert(0, _obj) || vargv); }
+    function add_clone(...) {        return _obj.add_clone.acall(vargv.insert(0, _obj) || vargv); }
+    function add_text(...) {         return _obj.add_text.acall(vargv.insert(0, _obj) || vargv); }
+    function add_listbox(...) {      return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv); }
+    function add_surface(...) {      return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv); }
 }

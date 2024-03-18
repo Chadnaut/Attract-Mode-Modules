@@ -1,7 +1,7 @@
 # Ease
 
 > Easing methods  
-> Version 0.8  
+> Version 0.9  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -11,7 +11,7 @@
 fe.load_module("ease");
 
 for (local i=0, n=10; i<=n; i++) {
-    print(::ease.outCubic(i.tofloat(), 0.0, 1.0, n.tofloat()) + "\n");
+    print(::ease.out_cubic(i.tofloat(), 0.0, 1.0, n.tofloat()) + "\n");
 }
 ```
 
@@ -38,57 +38,61 @@ for (local i=0, n=10; i<=n; i++) {
 
 - `::ease.none(t, b, c, d)`
 - `::ease.linear(t, b, c, d)`
-- `::ease.inQuad(t, b, c, d)`
-- `::ease.inCubic(t, b, c, d)`
-- `::ease.inQuart(t, b, c, d)`
-- `::ease.inQuint(t, b, c, d)`
-- `::ease.inSine(t, b, c, d)`
-- `::ease.inExpo(t, b, c, d)`
-- `::ease.inCirc(t, b, c, d)`
-- `::ease.inElastic(t, b, c, d)`
-- `::ease.inBack(t, b, c, d)`
-- `::ease.inBounce(t, b, c, d)`
-- `::ease.outQuad(t, b, c, d)`
-- `::ease.outCubic(t, b, c, d)`
-- `::ease.outQuart(t, b, c, d)`
-- `::ease.outQuint(t, b, c, d)`
-- `::ease.outSine(t, b, c, d)`
-- `::ease.outExpo(t, b, c, d)`
-- `::ease.outCirc(t, b, c, d)`
-- `::ease.outElastic(t, b, c, d, a?, p?)`
-- `::ease.outBack(t, b, c, d, s?)`
-- `::ease.outBounce(t, b, c, d)`
-- `::ease.inOutQuad(t, b, c, d)`
-- `::ease.inOutCubic(t, b, c, d)`
-- `::ease.inOutQuart(t, b, c, d)`
-- `::ease.inOutQuint(t, b, c, d)`
-- `::ease.inOutSine(t, b, c, d)`
-- `::ease.inOutExpo(t, b, c, d)`
-- `::ease.inOutCirc(t, b, c, d)`
-- `::ease.inOutElastic(t, b, c, d, a?, p?)`
-- `::ease.inOutBack(t, b, c, d, s?)`
-- `::ease.inOutBounce(t, b, c, d)`
-- `::ease.outInQuad(t, b, c, d)`
-- `::ease.outInCubic(t, b, c, d)`
-- `::ease.outInQuart(t, b, c, d)`
-- `::ease.outInQuint(t, b, c, d)`
-- `::ease.outInSine(t, b, c, d)`
-- `::ease.outInExpo(t, b, c, d)`
-- `::ease.outInCirc(t, b, c, d)`
-- `::ease.outInElastic(t, b, c, d, a?, p?)`
-- `::ease.outInBack(t, b, c, d, s?)`
-- `::ease.outInBounce(t, b, c, d)`
+- `::ease.in_quad(t, b, c, d)`
+- `::ease.in_cubic(t, b, c, d)`
+- `::ease.in_quart(t, b, c, d)`
+- `::ease.in_quint(t, b, c, d)`
+- `::ease.in_sine(t, b, c, d)`
+- `::ease.in_expo(t, b, c, d)`
+- `::ease.in_circ(t, b, c, d)`
+- `::ease.in_elastic(t, b, c, d)`
+- `::ease.in_back(t, b, c, d)`
+- `::ease.in_bounce(t, b, c, d)`
+- `::ease.out_quad(t, b, c, d)`
+- `::ease.out_cubic(t, b, c, d)`
+- `::ease.out_quart(t, b, c, d)`
+- `::ease.out_quint(t, b, c, d)`
+- `::ease.out_sine(t, b, c, d)`
+- `::ease.out_expo(t, b, c, d)`
+- `::ease.out_circ(t, b, c, d)`
+- `::ease.out_elastic(t, b, c, d, a?, p?)`
+- `::ease.out_back(t, b, c, d, s?)`
+- `::ease.out_bounce(t, b, c, d)`
+- `::ease.in_out_quad(t, b, c, d)`
+- `::ease.in_out_cubic(t, b, c, d)`
+- `::ease.in_out_quart(t, b, c, d)`
+- `::ease.in_out_quint(t, b, c, d)`
+- `::ease.in_out_sine(t, b, c, d)`
+- `::ease.in_out_expo(t, b, c, d)`
+- `::ease.in_out_circ(t, b, c, d)`
+- `::ease.in_out_elastic(t, b, c, d, a?, p?)`
+- `::ease.in_out_back(t, b, c, d, s?)`
+- `::ease.in_out_bounce(t, b, c, d)`
+- `::ease.out_in_quad(t, b, c, d)`
+- `::ease.out_in_cubic(t, b, c, d)`
+- `::ease.out_in_quart(t, b, c, d)`
+- `::ease.out_in_quint(t, b, c, d)`
+- `::ease.out_in_sine(t, b, c, d)`
+- `::ease.out_in_expo(t, b, c, d)`
+- `::ease.out_in_circ(t, b, c, d)`
+- `::ease.out_in_elastic(t, b, c, d, a?, p?)`
+- `::ease.out_in_back(t, b, c, d, s?)`
+- `::ease.out_in_bounce(t, b, c, d)`
 
 ### Step
 
-- `::ease.stepJumpStart(t, b, c, d, n)`
-- `::ease.stepJumpEnd(t, b, c, d, n)`
-- `::ease.stepJumpNone(t, b, c, d, n)`
-- `::ease.stepJumpBoth(t, b, c, d, n)`
+- `::ease.step_jump_start(t, b, c, d, n)`
+- `::ease.step_jump_end(t, b, c, d, n)`
+- `::ease.step_jump_none(t, b, c, d, n)`
+- `::ease.step_jump_both(t, b, c, d, n)`
+- `::ease.get_step_jump_start(steps)` - Returns easing function `function(t, d, c, d) {}`
+- `::ease.get_step_jump_end(steps)` - Returns easing function `function(t, d, c, d) {}`
+- `::ease.get_step_jump_both(steps)` - Returns easing function `function(t, d, c, d) {}`
+- `::ease.get_step_jump_none(steps)` - Returns easing function `function(t, d, c, d) {}`
 
 ### Cubic Bezier
 
-- `::ease.cubicBezier(x1, y1, x2, y2)` - Returns an easing function `function(t, d, c, d) {}`
+- `::ease.get_cubic_bezier(x1, y1, x2, y2)` - Returns an easing function `function(t, d, c, d) {}`
   - Visit [cubic-bezier](https://cubic-bezier.com/) for an interactive bezier creation tool.
 
 ## Arguments

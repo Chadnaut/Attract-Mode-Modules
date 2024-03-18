@@ -343,13 +343,16 @@ class UnitTest {
 
             // add bench result
             if (_bench && success) {
-                local max = 0
-                local best = ""
-                foreach (spec in suite.specs) if (spec.calls > max) {
-                    max = spec.calls;
-                    best = " = " + spec.title;
+                if (suite.specs.len()) {
+                    local max = 0;
+                    local best = { calls = 0 };
+                    local next = { calls = 0 };
+                    foreach (spec in suite.specs) if (spec.calls > best.calls) best = spec;
+                    foreach (spec in suite.specs) if (spec.calls > next.calls && spec != best) next = spec;
+                    message += " = " + best.title + " +" + floor((best.calls - next.calls) * 100.0 / best.calls) + "%";
+                } else {
+                    message += " no specs";
                 }
-                message += best;
             }
 
             // print to console
@@ -387,6 +390,10 @@ class UnitTest {
             if (_bench && !total_error) {
                 foreach (spec in suite.specs) if (spec.calls > max_calls) max_calls = spec.calls;
                 specs.sort(@(a, b) b.calls <=> a.calls);
+            }
+
+            if (!specs.len()) {
+                print("  WARN no specs\n");
             }
 
             foreach (i, spec in specs) {

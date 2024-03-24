@@ -27,6 +27,7 @@ void main() {
         vec2 t = clamp((s * uv2 - b.xy) / (s - b.xy - b.zw), 0.0, 1.0);
         vec2 uv9 = mix(uv2 * s, 1.0 - s * (1.0 - uv2), t);
         vec4 m = texture2D(mask, uv9);
-        gl_FragColor *= (mask_type == 2) ? vec4(1, 1, 1, dot(m.rgb, vec3(0.412453, 0.357580, 0.180423))) : m;
+        if (mask_type == 2) m = vec4(1, 1, 1, sqrt(vec3(dot(vec3(0.299, 0.587, 0.114), m.rgb))));
+        gl_FragColor *= m;
     }
 }

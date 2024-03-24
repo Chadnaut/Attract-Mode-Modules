@@ -9,10 +9,11 @@ local ut = UnitTest();
 ::xdescribe <- ut.xdescribe.bindenv(ut);
 
 fe.do_nut("suite/unittest.nut");
+fe.do_nut("suite/operators.nut");
+fe.do_nut("suite/math.nut");
+
 fe.do_nut("suite/fe.list.index.nut");
 fe.do_nut("suite/fe.list.filter_index.nut");
-
-// Requires ALL displays to use this layout
-// fe.do_nut("suite/fe.list.display_index.nut");
+// fe.do_nut("suite/fe.list.display_index.nut"); // This suite requires ALL displays to use this layout
 
 ut.test();

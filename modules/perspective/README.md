@@ -1,7 +1,7 @@
 # Perspective
 
 > Perspective correct texture mapping  
-> Version 0.4  
+> Version 0.5  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -31,6 +31,10 @@ Wrap your Image, Artwork or Surface with the `Perspective()` class and use the r
 - `offset_tr_y` *int* - Get/set the top-right y offset.
 - `offset_br_x` *int* - Get/set the bottom-right x offset.
 - `offset_br_y` *int* - Get/set the bottom-right y offset.
+
+## Functions
+
+- `set_offset(tl_x, tl_y, tr_x, tr_y, bl_x, bl_y, br_x, br_y)` - Set all offsets at once.
 
 ## Notes
 

@@ -7,9 +7,12 @@ scripts/link/*.ini
 TODO.md
 
 color/
+event/
 group/
+loop/
 relativity/
 sequence/
+wrapper/
 Example.Color/
 Example.Group/
 Example.Relativity/

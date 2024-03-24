@@ -43,5 +43,6 @@ See the `frame` module in this repo for more information about 9-slice.
 
 ## Notes
 
+- Non-integer scaling may result in the 9-slice mask being a fraction of a pixel off the intended size.
 - When using with a `surface` the `mask_mirror_y = 1` must be set due to how surfaces work internally.
 - The mask breaks when `width < mask_slice_left + mask_slice_right + 2` or `height < mask_slice_top + mask_slice_bottom + 2`, ie: don't make the object smaller than the slices.

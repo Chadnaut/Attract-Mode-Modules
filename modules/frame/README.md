@@ -69,6 +69,7 @@ The `padding_*` properties are used to offset the frame `L,T,R,B` from its origi
 
 - Non-integer scaling with padding may result in the 9-slice center being a fraction of a pixel off the intended size.
 - When using with a `surface` the properties `slice_top` and `slice_bottom` must be swapped due to how surfaces work internally.
+- When using with a `surface` the you should set to `blend_mode` to `BlendMode.Alpha`.
 - The effect breaks when `width < slice_left + slice_right - padding_left - padding_right + 2` or `height < slice_top + slice_bottom - padding_top - padding_bottom + 2`, ie: don't make the frame smaller than the slices.
 
 ## Further Reading

@@ -5,6 +5,7 @@ modules/extend
 scripts/link/*.ini
 *.code-workspace
 TODO.md
+*.zip
 
 color/
 event/

@@ -49,6 +49,7 @@ class Chart {
 
     // =============================================
 
+    // return _prop, _once or throw
     function _get(idx) {
         if (idx in _prop) {
             return _prop[idx];
@@ -59,16 +60,22 @@ class Chart {
         }
     }
 
+    // set prop
     function _set(idx, val) {
+        // cast some props to integer to fix sub-pixel mismatches
         if (idx in _prop_int) val = val.tointeger();
+
         if (idx in _prop) {
+            // set regular props
             _prop[idx] = val;
         } else if (idx in _once) {
+            // set one-off props only if container not yet constructed
             if (!_container) _once[idx] = val;
         } else {
             throw null;
         }
 
+        // refresh certain objects depending on what's being set
         switch (idx) {
             case "x":           refresh_container(); refresh_texts(); break;
             case "y":           refresh_container(); refresh_texts(); break;
@@ -79,8 +86,8 @@ class Chart {
             case "outline":     refresh_texts(); break;
             case "align":       refresh_texts(); break;
             case "margin":      refresh_texts(); break;
-            case "scroll":      refresh_texts(); refresh_container(); break;
             case "theme":       refresh_texts(); refresh_bars(); break;
+            case "scroll":      refresh_container(); refresh_texts(); break;
             case "zorder":      refresh_container(); refresh_texts(); break;
             case "visible":     refresh_container(); refresh_texts(); clear(); break;
         }
@@ -88,6 +95,7 @@ class Chart {
 
     // =============================================
 
+    // container gets created late so props can be set beforehand
     function init_container() {
         if (_container) return;
         _container = fe.add_surface(width + thickness, fe.layout.height);
@@ -106,6 +114,7 @@ class Chart {
         _frame = -1;
     }
 
+    // update changeable container props
     function refresh_container() {
         if (!_container) return;
         local total_height = _timelines.len() * height;
@@ -120,10 +129,12 @@ class Chart {
         _head.height = total_height;
     }
 
+    // refresh ALL text objects
     function refresh_texts() {
         foreach (timeline in _timelines) refresh_text(timeline.text, timeline.index);
     }
 
+    // refresh text props
     function refresh_text(text, index) {
         text.set_pos(x, y + index * height, width, height);
         if (font && font != "") text.font = font;
@@ -137,7 +148,7 @@ class Chart {
         text.alpha = text_col[3];
 
         local bg_col = theme[0];
-        if ("get_url" in fe) {
+        if ("set_outline_rgb" in text) {
             text.set_outline_rgb(bg_col[0], bg_col[1], bg_col[2]);
             text.outline = outline;
         }
@@ -145,10 +156,12 @@ class Chart {
         text.visible = visible && char_size && height >= (char_size + margin * 2);
     }
 
+    // update ALL bars
     function refresh_bars() {
         foreach (timeline in _timelines) refresh_bar(timeline.bar, timeline.index);
     }
 
+    // refresh bar props
     function refresh_bar(bar, index) {
         local col = theme[3 + (index % (theme.len() - 3))];
         bar.set_rgb(col[0], col[1], col[2]);
@@ -158,6 +171,7 @@ class Chart {
 
     // =============================================
 
+    // reset all timelines and clear the container image
     function clear() {
         _frame = 0;
         _last_time = fe.layout.time;
@@ -169,6 +183,7 @@ class Chart {
         }
     }
 
+    // add a new timeline, or update an existing timeline
     function add(title, max = 100, step = 1, callback = null) {
         init_container();
         if (!(title in _timelines)) {
@@ -201,6 +216,7 @@ class Chart {
         return this;
     }
 
+    // redraw all timelines, shift the container image if scrolling
     function on_tick(ttime) {
         if (!_container || !visible) return;
         _container.clear = false;

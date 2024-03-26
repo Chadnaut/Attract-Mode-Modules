@@ -25,6 +25,8 @@ fe.log("String", true, {a = 1, b = 2.0, c = ["d", "e"]});
 }
 ```
 
+Overrides the native `fe.log()` method to accept multiple arguments, and pretty-print the results.
+
 Use a [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) extension in VSCode to see the log update in realtime.
 
 ## Plugin Options
@@ -65,3 +67,7 @@ Some text appears nicer in the log file without quote marks.
 - Keywords: `INFO`, `NOTICE`, `ALERT`, `DEBUG`, `ERROR`, `WARN`, `WARNING`
 - Datetime: `2024-04-26T12:34:56`
 - Time, diff and frame prefixes: `0:00:00.000 +00000 [00000]`
+
+## Notes
+
+If this plugin is disabled, `fe.log()` calls with *multiple* arguments will throw errors, ie: `fe.log(1, 2, 3)`.

@@ -5,13 +5,10 @@ local is_enabled = ("LogPlus" in fe.plugin);
 local msg = "See last_run.log";
 
 if (is_enabled) {
-    fe.log("Start");
-    fe.log();
-    fe.log("Object", { a = 1, b = 2.0, c = ["d", "e"] });
-    fe.log("INFO", "Success");
-    fe.log("WARNING", "Failure");
-    fe.log();
-    fe.log("Finish");
+    fe.log("INFO", "ALERT", "WARNING");
+    fe.log({ a = 1, b = 2.0, c = ["d", "e"] });
+    fe.log(getconsttable().Transition);
+    // fe.log(getconsttable()); // un-comment to log the entire constants table
 } else {
     msg = "Please enable the LogPlus plugin"
 }

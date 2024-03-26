@@ -11,11 +11,11 @@
 - Enabled > Yes
 
 ```cpp
-fe.log("Hello", 123, {a = 1, b = 2.0, c = ["d", "e"]});
+fe.log("String", true, {a = 1, b = 2.0, c = ["d", "e"]});
 ```
 
 ```log
-"Hello", 123, {
+"String", true, {
     a = 1, 
     b = 2.0, 
     c = [

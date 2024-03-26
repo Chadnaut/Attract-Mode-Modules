@@ -11,29 +11,22 @@
 - Enabled > Yes
 
 ```cpp
-fe.log("String", true, {a = 1, b = 2.0, c = ["d", "e"]});
+fe.log("INFO", "ALERT", "WARNING");
+fe.log({ a = 1, b = 2.0, c = ["d", "e"] });
 ```
 
-```log
-"String", true, {
-    a = 1, 
-    b = 2.0, 
-    c = [
-        "d", 
-        "e"
-    ]
-}
-```
+![Example](example.png)\
+*Example log with Time and Frame shown, as seen in VSCode*
 
-Overrides the native `fe.log()` method to accept multiple arguments, and pretty-print the results.
+Overrides the native `fe.log()` method to accept multiple arguments, and pretty-print the results. Requires Attract-Mode Plus v3.0.9 or higher (preview build [here](https://github.com/oomek/attractplus/actions/runs/8430020953)).
 
 Use a [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) extension in VSCode to see the log update in realtime.
 
 ## Plugin Options
 
-- `Show Time` - Add layout time to each log
-- `Show Diff` - Add duration since last log to each log
-- `Show Frame` - Add frame number to each log
+- `Show Time` - Add layout time to each log `0:00:00.000`
+- `Show Diff` - Add duration since last log to each log `+00000`
+- `Show Frame` - Add frame number to each log `[00000]`
 - `Indent` - Indent size for pretty-printed objects
 - `Delimiter` - Character printed between values
 - `Specials` - Allow special strings to be printed without quotes

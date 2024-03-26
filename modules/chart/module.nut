@@ -75,7 +75,7 @@ class Chart {
             throw null;
         }
 
-        // refresh certain objects depending on what's being set
+        // refresh objects that use the set value
         switch (idx) {
             case "x":           refresh_container(); refresh_texts(); break;
             case "y":           refresh_container(); refresh_texts(); break;
@@ -95,7 +95,7 @@ class Chart {
 
     // =============================================
 
-    // container gets created late so props can be set beforehand
+    // container gets created late so props can be adjusted beforehand
     function init_container() {
         if (_container) return;
         _container = fe.add_surface(width + thickness, fe.layout.height);
@@ -114,7 +114,7 @@ class Chart {
         _frame = -1;
     }
 
-    // update changeable container props
+    // update container props
     function refresh_container() {
         if (!_container) return;
         local total_height = _timelines.len() * height;
@@ -134,7 +134,7 @@ class Chart {
         foreach (timeline in _timelines) refresh_text(timeline.text, timeline.index);
     }
 
-    // refresh text props
+    // refresh single text props
     function refresh_text(text, index) {
         text.set_pos(x, y + index * height, width, height);
         if (font && font != "") text.font = font;
@@ -161,7 +161,7 @@ class Chart {
         foreach (timeline in _timelines) refresh_bar(timeline.bar, timeline.index);
     }
 
-    // refresh bar props
+    // refresh single bar props
     function refresh_bar(bar, index) {
         local col = theme[3 + (index % (theme.len() - 3))];
         bar.set_rgb(col[0], col[1], col[2]);

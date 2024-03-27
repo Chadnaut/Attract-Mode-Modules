@@ -18,7 +18,7 @@
 - [Frame](./modules/frame/README.md) **v0.1** - 9-slice image scaling
 - [Mask](./modules/mask/README.md) **v0.2** - 9-slice image masking 
 - [Perspective](./modules/perspective/README.md) **v0.5** - Perspective correct texture mapping
-- [Retention](./modules/retention/README.md) **v0.5** - Surface image persistance 
+- [Retention](./modules/retention/README.md) **v0.6** - Surface image persistance 
 - [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
 - [Timer](./modules/timer/README.md) **v0.2** - Call a function at a later time
 - [UnitTest](./modules/unittest/README.md) **v1.0** - Testing and benchmarking

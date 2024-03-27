@@ -1,7 +1,7 @@
 # Retention
 
 > Surface image persistance  
-> Version 0.5  
+> Version 0.6  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -30,6 +30,7 @@ function on_tick(ttime) {
 ## Properties
 
 - `persistance` *float* - Get/set strength of the image retention [0.0...1.0].
+- `falloff` *float* - Get/set retention fadeout [0.0...1.0].
 
 ## About
 

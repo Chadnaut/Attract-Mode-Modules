@@ -43,6 +43,9 @@ The syntax mostly follows popular testing frameworks. A summary will be displaye
 Finished in 0.16 seconds
 ```
 
+![Example](example.png)\
+*Example console output*
+
 # Test
 
 - `Suites` are groups of related `Specs`.

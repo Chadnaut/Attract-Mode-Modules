@@ -26,15 +26,24 @@ set_interval(@() print((fe.layout.time - start) + "\n"), 1000);
 9009
 10010
 ```
+*Calling a function repeatedly*
 
-Call a function after a number of milliseconds.
+```cpp
+fe.load_module("timer");
+
+print(fe.layout.time + " - Layout started\n");
+set_timeout(@() print(fe.layout.time + " - Timeout Fired\n"), 1000);
+```
+
+![Example](example.png)\
+*Calling a function later*
 
 ## Functions
 
 - `set_timeout(callback, delay?)` - Fire callback after delay, returns id
 - `set_interval(callback, delay?)` - Fire callback **every** delay, returns id
-- `clear_timeout(id)` - Remove timout
-- `clear_interval(id)` - Remove interval
+- `clear_timeout(id)` - Remove timout by id
+- `clear_interval(id)` - Remove interval by id
 
 ## Notes
 

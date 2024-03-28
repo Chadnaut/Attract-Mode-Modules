@@ -11,9 +11,11 @@ class Retention {
         _prop = clone _prop_defaults;
 
         local b = ::fe.add_surface(obj.width, obj.height);
+        b.mipmap = true;
+        b.visible = false;
+
         local c = b.add_clone(obj);
         c.set_pos(0, 0);
-        b.visible = false;
 
         _obj = obj.add_clone(c);
         _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "retention.frag")

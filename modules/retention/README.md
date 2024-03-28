@@ -1,7 +1,7 @@
 # Retention
 
 > Surface image persistance  
-> Version 0.6  
+> Version 0.7  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -16,6 +16,7 @@ s2.persistance = 0.98;
 
 local img = s1.add_artwork("snap", 0, 0, 400, 400);
 img.video_flags = Vid.ImagesOnly;
+
 fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     if (img.x >= fe.layout.width) img.x = 0; else img.x += 4;

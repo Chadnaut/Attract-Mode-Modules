@@ -15,7 +15,7 @@ Extra features designers can use to build layouts.
 |<img src="./modules/frame/example.png" width="100"/>|v0.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
 |<img src="./modules/mask/example.png" width="100"/>|v0.3|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
 |<img src="./modules/perspective/example.png" width="100"/>|v0.5|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
-|<img src="./modules/retention/example.png" width="100"/>|v0.6|[Retention](./modules/retention/README.md) - Surface image persistance|[Example](./layouts/Example.Retention/)|
+|<img src="./modules/retention/example.png" width="100"/>|v0.7|[Retention](./modules/retention/README.md) - Surface image persistance|[Example](./layouts/Example.Retention/)|
 
 ## For Developers
 

@@ -5,6 +5,10 @@
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
+## Requirements
+
+- [stringify](https://github.com/Chadnaut/Attract-Mode-Modules/blob/master/modules/stringify) - module can be found in this repo
+
 ## Quickstart
 
 ```cpp

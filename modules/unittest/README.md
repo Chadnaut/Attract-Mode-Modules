@@ -7,8 +7,9 @@
 
 ## Requirements
 
-- `console` - Module found in the above repo.
-- `stringify` - Module found in the above repo.
+- [console](https://github.com/Chadnaut/Attract-Mode-Modules/blob/master/modules/console) - module can be found in this repo
+- [stringify](https://github.com/Chadnaut/Attract-Mode-Modules/blob/master/modules/stringify) - module can be found in this repo
+
 
 ## Quickstart
 

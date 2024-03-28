@@ -1,6 +1,6 @@
 if ("logplus" in this) return;
 
-::fe.do_nut(::fe.module_dir + "stringify.nut");
+fe.load_module("stringify");
 
 class LogPlus {
 

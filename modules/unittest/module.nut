@@ -5,7 +5,7 @@ fe.load_module("console");
 
 class UnitTest {
 
-    console = Console();
+    console = ::Console();
 
     _prop = null;
     _prop_defaults = {
@@ -177,7 +177,7 @@ class UnitTest {
             local response = suite.specs.len() ? suite.specs[0].response : null;
             foreach (spec in suite.specs)
                 if (!close_to(spec.response, response, 0.0001))
-                    spec.errors.push("spec " + stringify(spec.response) + " does not equal " + stringify(response));
+                    spec.errors.push("spec " + ::stringify(spec.response) + " does not equal " + ::stringify(response));
         }
         if (has_errors()) {
             refresh_console();
@@ -291,7 +291,7 @@ class UnitTest {
             }
         } catch (error) {
             // stack info cannot reach error
-            _spec.errors.push(stringify(_expectation) + " " + error);
+            _spec.errors.push(::stringify(_expectation) + " " + error);
             // run callback again to halt the layout and trace
             if (!catch_error) callback();
         }
@@ -308,10 +308,10 @@ class UnitTest {
         if (_not == success) {
             local info = getstackinfos(2); // matcher must be class function
             _spec.errors.push(
-                stringify(_expectation)
+                ::stringify(_expectation)
                 + (_not ? " not" : "")
                 + (error ? " " + info.func : "")
-                + ("expected" in info.locals ? " " + stringify(info.locals.expected) : "")
+                + ("expected" in info.locals ? " " + ::stringify(info.locals.expected) : "")
             );
         }
         return this;

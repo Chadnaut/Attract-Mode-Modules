@@ -4,27 +4,34 @@
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
-## Contents
+## For Designers
 
-### Layouts
-
-- Working examples of the modules below
+Extra features designers can use to build layouts.
 
 ### Modules
 
-|Screenshot|Version|Module|
-|-|-|-|
-|<img src="./modules/chart/example.png" width="100"/>|v1.1|[Chart](./modules/chart/README.md) - Plot events over time|
-|<img src="./modules/console/example.png" width="100"/>|v0.7|[Console](./modules/console/README.md) - Coloured message list|
-|<img src="./modules/ease/example.png" width="100"/>|v0.9|[Ease](./modules/ease/README.md) - Easing methods|
-|<img src="./modules/frame/example.png" width="100"/>|v0.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|
-|<img src="./modules/logplus/example.png" width="100"/>|v0.6|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|
-|<img src="./modules/mask/example.png" width="100"/>|v0.3|[Mask](./modules/mask/README.md) - 9-slice image masking |
-|<img src="./modules/perspective/example.png" width="100"/>|v0.5|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|
-|<img src="./modules/retention/example.png" width="100"/>|v0.6|[Retention](./modules/retention/README.md) - Surface image persistance |
-|<img src="./modules/stringify/example.png" width="100"/>|v0.1|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|
-|<img src="./modules/timer/example.png" width="100"/>|v0.2|[Timer](./modules/timer/README.md) - Call a function at a later time|
-|<img src="./modules/unittest/example.png" width="100"/>|v1.0|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|
+|Screenshot|Version|Module|Example|
+|-|-|-|-|
+|<img src="./modules/frame/example.png" width="100"/>|v0.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
+|<img src="./modules/mask/example.png" width="100"/>|v0.3|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
+|<img src="./modules/perspective/example.png" width="100"/>|v0.5|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
+|<img src="./modules/retention/example.png" width="100"/>|v0.6|[Retention](./modules/retention/README.md) - Surface image persistance|[Example](./layouts/Example.Retention/)|
+
+## For Developers
+
+Tools and utilities to improve workflow and debugging.
+
+### Modules
+
+|Screenshot|Version|Module|Example|
+|-|-|-|-|
+|<img src="./modules/ease/example.png" width="100"/>|v0.9|[Ease](./modules/ease/README.md) - Easing methods|[Example](./layouts/Example.Ease/)
+|<img src="./modules/chart/example.png" width="100"/>|v1.1|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
+|<img src="./modules/console/example.png" width="100"/>|v0.7|[Console](./modules/console/README.md) - Coloured message list|[Example](./layouts/Example.Console/)|
+|<img src="./modules/logplus/example.png" width="100"/>|v0.6|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
+|<img src="./modules/stringify/example.png" width="100"/>|v0.1|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
+|<img src="./modules/timer/example.png" width="100"/>|v0.2|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|
+|<img src="./modules/unittest/example.png" width="100"/>|v1.0|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
 
 ### Plugins
 

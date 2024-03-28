@@ -35,7 +35,10 @@ print(fe.layout.time + " - Layout started\n");
 set_timeout(@() print(fe.layout.time + " - Timeout Fired\n"), 1000);
 ```
 
-![Example](example.png)\
+```log
+118 - Layout started
+1131 - Timeout Fired
+```
 *Calling a function later*
 
 ## Functions

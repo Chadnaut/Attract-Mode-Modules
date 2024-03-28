@@ -24,7 +24,16 @@ Pretty printing:
 print(stringify(object, "  ") + "\n");
 ```
 
-![Example](example.png)
+```log
+{
+  a = 1, 
+  b = 2.0, 
+  c = [
+    "d", 
+    "e"
+  ]
+}
+```
 
 Pass `stringify` any value and it will convert it into a string, handy for printing to `last_run.log`.
 

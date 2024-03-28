@@ -11,7 +11,7 @@ Extra features designers can use to build layouts.
 ### Modules
 
 |Screenshot|Version|Module|Example|
-|-|-|-|-|
+|:-|:-|:-|:-|
 |<img src="./modules/frame/example.png" width="100"/>|v0.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
 |<img src="./modules/mask/example.png" width="100"/>|v0.3|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
 |<img src="./modules/perspective/example.png" width="100"/>|v0.5|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
@@ -24,7 +24,7 @@ Tools and utilities to improve workflow and debugging.
 ### Modules
 
 |Screenshot|Version|Module|Example|
-|-|-|-|-|
+|:-|:-|:-|:-|
 |<img src="./modules/ease/example.png" width="100"/>|v0.9|[Ease](./modules/ease/README.md) - Easing methods|[Example](./layouts/Example.Ease/)
 |<img src="./modules/chart/example.png" width="100"/>|v1.1|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
 |<img src="./modules/console/example.png" width="100"/>|v0.7|[Console](./modules/console/README.md) - Coloured message list|[Example](./layouts/Example.Console/)|

@@ -17,38 +17,6 @@ frame.set_slice(50, 50, 50, 50);
 ![Example](example.png)\
 *A 9-slice image with padding, plus a snap in the same position*
 
-## About
-
-```cpp
- c1  c2  c3
--------------
-| 1 | 2 | 3 | r1
--------------
-| 4 | 5 | 6 | r2
--------------
-| 7 | 8 | 9 | r3
--------------
-```
-
-- The image is sliced into a 3x3 grid
-- The corners `1,3,7,9` do not change size when the object scales
-- The row `r2` stretches vertically
-- The column `c2` stretches horizontally
-
-The `slice_*` properties are used to define the 9-slice grid.
-
-```cpp
--------------
-|     T     |
-|   xy--w   |
-| L |   | R |
-|   h----   | 
-|     B     |
--------------
-```
-
-The `padding_*` properties are used to offset the frame `L,T,R,B` from its original position `x,y,w,h`. This allows a frame to be given an identical position to another object while drawing "around" it.
-
 ## Properties
 
 - `slice_left` *int* - Width of left 9-slice column `c1`.
@@ -60,10 +28,21 @@ The `padding_*` properties are used to offset the frame `L,T,R,B` from its origi
 - `padding_top` *int* - Height of top padding.
 - `padding_bottom` *int* - Height of bottom padding.
 
+The `padding_*` properties are used to offset the frame from its original position, which allows a frame to be given an identical position to another object while drawing "around" it.
+
 ## Functions
 
 - `set_slice(l, t, r, b)` - Set all slice sizes at once.
 - `set_padding(l, t, r, b)` - Set all padding sizes at once.
+
+## 9-Slice
+
+![Example](example-slice.png)
+
+- The image is sliced into a 3x3 grid
+- The corners do not change size when the object scales
+- The middle row stretches vertically
+- The center column stretches horizontally
 
 ## Notes
 

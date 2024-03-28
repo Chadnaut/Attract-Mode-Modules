@@ -17,6 +17,12 @@ vec2 object_size = vec2(width, height);
 vec4 slice = vec4(mask_slice_left, mask_slice_top, mask_slice_right, mask_slice_bottom);
 vec2 mirror = vec2(mask_mirror_x, mask_mirror_y);
 
+float None = 0.0;
+float Multiply = 1.0;
+float Grayscale = 2.0;
+float Alpha = 3.0;
+float Cutout = 4.0;
+
 void main() {
     vec2 uv = gl_TexCoord[0].xy;
     gl_FragColor = gl_Color * texture2D(texture, uv);
@@ -27,7 +33,9 @@ void main() {
         vec2 t = clamp((s * uv2 - b.xy) / (s - b.xy - b.zw), 0.0, 1.0);
         vec2 uv9 = mix(uv2 * s, 1.0 - s * (1.0 - uv2), t);
         vec4 m = texture2D(mask, uv9);
-        if (mask_type == 2) m = vec4(1, 1, 1, sqrt(vec3(dot(vec3(0.299, 0.587, 0.114), m.rgb))));
+        if (mask_type == Grayscale) m = vec4(1, 1, 1, sqrt(vec3(dot(m.rgb * m.rgb, vec3(0.2126, 0.7152, 0.0722)))));
+        if (mask_type == Alpha) m = vec4(1, 1, 1, m.a);
+        if (mask_type == Cutout) m = vec4(1, 1, 1, 1.0 - m.a);
         gl_FragColor *= m;
     }
 }

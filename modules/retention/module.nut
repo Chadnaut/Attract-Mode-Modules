@@ -48,4 +48,5 @@ class Retention {
     function add_text(...) {         return _obj.add_text.acall(vargv.insert(0, _obj) || vargv); }
     function add_listbox(...) {      return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv); }
     function add_surface(...) {      return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv); }
+    function add_rectangle(...) {    return _obj.add_rectangle.acall(vargv.insert(0, _obj) || vargv); }
 }

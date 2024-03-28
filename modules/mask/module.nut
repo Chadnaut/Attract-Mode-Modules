@@ -2,6 +2,8 @@
     None = 0,
     Multiply = 1,
     Grayscale = 2,
+    Alpha = 3,
+    Cutout = 4,
 };
 
 class Mask {
@@ -116,4 +118,5 @@ class Mask {
     function add_text(...) {         return _obj.add_text.acall(vargv.insert(0, _obj) || vargv); }
     function add_listbox(...) {      return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv); }
     function add_surface(...) {      return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv); }
+    function add_rectangle(...) {    return _obj.add_rectangle.acall(vargv.insert(0, _obj) || vargv); }
 }

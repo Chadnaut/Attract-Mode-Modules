@@ -41,3 +41,9 @@ Tools and utilities to improve workflow and debugging.
 
 - [Keypress](./scripts/keypress/README.md) **v0.2** - Send keypress to a window
 - [Link](./scripts/link/README.md) **v0.3** - Create a series of symlinks
+
+## Looking for More?
+
+Sometimes short demos are created to illustrate a concept - for experiments that haven't made it to the module stage checkout:
+
+https://github.com/Chadnaut/Attract-Mode-Experiments

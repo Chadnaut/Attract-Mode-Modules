@@ -12,17 +12,20 @@
 
 ### Modules
 
-- [Chart](./modules/chart/README.md) **v1.1** - Plot events over time
-- [Console](./modules/console/README.md) **v0.7** - Coloured message list
-- [Ease](./modules/ease/README.md) **v0.9** - Easing methods
-- [Frame](./modules/frame/README.md) **v0.1** - 9-slice image scaling
-- [LogPlus](./modules/LogPlus/README.md) **v0.6** - Extended logging functionality
-- [Mask](./modules/mask/README.md) **v0.3** - 9-slice image masking 
-- [Perspective](./modules/perspective/README.md) **v0.5** - Perspective correct texture mapping
-- [Retention](./modules/retention/README.md) **v0.6** - Surface image persistance 
-- [Stringify](./modules/stringify/README.md) **v0.1** - JSON-like value stringification
-- [Timer](./modules/timer/README.md) **v0.2** - Call a function at a later time
-- [UnitTest](./modules/unittest/README.md) **v1.0** - Testing and benchmarking
+<style>table th:first-of-type { width: 15%; }</style>
+|Screenshot|Version|Module|
+|-|-|-|
+|![](./modules/chart/example.png)|v1.1|[Chart](./modules/chart/README.md) - Plot events over time|
+|![](./modules/console/example.png)|v0.7|[Console](./modules/console/README.md) - Coloured message list|
+|![](./modules/ease/example.png)|v0.9|[Ease](./modules/ease/README.md) - Easing methods|
+|![](./modules/frame/example.png)|v0.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|
+|![](./modules/logplus/example.png)|v0.6|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|
+|![](./modules/mask/example.png)|v0.3|[Mask](./modules/mask/README.md) - 9-slice image masking |
+|![](./modules/perspective/example.png)|v0.5|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|
+|![](./modules/retention/example.png)|v0.6|[Retention](./modules/retention/README.md) - Surface image persistance |
+|![](./modules/stringify/example.png)|v0.1|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|
+|![](./modules/timer/example.png)|v0.2|[Timer](./modules/timer/README.md) - Call a function at a later time|
+|![](./modules/unittest/example.png)|v1.0|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|
 
 ### Plugins
 

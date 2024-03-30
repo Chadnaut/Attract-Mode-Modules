@@ -3,7 +3,7 @@ class Retention {
     _obj = null;
     _prop = null;
     _prop_defaults = {
-        persistance = 0.0,
+        persistence = 0.0,
         falloff = 0.0,
     };
 
@@ -12,14 +12,13 @@ class Retention {
 
         local b = ::fe.add_surface(obj.width, obj.height);
         b.mipmap = true;
-        b.visible = false;
-
         local c = b.add_clone(obj);
-        c.set_pos(0, 0);
-
-        _obj = obj.add_clone(c);
+        _obj = obj.add_clone(b);
+        _obj.zorder = -2147483647;
         _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "retention.frag")
-        _obj.shader.set_texture_param("texture2", b);
+        _obj.shader.set_texture_param("texture2", obj);
+        c.set_pos(0, 0);
+        b.visible = false;
     }
 
     function _get(idx) {
@@ -29,7 +28,7 @@ class Retention {
     function _set(idx, val) {
         if (idx in _prop) _prop[idx] = val; else _obj[idx] = val;
         switch (idx) {
-            case "persistance":
+            case "persistence":
             case "falloff": _obj.shader.set_param(idx, val); break;
         }
     }

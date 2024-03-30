@@ -1,7 +1,7 @@
 # Timer
 
 > Call a function at a later time  
-> Version 0.2  
+> Version 0.2.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

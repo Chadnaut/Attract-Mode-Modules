@@ -5,7 +5,7 @@ fe.load_module("retention");
 
 local s1 = fe.add_surface(fe.layout.width, fe.layout.height);
 local s2 = Retention(s1);
-s2.persistance = 0.999;
+s2.persistence = 0.99;
 s2.set_rotation_origin(0.5, 0.5);
 s2.rotation = 0.5;
 
@@ -16,12 +16,13 @@ img.set_rotation_origin(0.5, 0.5);
 
 local x_inc = 4;
 local y_inc = 4;
+local r_inc = 5;
 
 fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     img.x += x_inc;
     img.y += y_inc;
-    img.rotation += 5;
-    if (img.x >= fe.layout.width || img.x <= 0) x_inc *= -1;
-    if (img.y >= fe.layout.height || img.y <= 0) y_inc *= -1;
+    img.rotation += r_inc;
+    if (img.x >= fe.layout.width || img.x <= 0) { x_inc *= -1; r_inc *= -1; }
+    if (img.y >= fe.layout.height || img.y <= 0) { y_inc *= -1; r_inc *= -1; }
 };

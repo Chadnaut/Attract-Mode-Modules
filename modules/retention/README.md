@@ -1,7 +1,7 @@
 # Retention
 
-> Surface image persistance  
-> Version 0.7  
+> Surface image persistence  
+> Version 0.7.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -12,7 +12,7 @@ fe.load_module("retention");
 
 local s1 = fe.add_surface(fe.layout.width, fe.layout.height);
 local s2 = Retention(s1);
-s2.persistance = 0.98;
+s2.persistence = 0.98;
 
 local img = s1.add_artwork("snap", 0, 0, 400, 400);
 img.video_flags = Vid.ImagesOnly;
@@ -23,14 +23,14 @@ function on_tick(ttime) {
 };
 ```
 
-`Retention()` returns a new surface with image persistance. Adjusting the original surface `s1` moves the object, while adjusting the new surface `s2` moves the feedback.
+`Retention()` returns a new surface with image persistence. Adjusting the original surface `s1` moves the object, while adjusting the new surface `s2` moves the feedback.
 
 ![Example](example.png)\
 *Example of retention with rotation*
 
 ## Properties
 
-- `persistance` *float* - Get/set strength of the image retention [0.0...1.0].
+- `persistence` *float* - Get/set strength of the image retention [0.0...1.0].
 - `falloff` *float* - Get/set retention fadeout [0.0...1.0].
 
 ## About

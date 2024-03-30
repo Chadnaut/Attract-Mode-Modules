@@ -1,7 +1,7 @@
 # Perspective
 
 > Perspective correct texture mapping  
-> Version 0.5  
+> Version 0.5.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

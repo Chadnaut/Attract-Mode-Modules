@@ -1,7 +1,7 @@
 # Link
 
 > Create a series of symlinks  
-> Version 0.3  
+> Version 0.3.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

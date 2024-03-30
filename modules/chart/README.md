@@ -1,7 +1,7 @@
 # Chart
 
 > Plot events over time  
-> Version 1.1  
+> Version 1.1.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

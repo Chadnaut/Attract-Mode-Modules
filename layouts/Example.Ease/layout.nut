@@ -67,7 +67,7 @@ local easings = [
 
 local s1 = fe.add_surface(fe.layout.width, fe.layout.height);
 local s2 = Retention(s1);
-s2.persistance = 0.98;
+s2.persistence = 0.98;
 
 local items = [];
 function add_item(x, y, w, h, ease) {

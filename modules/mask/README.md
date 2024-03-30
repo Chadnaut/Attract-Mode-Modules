@@ -1,7 +1,7 @@
 # Mask
 
 > 9-slice image masking  
-> Version 0.3.0  
+> Version 0.3.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

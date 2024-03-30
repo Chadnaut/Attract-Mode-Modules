@@ -12,10 +12,10 @@ Extra features designers can use to build layouts.
 
 |Screenshot|Version|Module|Example|
 |:-|:-|:-|:-|
-|<img src="./modules/frame/example.png" width="100"/>|v0.1.0|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
-|<img src="./modules/mask/example.png" width="100"/>|v0.3.0|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
-|<img src="./modules/perspective/example.png" width="100"/>|v0.5.0|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
-|<img src="./modules/retention/example.png" width="100"/>|v0.7.1|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
+|<img src="./modules/frame/example.png" width="100"/>|v0.1.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
+|<img src="./modules/mask/example.png" width="100"/>|v0.3.1|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
+|<img src="./modules/perspective/example.png" width="100"/>|v0.5.1|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
+|<img src="./modules/retention/example.png" width="100"/>|v0.7.2|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
 
 ## For Developers
 

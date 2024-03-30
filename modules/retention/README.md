@@ -1,7 +1,7 @@
 # Retention
 
 > Surface image persistence  
-> Version 0.7.1  
+> Version 0.7.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

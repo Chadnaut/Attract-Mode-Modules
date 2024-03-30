@@ -31,7 +31,9 @@ class Frame {
     }
 
     function _get(idx) {
-        return (idx in _prop) ? _prop[idx] : _obj[idx];
+        return (idx in _prop) ? _prop[idx]
+            : (typeof _obj[idx] == "function") ? @(...) _obj[idx].acall(vargv.insert(0, _obj) || vargv)
+            : _obj[idx];
     }
 
     function _set(idx, val) {
@@ -127,7 +129,6 @@ class Frame {
         padding_bottom = bottom;
     }
 
-    // capture pos values
     function set_pos(...) {
         x = vargv[0];
         y = vargv[1];
@@ -136,19 +137,4 @@ class Frame {
             height = vargv[3];
         }
     }
-
-    function set_rgb(r, g, b) {             _obj.set_rgb(r, g, b); }
-    function set_anchor(x, y) {             _obj.set_anchor(x, y); }
-    function set_rotation_origin(x, y) {    _obj.set_rotation_origin(x, y); }
-    function swap(other_img) {              _obj.swap(other_img); }
-    function fix_masked_image() {           _obj.fix_masked_image(); }
-    function rawset_index_offset(offset) {  _obj.rawset_index_offset(offset); }
-    function rawset_filter_offset(offset) { _obj.rawset_filter_offset(offset); }
-    function add_image(...) {        return _obj.add_image.acall(vargv.insert(0, _obj) || vargv); }
-    function add_artwork(...) {      return _obj.add_artwork.acall(vargv.insert(0, _obj) || vargv); }
-    function add_clone(...) {        return _obj.add_clone.acall(vargv.insert(0, _obj) || vargv); }
-    function add_text(...) {         return _obj.add_text.acall(vargv.insert(0, _obj) || vargv); }
-    function add_listbox(...) {      return _obj.add_listbox.acall(vargv.insert(0, _obj) || vargv); }
-    function add_surface(...) {      return _obj.add_surface.acall(vargv.insert(0, _obj) || vargv); }
-    function add_rectangle(...) {    return _obj.add_rectangle.acall(vargv.insert(0, _obj) || vargv); }
 }

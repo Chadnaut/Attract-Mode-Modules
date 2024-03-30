@@ -50,7 +50,7 @@ The module adds a handful of extra elements to "exploit the one frame delay of s
 ----------    ----------
 ```
 
-The net result is that`B` is still showing the previous frame when used by `D`.
+The net result is that `B` is still showing the previous frame when used by `D`.
 
 ## Further Reading
 

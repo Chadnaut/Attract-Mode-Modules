@@ -40,17 +40,17 @@ The module adds a handful of extra elements to "exploit the one frame delay of s
 1. `A` - original surface, contains artwork
 2. `B` - worker surface, hidden
 3. `C` - clone of `A` within `B`
-4. `D` - clone of `A` within `A`, shader uses `B` texture
+4. `D` - clone of `B` within `A`, shader uses `A` texture
 
 ```
 ----------    ----------
 |A       |    |B       |
-| D(A+B) |    |  C(A)  |
+| D(B+A) |    |  C(A)  |
 |        |    |        |
 ----------    ----------
 ```
 
-The net result is that when `D`'s shader is run the texture of `B` contains the previous frame of `A`.
+The net result is that`B` is still showing the previous frame when used by `D`.
 
 ## Further Reading
 

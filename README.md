@@ -27,7 +27,7 @@ Tools and utilities to improve workflow and debugging.
 |:-|:-|:-|:-|
 |<img src="./modules/ease/example.png" width="100"/>|v0.9.0|[Ease](./modules/ease/README.md) - Easing methods|[Example](./layouts/Example.Ease/)
 |<img src="./modules/chart/example.png" width="100"/>|v1.1.0|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
-|<img src="./modules/console/example.png" width="100"/>|v0.7.0|[Console](./modules/console/README.md) - Coloured message list|[Example](./layouts/Example.Console/)|
+|<img src="./modules/console/example.png" width="100"/>|v0.8.0|[Console](./modules/console/README.md) - Coloured message list with animated typing|[Example](./layouts/Example.Console/)|
 |<img src="./modules/logplus/example.png" width="100"/>|v0.6.0|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
 |<img src="./modules/stringify/example.png" width="100"/>|v0.1.0|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
 |<img src="./modules/timer/example.png" width="100"/>|v0.2.0|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|

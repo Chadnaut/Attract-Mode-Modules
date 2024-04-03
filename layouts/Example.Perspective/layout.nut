@@ -15,10 +15,20 @@ local b = fe.add_image(img, x*2+w, y, w, h);
 
 b = Perspective(b);
 
-function set_props(obj) {
-    obj.pinch_x = w * 0.25;
-    obj.pinch_y = w * 0.25;
+function set_props(obj, strength) {
+    obj.pinch_x = w * strength;
+    obj.pinch_y = w * strength;
 }
 
-set_props(a);
-set_props(b);
+set_props(a, 0.25);
+set_props(b, 0.25);
+
+local strength = 0.25;
+local inc = -0.002;
+fe.add_ticks_callback("on_tick");
+function on_tick(ttime) {
+    strength += inc;
+    if (strength <= -0.25 || strength > 0.25) inc *= -1;
+    set_props(a, strength);
+    set_props(b, strength);
+}

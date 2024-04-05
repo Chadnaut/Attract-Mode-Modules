@@ -1,3 +1,13 @@
+##################################################
+# Keypress
+#
+# Send keypress to a window
+# Version 0.2.0
+# Chadnaut 2024
+# https://github.com/Chadnaut/Attract-Mode-Modules
+#
+##################################################
+
 import sys, argparse, win32con
 from win32gui import SendMessage, EnumWindows, GetWindowText, GetClassName, GetForegroundWindow
 

@@ -1,4 +1,4 @@
-# Send Keypress
+# Keypress
 
 > Send keypress to a window  
 > Version 0.2.0  

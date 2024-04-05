@@ -1,3 +1,13 @@
+/*################################################
+# UnitTest
+#
+# Testing and benchmarking
+# Version 1.0.0
+# Chadnaut 2024
+# https://github.com/Chadnaut/Attract-Mode-Modules
+#
+################################################*/
+
 fe.do_nut(fe.module_dir + "utils.nut");
 
 fe.load_module("stringify");

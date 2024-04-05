@@ -1,3 +1,13 @@
+/*################################################
+# Retention
+#
+# Surface image persistence
+# Version 0.7.2
+# Chadnaut 2024
+# https://github.com/Chadnaut/Attract-Mode-Modules
+#
+################################################*/
+
 class Retention {
     _dir = ::fe.module_dir;
     _obj = null;

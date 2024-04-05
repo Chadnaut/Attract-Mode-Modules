@@ -7,7 +7,7 @@
 
 ## Requirements
 
-[Python 3.12.1](https://www.python.org/downloads/) - (Lower versions *may* work)
+[Python 3.12.1](https://www.python.org/downloads/)
 
 ```sh
 python -m pip install --upgrade pyuac
@@ -23,7 +23,7 @@ On first run `config.ini` will be created - edit this file with your preferred l
 
 Symbolic links are created for each listing in `config.ini`, removing the need to copy files from your development path to various AM locations.
 
-## Config
+## Example
 
 ```ini
 [link]

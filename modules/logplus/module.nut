@@ -1,3 +1,13 @@
+/*################################################
+# LogPlus
+#
+# Extended logging functionality
+# Version 0.6.0
+# Chadnaut 2024
+# https://github.com/Chadnaut/Attract-Mode-Modules
+#
+################################################*/
+
 if ("logplus" in this) return;
 
 fe.load_module("stringify");

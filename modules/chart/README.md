@@ -1,7 +1,7 @@
 # Chart
 
 > Plot events over time  
-> Version 1.1.0  
+> Version 1.2.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -41,8 +41,11 @@ The first time `add()` is called the timeline is created; each subsequent call i
 - `align` *Align* - Get/set timeline label alignment.
 - `margin` *int* - Get/set timeline label margin.
 - `scroll` *bool* - Get/set timeline animation.
+- `pace` *bool* - Get/set if timeline should maintain a stable pace.
 - `grid` *int* - Get/set millisecond interval of timeline grid.
-- `theme` *array* - Get/set theme colours for [bg, grid, label, timelines...] `[[r,g,b], ...]`.
+- `theme` *object* - Get/set theme colour object
+  - `{ background, grid, head, lag, text, chart[] }` where each is `[r,g,b]`
+  - See code for example
 - `zorder` *int* - Get/set zorder of chart.
 - `visible` *bool* - Get/set visibility of chart.
 
@@ -58,3 +61,11 @@ Note<sup>1</sup> - Cannot be changed once timelines added.
         - `function (value, frame_time) { return value; }`
         - `@(v, t) v` Same as above but written as a lambda.
 - `clear()` - Clear the chart.
+
+## About Pace
+
+If your layout performs too many operations in a single tick it may *lag*, which results in a lower framerate. The timeline head will turn from **white** to **red** to indicate this.
+
+By default `pace` is set to `true`, which maintains the timeline speed even if the framerate drops - everything gets `stretched` out a bit so grid lines keep the same relative spacing.
+
+When `pace` is set to `false`, the chart will lag along with the framerate, which results in grid lines being drawn too close together during periods of lag.

@@ -25,8 +25,23 @@ class Chart {
         align = null,
         margin = 10,
         scroll = false,
+        pace = true,
         grid = 1000,
-        theme = [[0, 0, 0], [40, 40, 40], [255, 255, 255, 255], [170, 255, 0], [255, 170, 0], [255, 0, 170], [170, 0, 255], [0, 170, 255]],
+        theme = {
+            background = [0, 0, 0],
+            background_lag = [50, 0, 0],
+            grid = [40, 40, 40],
+            head = [255, 255, 255],
+            head_lag = [255, 0, 0],
+            text = [255, 255, 255, 255],
+            chart = [
+                [170, 255, 0],
+                [255, 170, 0],
+                [255, 0, 170],
+                [170, 0, 255],
+                [0, 170, 255],
+            ],
+        },
         zorder = 2147483647,
         visible = true,
     };
@@ -37,6 +52,11 @@ class Chart {
     _container = null;
     _bg = null;
     _head = null;
+
+    _last_grid_tick = null;
+    _last_tick_frames = null;
+    _last_tick_lag = null;
+    _frame_budget = ::ceil(1000.0 / ScreenRefreshRate);
 
     // =============================================
 
@@ -143,11 +163,11 @@ class Chart {
         text.zorder = zorder;
         text.align = align ? align : scroll ? Align.TopRight : Align.TopLeft;
 
-        local text_col = theme[2];
+        local text_col = theme.text;
         text.set_rgb(text_col[0], text_col[1], text_col[2]);
-        text.alpha = text_col[3];
+        text.alpha = (text_col.len() == 4) ? text_col[3] : 255;
 
-        local bg_col = theme[0];
+        local bg_col = theme.background;
         if ("set_outline_rgb" in text) {
             text.set_outline_rgb(bg_col[0], bg_col[1], bg_col[2]);
             text.outline = outline;
@@ -163,10 +183,21 @@ class Chart {
 
     // refresh single bar props
     function refresh_bar(bar, index) {
-        local col = theme[3 + (index % (theme.len() - 3))];
+        local col = theme.chart[index % theme.chart.len()];
         bar.set_rgb(col[0], col[1], col[2]);
         bar.height = height;
         bar.y = index * height + height;
+    }
+
+    // if a tick takes more than a frame, change the thickness to fill the gap
+    function set_tick_frames(frame_count) {
+        local frame_thickness = frame_count * thickness;
+        _bg.width = frame_thickness;
+        _head.width = frame_thickness;
+        foreach (timeline in _timelines) {
+            timeline.bar.width = frame_thickness;
+            timeline.bar.origin_x = frame_thickness;
+        }
     }
 
     // =============================================
@@ -221,32 +252,52 @@ class Chart {
         if (!_container || !visible) return;
         _container.clear = false;
 
-        local next_time = fe.layout.time;
-        local frame_time = next_time - _last_time;
-        local grid_tick = !!grid && ((_last_time / grid).tointeger() != (next_time / grid).tointeger());
-        _last_time = next_time;
+        local frame_time = ttime - _last_time;
+        local grid_tick = !!grid && ((_last_time / grid).tointeger() != (ttime / grid).tointeger());
+        _last_time = ttime;
+
+        // check frame time, if more than expected AM is lagging
+        local frame_count = 1;
+        local tick_frames = (::ceil(frame_time / _frame_budget)).tointeger();
+
+        // AM frequently has a single frame that goes over budget - ignore it!
+        local tick_lag = (tick_frames != 1) && (_last_tick_frames != 1);
+        local change_lag = (_last_tick_lag != tick_lag);
+        _last_tick_frames = tick_frames;
+        _last_tick_lag = tick_lag;
+
+        if (pace && (change_lag || tick_lag)) {
+            frame_count = tick_frames;
+            set_tick_frames(tick_frames);
+        }
 
         local pos = (_frame * thickness) % (width + (scroll ? thickness : 0));
-        local col = theme[grid_tick ? 1 : 0];
-        _bg.set_rgb(col[0], col[1], col[2]);
         _bg.x = pos;
+        if (change_lag || _last_grid_tick != grid_tick) {
+            _last_grid_tick = grid_tick;
+            local col = grid_tick ? theme.grid : (tick_lag ? theme.background_lag : theme.background);
+            _bg.set_rgb(col[0], col[1], col[2]);
+        }
 
-        local value;
+        local value, bar;
         foreach (timeline in _timelines) {
             value = timeline.callback ? timeline.callback(timeline.value, frame_time) : timeline.value;
             value = ceil(value / timeline.max * height);
             value = (value > height) ? height : (value < 0) ? 0 : value;
             timeline.value = 0;
-            timeline.bar.x = pos;
-            timeline.bar.height = value;
-            timeline.bar.visible = !!value;
+            bar = timeline.bar;
+            bar.x = pos;
+            bar.height = value;
+            bar.visible = !!value;
         }
 
-        _frame++;
+        _frame += frame_count;
         if (scroll) {
             _container.subimg_x = _frame * thickness;
         } else {
             _head.x = (_frame * thickness) % width;
+            local col = tick_lag ? theme.head_lag : theme.head;
+            _head.set_rgb(col[0], col[1], col[2]);
         }
     }
 }

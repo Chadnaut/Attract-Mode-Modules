@@ -25,6 +25,11 @@
                 return "[" + ((res != "") ? (res + cr + indent) : "") + "]";
 
             case "string":
+                local i, start = 0;
+                while ((i = value.find(@"""", start)) != null) {
+                    value = value.slice(0, i) + @"""" + value.slice(i);
+                    start = i + 2;
+                }
                 return @"""" + value + @"""";
 
             case "float":

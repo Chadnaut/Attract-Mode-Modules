@@ -12,11 +12,11 @@ class UnitTest {
         catch_error = true,
         warmup_frames = 10,
         summary = false,
-        theme = [
-            [[255, 255, 255], [0,   0, 0]],
-            [[0,   255,   0], [0,   0, 0]],
-            [[255,   0,   0], [200, 0, 0]],
-        ],
+        theme = {
+            pending = { text_rgb = [255, 255, 255], bg_rgb = [0,   0, 0] },
+            success = { text_rgb = [0,   255,   0], bg_rgb = [0,   0, 0] },
+            failure = { text_rgb = [255,   0,   0], bg_rgb = [200, 0, 0] },
+        },
     };
 
     _suites = [];           // stores all suites
@@ -356,8 +356,8 @@ class UnitTest {
             }
 
             // print to console
-            local cols = theme[!complete ? 0 : success ? 1 : 2];
-            console.print(message, cols[0], cols[1]);
+            local options = !complete ? theme.pending : success ? theme.success : theme.failure;
+            console.print(message, options);
         }
     }
 

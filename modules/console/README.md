@@ -1,7 +1,7 @@
 # Console
 
 > Coloured message list with animated typing  
-> Version 0.8.0  
+> Version 0.9.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -20,11 +20,11 @@ fe.load_module("console");
 ::console.line_delay = 100; 
 ::console.line_wait = true;
 
-::console.print("Success", [0, 255, 0]); // with text colour
+::console.print("Success", { text_rgb = [0, 255, 0] }); // with text colour
 ::console.print("Info");
 ::console.print({ a = 1, b = 2.0 }); // print objects
 ::console.print();
-::console.print("Failure", null, [200, 0, 0, 255]); // with bg colour
+::console.print("Failure", { bg_rgb = [200, 0, 0, 255] }); // with bg colour
 ```
 
 ![Example](example.png)\
@@ -38,7 +38,9 @@ fe.load_module("console");
 - `height` *int* - Get/set<sup>1</sup> height of console.
 - `font` *string* - Get/set<sup>1</sup> console font.
 - `char_size` *int* - Get/set<sup>1</sup> console font size.
+- `char_space` *int* - Get/set<sup>1</sup> console char space.
 - `line_space` *int* - Get/set<sup>1</sup> console font line space.
+- `align` *Align* - Get/set text alignment.
 - `lines` *int* - Get total number of printed lines.
 - `lines_total` *int* - Get total number of lines that fit in the console.
 - `text_red` *int* - Get/set red colour level of console text.
@@ -59,12 +61,21 @@ Note<sup>1</sup> - Cannot be changed once messages are printed.
 
 ## Functions
 
-- `print(message, text_rgb?, bg_rgb?)` - Add message to the console, rgb = [r,g,b].
+- `print(message, options?)` - Add message to the console
 - `clear()` - Clear all messages.
 - `flush()` - Output all pending (delayed) messages.
 - `get_message(index)` - Return message for line.
 - `set_message(index, message)` - Set message for line.
-- `get_text_rgb(index?)` - Get text_rgb for line, or default.
-- `set_text_rgb(index?, r, g, b)` - Set text_rgb for line, or default.
-- `get_bg_rgb(index?)` - Set bg_rgb for line, or default.
-- `set_bg_rgb(index?, r, g, b)` - Get bg_rgb for line, or default.
+- `get_options(index)` - Return options for line.
+- `set_options(index, options)` - Set options for line.
+- `set_text_rgb(r, g, b)` - Set defaut text_rgb.
+- `set_bg_rgb(r, g, b)` - Set default bg_rgb.
+
+Where `options` are:
+- `text_rgb` *[r,g,b]* - Text colour
+- `bg_rgb` *[r,g,b]* - Background color
+- `align` *Align* - Alignment
+
+# Further Reading
+
+- [C64 TrueType (TTF) Fonts](https://style64.org/c64-truetype)

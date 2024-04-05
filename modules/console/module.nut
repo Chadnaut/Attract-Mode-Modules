@@ -7,6 +7,7 @@ class Console {
         height = fe.layout.height,
         font = fe.layout.font,
         char_size = 24,
+        char_spacing = 1.0,
         line_space = 0,
     };
 
@@ -29,6 +30,7 @@ class Console {
         bg_red = 0,
         bg_green = 0,
         bg_blue = 0,
+        align = Align.Left,
         alpha = 255,
         zorder = 2147483647,
         visible = true,
@@ -58,6 +60,7 @@ class Console {
             buffer = 0,
             text_rgb = [text_red, text_green, text_blue],
             bg_rgb = [bg_red, bg_green, bg_blue],
+            align = Align.Left,
         };
         fe.add_ticks_callback(this, "on_tick");
     }
@@ -110,6 +113,10 @@ class Console {
                 refresh_container();
                 break;
 
+            case "align":
+                _item_default.align = val;
+                break;
+
             case "text_red":
             case "text_green":
             case "text_blue":
@@ -124,59 +131,84 @@ class Console {
         }
     }
 
-    function in_range(index) {
-        return index < _data.len();
+    // =============================================
+
+    function format_text_rgb(value) {
+        return (!value || (typeof value != "array") || (value.len() < 3))
+            ? clone _item_default.text_rgb
+            : value;
     }
 
-    function get_message(index = -1) {
-        return in_range(index)
-            ? _data[index].message
-            : null;
-        }
+    function format_bg_rgb(value) {
+        return (!value || (typeof value != "array") || (value.len() < 3))
+            ? clone _item_default.bg_rgb
+            : value;
+    }
 
-    function get_text_rgb(index = -1) {
-        return in_range(index)
-            ? _data[index].text_rgb
-            : _item_default.text_rgb;
-        }
+    function format_align(value) {
+        return (value != null) ? value : _item_default.align;
+    }
 
-    function get_bg_rgb(index = -1) {
-        return in_range(index)
-            ? _data[index].bg_rgb
-            : _item_default.bg_rgb;
-        }
+    function format_message(value) {
+        if (value == "") value = " ";
+        if (typeof value != "string") value = stringify(value, "    ");
+        return value;
+    }
+
+    // =============================================
+
+    function get_item(index) {
+        return (index < _data.len()) ? _data[index] : null;
+    }
+
+    function get_message(index) {
+        local item = get_item(index);
+        if (!item) return null;
+        return item.message;
+    }
 
     function set_message(index, message) {
-        if (in_range(index)) {
-            if (typeof message != "string") message = stringify(message);
-            _data[index].message = message,
-            _data[index].buffer = char_delay ? 0 : message.len(),
-            redraw();
-        }
+        local item = get_item(index);
+        if (!item) return null;
+        message = format_message(message);
+        item.message = message;
+        item.buffer = char_delay ? 0 : message.len();
+        redraw();
     }
-    function set_text_rgb(...) {
-        switch (vargv.len()) {
-            case 3:
-                _item_default.text_rgb = vargv;
-            case 4:
-                local index = vargv[0];
-                if (in_range(index)) {
-                    _data[index].text_rgb = vargv.slice(1);
-                    redraw();
-                }
-        }
+
+    function get_options(index) {
+        local item = get_item(index);
+        if (!item) return null;
+        item = clone item;
+        delete item.message;
+        delete item.buffer;
+        return item;
     }
-    function set_bg_rgb(...) {
-        switch (vargv.len()) {
-            case 3:
-                _item_default.bg_rgb = vargv;
-            case 4:
-                local index = vargv[0];
-                if (in_range(index)) {
-                    _data[index].bg_rgb = vargv.slice(1);
-                    redraw();
-                }
+
+    function set_options(index, options) {
+        local item = get_item(index);
+        if (!item) return;
+
+        foreach (key, val in options) {
+            switch (key) {
+                case "text_rgb":    item[key] = format_text_rgb(val); break;
+                case "bg_rgb":      item[key] = format_bg_rgb(val); break;
+                case "align":       item[key] = format_align(val); break;
+            }
         }
+        redraw();
+    }
+
+    function set_text_rgb(r, g, b) {
+        text_red = r;
+        text_green = g;
+        text_blue = b;
+    }
+
+    function set_bg_rgb(r, g, b) {
+        bg_red = r;
+        bg_green = g;
+        bg_blue = b;
     }
 
     // =============================================
@@ -189,6 +221,7 @@ class Console {
         local first = _container.add_text("", 0, 0, width, height);
         if (font && font != "") first.font = font;
         first.char_size = char_size;
+        first.char_spacing = char_spacing;
         first.margin = 0;
         first.word_wrap = true;
         first.msg = "M";
@@ -209,9 +242,10 @@ class Console {
             local line = (i == 0) ? first : _container.add_text("", 0, i * line_height, width, line_height);
             if (font && font != "") line.font = font;
             line.char_size = char_size;
+            line.char_spacing = char_spacing;
             line.word_wrap = false;
             line.margin = line_head;
-            line.align = Align.MiddleLeft;
+            line.align = align;
             _texts.push(line);
         }
 
@@ -230,23 +264,25 @@ class Console {
     // =============================================
 
     // Add message to console
-    function print(message = "", text_rgb = null, bg_rgb = null) {
+    function print(message = "", options = null) {
         init_container();
 
         // split message into parts around carriage return
-        if (message == "") message = " ";
-        if (typeof message != "string") message = stringify(message, "    ");
-        local messages = split(message, "\n");
+        local messages = split(format_message(message), "\n");
 
-        if (!text_rgb || typeof text_rgb != "array") text_rgb = clone _item_default.text_rgb;
-        if (!bg_rgb || typeof bg_rgb != "array") bg_rgb = clone _item_default.bg_rgb;
+        //  text_rgb = null, bg_rgb = null
+        if (options == null) options = {};
+        local line_text_rgb = format_text_rgb(("text_rgb" in options) ? options.text_rgb : null);
+        local line_bg_rgb = format_bg_rgb(("bg_rgb" in options) ? options.bg_rgb : null);
+        local line_align = format_align(("align" in options) ? options.align : null);
 
         // add each part to lines array
         foreach (message in messages) _buffer.push({
             message = message,
             buffer = char_delay ? 0 : message.len(),
-            text_rgb = text_rgb,
-            bg_rgb = bg_rgb,
+            text_rgb = line_text_rgb,
+            bg_rgb = line_bg_rgb,
+            align = line_align,
         });
 
         if (!line_delay && (!line_wait || (char_delay == 0))) {
@@ -272,18 +308,6 @@ class Console {
             item.buffer = item.message.len();
         }
         redraw();
-    }
-
-    function refresh_buffer() {
-        local delay = char_delay;
-        foreach (item in _buffer) {
-            item.buffer = delay ? 0 : item.message.len();
-        }
-        if (delay == 0) {
-            foreach (item in _data) {
-                item.buffer = item.message.len();
-            }
-        }
     }
 
     // =============================================
@@ -340,6 +364,18 @@ class Console {
 
     // =============================================
 
+    function refresh_buffer() {
+        local delay = char_delay;
+        foreach (item in _buffer) {
+            item.buffer = delay ? 0 : item.message.len();
+        }
+        if (delay == 0) {
+            foreach (item in _data) {
+                item.buffer = item.message.len();
+            }
+        }
+    }
+
     // Redraw all lines
     function redraw() {
         if (_data.len() > _lines) _data = _data.slice(-_lines);
@@ -347,6 +383,7 @@ class Console {
         foreach (i, text in _texts) {
             local item = (i < len) ? _data[i] : _item_default;
             text.msg = item.message.slice(0, item.buffer);
+            text.align = item.align;
             local text_rgb = item.text_rgb;
             text.set_rgb(text_rgb[0], text_rgb[1], text_rgb[2]);
             local bg_rgb = item.bg_rgb;

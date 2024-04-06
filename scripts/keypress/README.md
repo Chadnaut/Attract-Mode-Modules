@@ -17,7 +17,7 @@ python -m pip install --upgrade pywin32
 ## Usage
 
 ```sh
-python send_keypress.py key window_name? class_name?
+python keypress.py key window_name? class_name?
 ```
 
 - `key` - Key to press & release.
@@ -37,10 +37,10 @@ During development it is useful to automatically reload the layout after you've 
 
 ```sh
 # First send ESCAPE to exit any open menus
-python ./scripts/keypress/send_keypress.py VK_ESCAPE Attract-Mode SFML_Window
+python ./scripts/keypress/keypress.py VK_ESCAPE Attract-Mode SFML_Window
 
 # Then send F5 to trigger a layout reload
-python ./scripts/keypress/send_keypress.py VK_F5 Attract-Mode SFML_Window
+python ./scripts/keypress/keypress.py VK_F5 Attract-Mode SFML_Window
 ```
 
 When using [VSCode](https://code.visualstudio.com/download) the extension [RunOnSave](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave) can be used to call these actions. Add the `"emeraldwalk.runonsave"` section to your `.code-workspace` file.
@@ -51,7 +51,7 @@ When using [VSCode](https://code.visualstudio.com/download) the extension [RunOn
     "commands": [
       {
         "match": ".*",
-        "cmd": "python ./scripts/keypress/send_keypress.py VK_ESCAPE Attract-Mode SFML_Window && python ./scripts/keypress/send_keypress.py VK_F5 Attract-Mode SFML_Window"
+        "cmd": "python ./scripts/keypress/keypress.py VK_ESCAPE Attract-Mode SFML_Window && python ./scripts/keypress/keypress.py VK_F5 Attract-Mode SFML_Window"
       }
     ]
   }

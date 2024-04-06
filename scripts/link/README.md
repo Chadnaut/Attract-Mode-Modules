@@ -16,7 +16,7 @@ python -m pip install --upgrade pyuac
 ## Usage
 
 ```sh
-python add_symlinks.py
+python link.py
 ```
 
 On first run `config.ini` will be created - edit this file with your preferred links then run the script again.

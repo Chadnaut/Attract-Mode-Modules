@@ -2,7 +2,7 @@
 # Perspective
 #
 # Perspective correct texture mapping
-# Version 0.5.1
+# Version 0.5.2
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -75,16 +75,22 @@ class Perspective {
                 break;
 
             case "width":
-            case "height":
-            case "rotation":
             case "offset_tl_x":
-            case "offset_tl_y":
             case "offset_bl_x":
-            case "offset_bl_y":
             case "offset_tr_x":
-            case "offset_tr_y":
             case "offset_br_x":
+                _obj.shader.set_param(idx, val * ScreenWidth / ::fe.layout.width);
+                break;
+
+            case "height":
+            case "offset_tl_y":
+            case "offset_bl_y":
+            case "offset_tr_y":
             case "offset_br_y":
+                _obj.shader.set_param(idx, val * ScreenHeight / ::fe.layout.height);
+                break;
+
+            case "rotation":
                 _obj.shader.set_param(idx, val);
                 break;
         }

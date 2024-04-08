@@ -6,18 +6,6 @@ scripts/link/*.ini
 TODO.md
 *.zip
 
-color/
-event/
-group/
-loop/
-relativity/
-sequence/
-wrapper/
-Example.Color/
-Example.Group/
-Example.Relativity/
-Example.Sequence/
-
 attract.am
 attract.cfg
 last_run.log

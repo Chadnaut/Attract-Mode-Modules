@@ -18,6 +18,7 @@ Extra features designers can use to build layouts.
 |<img src="./modules/mask/example.png" width="100"/>|v0.3.1|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
 |<img src="./modules/perspective/example.png" width="100"/>|v0.5.2|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
 |<img src="./modules/retention/example.png" width="100"/>|v0.7.2|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
+|Coming Soon|-|[Sequence](./modules/sequence/README.md) - Stackable animation system|Coming Soon|
 
 ## For Developers
 

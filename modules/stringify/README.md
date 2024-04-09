@@ -1,7 +1,7 @@
 # Stringify
 
 > JSON-like value stringification  
-> Version 0.1.1  
+> Version 0.1.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

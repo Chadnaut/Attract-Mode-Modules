@@ -2,7 +2,7 @@
 # Stringify
 #
 # JSON-like value stringification
-# Version 0.1.1
+# Version 0.1.2
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -24,7 +24,7 @@
                 foreach (k, v in value) keys.push(k);
                 keys.sort(@(a, b) a.tostring() <=> b.tostring());
                 foreach (i, k in keys) {
-                    key = !!regexp(@"^[A-Za-z0-9_]*$").capture(k.tostring()) ? k : @"[""" + k + @"""]";
+                    key = !!regexp(@"^[A-Za-z_][A-Za-z_0-9]*$").capture(k.tostring()) ? k : @"[""" + k + @"""]";
                     res += (i ? ", " : "") + cr + indent + space + key + " = " + _stringify(value[k], indent + space);
                 }
                 return "{" + ((res != "") ? (res + cr + indent) : "") + "}";
@@ -40,7 +40,9 @@
                     value = value.slice(0, i) + @"""" + value.slice(i);
                     start = i + 2;
                 }
-                return @"""" + value + @"""";
+                return (value.find("\\") != null)
+                    ? @"@""" + value + @""""
+                    : @"""" + value + @"""";
 
             case "float":
                 local res = value.tostring();

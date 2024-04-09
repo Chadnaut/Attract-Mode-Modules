@@ -189,7 +189,9 @@ def updateItems(summary, path, readme_file, script_file):
         readme_data.readme = readme.replace('../.', '')
 
         script = f'{d.replace('\\', '/')}/{script_file}'
-        if not os.path.isfile(script): script = glob.glob(script)[0]
+        if not os.path.isfile(script):
+            results = glob.glob(script)
+            script = results[0] if results else ''
         script_data = parseScript(script)
         if not script_data:
             if skipped: print(f'{readme_data.title} - skipped (no script)')

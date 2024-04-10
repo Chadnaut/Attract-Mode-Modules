@@ -36,7 +36,7 @@ describe("Frontend Display", function() {
         fe.set_display(fe.list.display_index + 1, false, false);
         wait();
     });
-    it("should next_display ToNewList", function() {
+    it("should set_display ToNewList", function() {
         expect(tlist).toHaveLength(1);
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 0 });
     });

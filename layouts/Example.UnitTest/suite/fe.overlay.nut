@@ -69,7 +69,7 @@ describe("Frontend Overlay", function() {
         keypress("VK_ESCAPE");
         wait(10);
     });
-    it("should configure", function() {
+    it("should configure zero transitions", function() {
         expect(tlist).toHaveLength(0);
     });
 

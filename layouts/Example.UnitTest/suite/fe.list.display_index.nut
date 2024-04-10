@@ -1,5 +1,5 @@
 describe("Frontend List Display Index", function() {
-    it("should have >= 3 displays to test", function() {
+    it("should have >= 4 displays to test", function() {
         expect(fe.displays.len()).toBeGreaterThanOrEqual(4);
     });
 

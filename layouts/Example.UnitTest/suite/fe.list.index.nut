@@ -1,5 +1,5 @@
 describe("Frontend List Index", function() {
-    it("should have >= 3 list items to test", function() {
+    it("should have >= 4 list items to test", function() {
         expect(fe.list.size).toBeGreaterThanOrEqual(4);
     });
 

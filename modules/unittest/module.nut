@@ -2,7 +2,7 @@
 # UnitTest
 #
 # Testing and benchmarking
-# Version 1.0.0
+# Version 1.0.1
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -25,7 +25,7 @@ class UnitTest {
         theme = {
             pending = { text_rgb = [255, 255, 255], bg_rgb = [0,   0, 0] },
             success = { text_rgb = [0,   255,   0], bg_rgb = [0,   0, 0] },
-            failure = { text_rgb = [255,   0,   0], bg_rgb = [200, 0, 0] },
+            failure = { text_rgb = [255,   0,   0], bg_rgb = [100, 0, 0] },
         },
     };
 
@@ -371,15 +371,23 @@ class UnitTest {
         }
     }
 
+    function print_log(message) {
+        if ("log" in fe) {
+            fe.log(message);
+        } else {
+            print(message + "\n");
+        }
+    }
+
     // Print results to last_run.log
     function print_report() {
-        print("\n" + (_bench ? "Benchmark" : "Test") + (summary ? " Summary" : " Results") + "\n\n");
+        print_log("\n" + (_bench ? "Benchmark" : "Test") + (summary ? " Summary" : " Results") + "\n");
 
         local end_time = fe.layout.time;
         local total_error = has_errors();
         local total_specs = 0;
         local total_fails = 0;
-        if (!_bench && summary && !total_error) print("INFO - All suites passed!\n");
+        if (!_bench && summary && !total_error) print_log("INFO - All suites passed!");
 
         foreach (suite in _suites) {
             local pass = 0;
@@ -392,7 +400,7 @@ class UnitTest {
             }
 
             // Suite title
-            if (_bench || (!summary || !!fail)) print(@"""" + suite.title + @"""" + "\n");
+            if (_bench || (!summary || !!fail)) print_log(@"""" + suite.title + @"""");
 
             // Sort by benchmark results
             local max_calls = 0;
@@ -403,32 +411,32 @@ class UnitTest {
             }
 
             if (!specs.len()) {
-                print("  WARN no specs\n");
+                print_log("  WARN no specs");
             }
 
             foreach (i, spec in specs) {
                 if (spec.errors.len()) {
                     // Spec errors
-                    print("  WARN " + spec.title + "\n");
-                    foreach (error in spec.errors) print("    " + error + "\n");
+                    print_log("  WARN " + spec.title + "\n");
+                    foreach (error in spec.errors) print_log("    " + error);
                 } else {
                     if (_bench && !total_error) {
                         // Bench result
                         if (!summary || (i == 0)) {
                             local percent = ("  " + ceil(spec.calls * 100.0 / max_calls)).slice(-3);
-                            print("  " + percent + "% " + spec.title + " (" + spec.calls + ")\n");
+                            print_log("  " + percent + "% " + spec.title + " (" + spec.calls + ")");
                         }
                     } else if (!summary || total_error) {
                         // Passed
-                        print("  INFO " + spec.title + "\n");
+                        print_log("  INFO " + spec.title);
                     }
                 }
             }
         }
 
         // Footer
-        print("\n" + _suites.len() + " suites, " + total_specs + " specs, " + total_fails + " failures\n");
-        if (_bench) print("Benchmark for " + (_duration / 1000.0) + " seconds\n");
-        print("Finished in " + ((end_time - _start) / 1000.0) + " seconds\n\n");
+        print_log("\n" + _suites.len() + " suites, " + total_specs + " specs, " + total_fails + " failures");
+        if (_bench) print_log("Benchmark for " + (_duration / 1000.0) + " seconds");
+        print_log("Finished in " + ((end_time - _start) / 1000.0) + " seconds\n");
     }
 }

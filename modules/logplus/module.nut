@@ -2,7 +2,7 @@
 # LogPlus
 #
 # Extended logging functionality
-# Version 0.6.0
+# Version 0.6.1
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -89,7 +89,7 @@ class LogPlus {
             value += (
                     show_specials
                     && typeof v == "string"
-                    && !!regexp(@"("+OBJ+"|"+BULLET+"|"+KEYWORD+"|"+DATETIME+"|"+TIMEINFO+@")$").capture(v)
+                    && !!regexp(@"^("+OBJ+"|"+BULLET+"|"+KEYWORD+"|"+DATETIME+"|"+TIMEINFO+@")$").capture(v)
                 ) ? v : ::stringify(v, indent);
         }
         return value;

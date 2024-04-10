@@ -2,7 +2,7 @@
 # Stringify
 #
 # JSON-like value stringification
-# Version 0.1.2
+# Version 0.1.3
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -36,11 +36,13 @@
 
             case "string":
                 local i, start = 0;
+                local verbatim = value.find("\\") != null;
                 while ((i = value.find(@"""", start)) != null) {
                     value = value.slice(0, i) + @"""" + value.slice(i);
                     start = i + 2;
+                    verbatim = true;
                 }
-                return (value.find("\\") != null)
+                return verbatim
                     ? @"@""" + value + @""""
                     : @"""" + value + @"""";
 

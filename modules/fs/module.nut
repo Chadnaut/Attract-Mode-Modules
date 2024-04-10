@@ -2,26 +2,32 @@
 # FileSystem
 #
 # File reading and writing
-# Version 0.3.0
+# Version 0.4.0
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
 ################################################*/
 
-class ReadFileHandler {
+class FileHandler {
 
     path = "";
     chunksize = 1024;
     _file = null;
     _blob = null;
+    _mode = null;
 
-    constructor(_path) {
+    constructor(_path, mode = "r") {
         path = _path;
+        _mode = mode;
         try {
-            _file = file(path, "r");
+            _file = file(path, mode);
         } catch (err) {
-            print(err + "\n");
+            error("Cannot open", err);
         }
+    }
+
+    function error(message, error) {
+        print(format("%s '%s' [%s] - %s\n", message, error, _mode, path));
     }
 
     // Return length of file
@@ -42,12 +48,24 @@ class ReadFileHandler {
         return this;
     }
 
-    // Place read pointer at start of file
+    // Place pointer at start of file
     function rewind() {
-        if (_file) _file.seek(0, 'b');
+        return seek(0, 'b');
+    }
+
+    // Place pointer at end of file
+    function end() {
+        return seek(0, 'e');
+    }
+
+    // Move pointer within file
+    function seek(offset, origin = 'c') {
+        if (_file) _file.seek(offset, origin);
         _blob = null;
         return this;
     }
+
+    // ------------------------------------------
 
     // Return entire file as string
     function read() {
@@ -67,59 +85,26 @@ class ReadFileHandler {
 
     // Return next line in file, or null if none
     function read_line() {
-        if (_file == null || _file.eos()) return null;
+        if ((!_file || _file.eos()) && (!_blob || _blob.eos())) return null;
         local line = "";
         local char;
-        while (!_file.eos()) {
-            if (_blob == null || _blob.eos()) _blob = _file.readblob(chunksize);
-            while (!_blob.eos()) {
-                char = _blob.readn('b');
-                if (char == 10) return line; // 10 = newline
-                line += char.tochar();
+        try {
+            while (!_blob || !_blob.eos() || !_file.eos()) {
+                if (!_blob || _blob.eos()) _blob = _file.readblob(chunksize);
+                while (!_blob.eos()) {
+                    char = _blob.readn('b');
+                    if (char == 10) return line; // 10 = newline
+                    line += char.tochar();
+                }
             }
+        } catch (err) {
+            error("Cannot read", err);
+            return null;
         }
         return line;
     }
-}
 
-// =====================================================
-
-class WriteFileHandler {
-
-    path = "";
-    _file = null;
-
-    constructor(_path) {
-        path = _path;
-        try {
-            _file = file(path, "w");
-        } catch (err) {
-            print(err + "\n");
-        }
-    }
-
-    // Return length of file
-    function len() {
-        return _file ? _file.len() : null;
-    }
-
-    // Return true if file exists
-    function exists() {
-        return !!_file;
-    }
-
-    // Close file
-    function close() {
-        if (_file) _file.close();
-        _file = null;
-        return this;
-    }
-
-    // Place write pointer at start of file
-    function rewind() {
-        if (_file) _file.seek(0, 'b');
-        return this;
-    }
+    // ------------------------------------------
 
     // Write array of strings to file
     function write_lines(lines) {
@@ -135,13 +120,18 @@ class WriteFileHandler {
     // Write string to file
     function write(text) {
         if (!_file) return this;
-        if (typeof text != "string") text = text.tostring();
-        local b = blob(text.len());
-        for (local i=0, n=text.len(); i<n; i++) b.writen(text[i], 'b');
-        _file.writeblob(b);
+        try {
+            if (typeof text != "string") text = text.tostring();
+            local b = blob(text.len());
+            for (local i=0, n=text.len(); i<n; i++) b.writen(text[i], 'b');
+            _file.writeblob(b);
+        } catch (err) {
+            error("Cannot write", err);
+        }
         return this;
     }
 }
+
 
 // =====================================================
 
@@ -170,9 +160,7 @@ local readdir = function(path, absolute_path = false) {
 // =====================================================
 
 ::fs <- {
-    open = @(path, mode = "r") (mode == "w")
-        ? WriteFileHandler(path)
-        : ReadFileHandler(path),
+    open = @(path, mode = "r") FileHandler(path, mode),
     readdir = readdir,
     join = join,
 };

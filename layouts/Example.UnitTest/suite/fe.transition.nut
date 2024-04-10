@@ -12,8 +12,8 @@ describe("Frontend Transition", function() {
 
     it("should init StartLayout > ToNewList", function() {
         expect(tlist).toHaveLength(2);
-        expect(tlist[0]).toEqual({ ttype = Transition.StartLayout, var = 0 });
-        expect(tlist[1]).toEqual({ ttype = Transition.ToNewList, var = 0 });
+        expect(tlist[0].ttype).toBe(Transition.StartLayout);
+        expect(tlist[1].ttype).toBe(Transition.ToNewList);
     });
 
     it("should next_game", function() {

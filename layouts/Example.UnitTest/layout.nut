@@ -17,10 +17,13 @@ fe.do_nut("suite/fe.list.index.nut");
 fe.do_nut("suite/fe.list.filter_index.nut");
 
 // // These suites require ALL displays to use this layout
+// // - The display will be changed during these tests
 // fe.do_nut("suite/fe.list.display_index.nut");
 // fe.do_nut("suite/fe.display.nut");
 
 // // These suites require "scripts" in your AM folder (see the repo)
+// // - Overlays will be shown during these tests
+// // - Keypresses will be fired during these tests
 // fe.do_nut("suite/fe.overlay.nut");
 
 ut.test();

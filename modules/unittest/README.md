@@ -1,7 +1,7 @@
 # UnitTest
 
 > Testing and benchmarking  
-> Version 1.0.1  
+> Version 1.1.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -96,6 +96,9 @@ local ut = UnitTest();
 - `it(title, callback)` - Add a spec to the suite.
   - `title` *string* - Name of the spec.
   - `callback` *function* - Function containing tests.
+- `before(title, callback)` - Execute code before a spec.
+  - `title` *string* - Name of the action.
+  - `callback` *function* - Function containing setup.
 
 ## Spec Functions
 

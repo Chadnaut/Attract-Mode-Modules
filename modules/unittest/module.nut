@@ -2,7 +2,7 @@
 # UnitTest
 #
 # Testing and benchmarking
-# Version 1.0.1
+# Version 1.1.0
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -103,6 +103,7 @@ class UnitTest {
             calls = 0,          // callback run count
             wait = 0,           // frames wait after callback
             matchers = 0,       // number of matchers in callback
+            omit = false,
         };
 
         if (focus) {
@@ -111,6 +112,12 @@ class UnitTest {
         } else if (!_suite.specs.len() || !_suite.specs[0].focus) {
             _suite.specs.push(spec);
         }
+    }
+
+    // perform a callback before the next spec, but omit it from results (unless error)
+    function before(title, callback) {
+        it(title, callback);
+        _suite.specs.top().omit = true;
     }
 
     // Set expected response - called during spec
@@ -342,14 +349,16 @@ class UnitTest {
 
             // tally passes and fails
             foreach (spec in suite.specs) {
+                if (spec.omit) continue;
                 local error = !!spec.errors.len();
                 pass += (!error && !!spec.calls) ? 1 : 0;
                 fail += error ? 1 : 0;
             }
 
             // create message
+            local specs_len = suite.specs.filter(@(i, s) !s.omit).len();
             local success = complete && !fail;
-            local message = suite.title + " (" + pass + "/" + suite.specs.len() + ")" + (current ? " <" : "");
+            local message = suite.title + " (" + pass + "/" + specs_len + ")" + (current ? " <" : "");
 
             // add bench result
             if (_bench && success) {
@@ -396,7 +405,7 @@ class UnitTest {
                 local error = !!spec.errors.len();
                 if (!error && !!spec.calls) pass++;
                 if (error) { fail++; total_fails++; }
-                total_specs++;
+                if (!spec.omit) total_specs++;
             }
 
             // Suite title
@@ -419,7 +428,7 @@ class UnitTest {
                     // Spec errors
                     print_log("  WARN " + spec.title + "\n");
                     foreach (error in spec.errors) print_log("    " + error);
-                } else {
+                } else if (!spec.omit) {
                     if (_bench && !total_error) {
                         // Bench result
                         if (!summary || (i == 0)) {

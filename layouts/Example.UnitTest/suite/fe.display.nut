@@ -7,11 +7,11 @@ function _fe_display_callback(ttype, var, ttime) {
 }
 
 describe("Frontend Display", function() {
-    it("should have >= 4 displays to test", function() {
+    it("should have at least four displays to test", function() {
         expect(fe.displays.len()).toBeGreaterThanOrEqual(4);
     });
 
-    it("should next_display", function() {
+    before("should next_display", function() {
         tlist.clear();
         fe.signal("next_display");
         wait();
@@ -21,7 +21,7 @@ describe("Frontend Display", function() {
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 0 });
     });
 
-    it("should prev_display", function() {
+    before("should prev_display", function() {
         tlist.clear();
         fe.signal("prev_display");
         wait();
@@ -31,7 +31,7 @@ describe("Frontend Display", function() {
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 0 });
     });
 
-    it("should set_display", function() {
+    before("should set_display", function() {
         tlist.clear();
         fe.set_display(fe.list.display_index + 1, false, false);
         wait();

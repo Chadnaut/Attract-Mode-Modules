@@ -5,7 +5,7 @@ function _fe_transition_callback(ttype, var, ttime) {
 }
 
 describe("Frontend Transition", function() {
-    it("should have >= 4 items & filters to test", function() {
+    it("should have at least four items & filters to test", function() {
         expect(fe.list.size).toBeGreaterThanOrEqual(4);
         expect(fe.filters.len()).toBeGreaterThanOrEqual(4);
     });
@@ -16,7 +16,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1].ttype).toBe(Transition.ToNewList);
     });
 
-    it("should next_game", function() {
+    before("should next_game", function() {
         tlist.clear();
         fe.signal("next_game");
         wait();
@@ -27,7 +27,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = -1 });
     });
 
-    it("should prev_game", function() {
+    before("should prev_game", function() {
         tlist.clear();
         fe.signal("prev_game");
         wait();
@@ -38,19 +38,19 @@ describe("Frontend Transition", function() {
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = 1 });
     });
 
-    it("should fe.list.index", function() {
+    before("should set list_index", function() {
         tlist.clear();
         fe.list.index++;
         wait();
     });
-    it("should fe.list.index ToNewSelection > FromOldSelection > EndNavigation", function() {
+    it("should set list_index ToNewSelection > FromOldSelection > EndNavigation", function() {
         expect(tlist).toHaveLength(3);
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewSelection, var = 1 });
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = -1 });
         expect(tlist[2]).toEqual({ ttype = Transition.EndNavigation, var = 0 });
     });
 
-    it("should next_page", function() {
+    before("should next_page", function() {
         tlist.clear();
         fe.layout.page_size = 10;
         fe.signal("next_page");
@@ -62,7 +62,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = -10 });
     });
 
-    it("should prev_page", function() {
+    before("should prev_page", function() {
         tlist.clear();
         fe.layout.page_size = 10;
         fe.signal("prev_page");
@@ -74,7 +74,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = 10 });
     });
 
-    it("should next_filter", function() {
+    before("should next_filter", function() {
         tlist.clear();
         fe.signal("next_filter");
         wait();
@@ -84,7 +84,7 @@ describe("Frontend Transition", function() {
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 1 });
     });
 
-    it("should prev_filter", function() {
+    before("should prev_filter", function() {
         tlist.clear();
         fe.signal("prev_filter");
         wait();
@@ -94,17 +94,17 @@ describe("Frontend Transition", function() {
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = -1 });
     });
 
-    it("should fe.list.filter_index", function() {
+    before("should set filter_index", function() {
         tlist.clear();
         fe.list.filter_index++;
         wait();
     });
-    it("should fe.list.filter_index ToNewList", function() {
+    it("should set filter_index ToNewList", function() {
         expect(tlist).toHaveLength(1);
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 1 });
     });
 
-    it("should random_game", function() {
+    before("should random_game", function() {
         tlist.clear();
         fe.signal("random_game");
         wait();
@@ -116,7 +116,7 @@ describe("Frontend Transition", function() {
         expect(tlist[2]).toEqual({ ttype = Transition.EndNavigation, var = 0 });
     });
 
-    it("should add_favourite", function() {
+    before("should add_favourite", function() {
         tlist.clear();
         fe.signal("add_favourite");
         wait();
@@ -127,7 +127,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1]).toEqual({ ttype = Transition.ChangedTag, var = 21 });
     });
 
-    it("should next_favourite", function() {
+    before("should next_favourite", function() {
         tlist.clear();
         fe.signal("next_favourite");
         wait();
@@ -138,7 +138,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1].ttype).toBe(Transition.FromOldSelection);
     });
 
-    it("should prev_favourite", function() {
+    before("should prev_favourite", function() {
         tlist.clear();
         fe.signal("prev_favourite");
         wait();
@@ -149,7 +149,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1].ttype).toBe(Transition.FromOldSelection);
     });
 
-    it("should next_letter", function() {
+    before("should next_letter", function() {
         tlist.clear();
         fe.signal("next_letter");
         wait();
@@ -160,7 +160,7 @@ describe("Frontend Transition", function() {
         expect(tlist[1].ttype).toBe(Transition.FromOldSelection);
     });
 
-    it("should prev_letter", function() {
+    before("should prev_letter", function() {
         tlist.clear();
         fe.signal("prev_letter");
         wait();

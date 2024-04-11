@@ -10,12 +10,12 @@ function keypress(key) {
 
 describe("Frontend Overlay", function() {
 
-    it("should overlay show", function() {
+    before("should overlay show", function() {
         tlist.clear();
         fe.signal("filters_menu");
         wait(10);
     });
-    it("should overlay exit", function() {
+    before("should overlay exit", function() {
         keypress("VK_ESCAPE");
         wait(10);
     });
@@ -25,16 +25,16 @@ describe("Frontend Overlay", function() {
         expect(tlist[1].ttype).toBe(Transition.HideOverlay);
     });
 
-    it("should overlay-select", function() {
+    before("should overlay-select", function() {
         tlist.clear();
         fe.signal("filters_menu");
         wait(10);
     });
-    it("should overlay-select move", function() {
+    before("should overlay-select move", function() {
         keypress("VK_DOWN");
         wait(10);
     });
-    it("should overlay-select exit", function() {
+    before("should overlay-select exit", function() {
         keypress("VK_ESCAPE");
         wait(10);
     });
@@ -45,12 +45,12 @@ describe("Frontend Overlay", function() {
         expect(tlist[2].ttype).toBe(Transition.HideOverlay);
     });
 
-    it("should add_tags show", function() {
+    before("should add_tags show", function() {
         tlist.clear();
         fe.signal("add_tags");
         wait(10);
     });
-    it("should add_tags exit", function() {
+    before("should add_tags exit", function() {
         keypress("VK_ESCAPE");
         wait(10);
     });
@@ -60,12 +60,12 @@ describe("Frontend Overlay", function() {
         expect(tlist[1].ttype).toBe(Transition.HideOverlay);
     });
 
-    it("should configure show", function() {
+    before("should configure show", function() {
         tlist.clear();
         fe.signal("configure");
         wait(10);
     });
-    it("should configure exit", function() {
+    before("should configure exit", function() {
         keypress("VK_ESCAPE");
         wait(10);
     });

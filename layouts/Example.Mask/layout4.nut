@@ -12,7 +12,6 @@ local flh = fe.layout.height;
 
 local surf = fe.add_surface(flw/2, flh/2);
 surf.visible = false;
-surf.repeat = true;
 
 local mask = surf.add_image("images/circle.png", 0, 0, 200, 200);
 mask.set_anchor(0.5, 0.5);

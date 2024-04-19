@@ -2,19 +2,19 @@
 #extension GL_EXT_gpu_shader4 : require
 
 // object size in pixels
-uniform float width;
-uniform float height;
-uniform float rotation;
+uniform float width = 0.0;
+uniform float height = 0.0;
+uniform float rotation = 0.0;
 
 // vertex offsets in pixels
-uniform float offset_tl_x;
-uniform float offset_tl_y;
-uniform float offset_bl_x;
-uniform float offset_bl_y;
-uniform float offset_tr_x;
-uniform float offset_tr_y;
-uniform float offset_br_x;
-uniform float offset_br_y;
+uniform float offset_tl_x = 0.0;
+uniform float offset_tl_y = 0.0;
+uniform float offset_bl_x = 0.0;
+uniform float offset_bl_y = 0.0;
+uniform float offset_tr_x = 0.0;
+uniform float offset_tr_y = 0.0;
+uniform float offset_br_x = 0.0;
+uniform float offset_br_y = 0.0;
 
 // =============================================
 
@@ -44,20 +44,22 @@ float[4] barycentric(vec2 tl, vec2 bl, vec2 tr, vec2 br) {
 
 // =============================================
 
+// helpers
+vec2 size = vec2(width, height);
+float rad = radians(rotation);
+mat2 rot = mat2(cos(rad), -sin(rad), sin(rad), cos(rad));
+
+// position offsets
+vec2 offset[4] = vec2[4](
+    vec2(offset_tl_x, offset_tl_y),
+    vec2(offset_bl_x, offset_bl_y),
+    vec2(offset_tr_x, offset_tr_y),
+    vec2(offset_br_x, offset_br_y)
+);
+
+// =============================================
+
 void main() {
-    // helpers
-    vec2 size = vec2(width, height);
-    float rad = radians(rotation);
-    mat2 rot = mat2(cos(rad), -sin(rad), sin(rad), cos(rad));
-
-    // position offsets
-    vec2 offset[4] = vec2[4](
-        vec2(offset_tl_x, offset_tl_y),
-        vec2(offset_bl_x, offset_bl_y),
-        vec2(offset_tr_x, offset_tr_y),
-        vec2(offset_br_x, offset_br_y)
-    );
-
     // texture adjustments
     float q[4] = barycentric(
         vec2(0.0, 0.0) + offset[0] / size,

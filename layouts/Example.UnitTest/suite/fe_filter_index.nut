@@ -1,4 +1,4 @@
-describe("Frontend List Filter Index", function() {
+describe("Frontend Filter Index", function() {
     it("should have at least four filters to test", function() {
         expect(fe.filters.len()).toBeGreaterThanOrEqual(4);
     });

@@ -1,6 +1,6 @@
 local tlist = [];
-::fe.add_transition_callback("_fe_overlay_callback");
-function _fe_overlay_callback(ttype, var, ttime) {
+::fe.add_transition_callback("_fe_overlay_transition_callback");
+function _fe_overlay_transition_callback(ttype, var, ttime) {
     tlist.push({ ttype = ttype, var = var });
 }
 
@@ -8,7 +8,7 @@ function keypress(key) {
     fe.plugin_command_bg("python", format("%s %s Attract-Mode SFML_Window", FeConfigDirectory + "scripts/keypress/keypress.py", key));
 }
 
-describe("Frontend Overlay", function() {
+describe("Frontend Overlay Transition", function() {
 
     before("should overlay show", function() {
         tlist.clear();

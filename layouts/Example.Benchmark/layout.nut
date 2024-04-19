@@ -20,6 +20,8 @@ fe.do_nut("suite/array.top.nut");
 fe.do_nut("suite/array.unique.nut");
 fe.do_nut("suite/func.call.nut");
 fe.do_nut("suite/func.nest.nut");
+fe.do_nut("suite/string.format.nut");
+fe.do_nut("suite/string.split.nut");
 fe.do_nut("suite/variable.getter.nut");
 
 ut.benchmark(100);

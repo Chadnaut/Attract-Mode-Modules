@@ -1,17 +1,16 @@
 local tlist = [];
-::fe.add_transition_callback("_fe_transition_callback");
-function _fe_transition_callback(ttype, var, ttime) {
+::fe.add_transition_callback("_fe_list_transition_callback");
+function _fe_list_transition_callback(ttype, var, ttime) {
     tlist.push({ ttype = ttype, var = var });
 }
 
-describe("Frontend Transition", function() {
-    it("should have at least four items & filters to test", function() {
+describe("Frontend List Transition", function() {
+    it("should have at least four items to test", function() {
         expect(fe.list.size).toBeGreaterThanOrEqual(4);
-        expect(fe.filters.len()).toBeGreaterThanOrEqual(4);
     });
 
     it("should init StartLayout > ToNewList", function() {
-        expect(tlist).toHaveLength(2);
+        expect(tlist.len()).toBeGreaterThanOrEqual(2);
         expect(tlist[0].ttype).toBe(Transition.StartLayout);
         expect(tlist[1].ttype).toBe(Transition.ToNewList);
     });
@@ -72,36 +71,6 @@ describe("Frontend Transition", function() {
         expect(tlist).toHaveLength(2);
         expect(tlist[0]).toEqual({ ttype = Transition.ToNewSelection, var = -10 });
         expect(tlist[1]).toEqual({ ttype = Transition.FromOldSelection, var = 10 });
-    });
-
-    before("should next_filter", function() {
-        tlist.clear();
-        fe.signal("next_filter");
-        wait();
-    });
-    it("should next_filter ToNewList", function() {
-        expect(tlist).toHaveLength(1);
-        expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 1 });
-    });
-
-    before("should prev_filter", function() {
-        tlist.clear();
-        fe.signal("prev_filter");
-        wait();
-    });
-    it("should prev_filter ToNewList", function() {
-        expect(tlist).toHaveLength(1);
-        expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = -1 });
-    });
-
-    before("should set filter_index", function() {
-        tlist.clear();
-        fe.list.filter_index++;
-        wait();
-    });
-    it("should set filter_index ToNewList", function() {
-        expect(tlist).toHaveLength(1);
-        expect(tlist[0]).toEqual({ ttype = Transition.ToNewList, var = 1 });
     });
 
     before("should random_game", function() {

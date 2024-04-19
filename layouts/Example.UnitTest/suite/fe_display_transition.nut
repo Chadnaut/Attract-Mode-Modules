@@ -1,12 +1,12 @@
 ::fe.load_module("logplus");
 
 local tlist = [];
-::fe.add_transition_callback("_fe_display_callback");
-function _fe_display_callback(ttype, var, ttime) {
+::fe.add_transition_callback("_fe_display_transition_callback");
+function _fe_display_transition_callback(ttype, var, ttime) {
     tlist.push({ ttype = ttype, var = var });
 }
 
-describe("Frontend Display", function() {
+describe("Frontend Display Transition", function() {
     it("should have at least four displays to test", function() {
         expect(fe.displays.len()).toBeGreaterThanOrEqual(4);
     });

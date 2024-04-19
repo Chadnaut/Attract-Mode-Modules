@@ -2,7 +2,7 @@
 # UnitTest
 #
 # Testing and benchmarking
-# Version 1.1.0
+# Version 1.1.1
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -16,6 +16,7 @@ fe.load_module("console");
 class UnitTest {
 
     console = ::Console();
+    _am_ver = null;
 
     _prop = null;
     _prop_defaults = {
@@ -51,6 +52,7 @@ class UnitTest {
 
     constructor() {
         _prop = clone _prop_defaults;
+        _am_ver = "Attract-Mode" + (("log" in ::fe) ? " Plus " : " ") + getconsttable().FeVersion;
         fe.add_ticks_callback(this, "on_tick");
     }
 
@@ -340,6 +342,7 @@ class UnitTest {
     // Update console message to match current state
     function refresh_console() {
         console.clear();
+        console.print(_am_ver);
 
         foreach (i, suite in _suites) {
             local complete = (i < _suite_index);
@@ -446,6 +449,7 @@ class UnitTest {
         // Footer
         print_log("\n" + _suites.len() + " suites, " + total_specs + " specs, " + total_fails + " failures");
         if (_bench) print_log("Benchmark for " + (_duration / 1000.0) + " seconds");
-        print_log("Finished in " + ((end_time - _start) / 1000.0) + " seconds\n");
+        print_log("Finished in " + ((end_time - _start) / 1000.0) + " seconds");
+        print_log(_am_ver + "\n");
     }
 }

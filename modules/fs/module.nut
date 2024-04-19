@@ -2,7 +2,7 @@
 # FileSystem
 #
 # File reading and writing
-# Version 0.4.0
+# Version 0.4.1
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -15,6 +15,7 @@ class FileHandler {
     _file = null;
     _blob = null;
     _mode = null;
+    _err = null;
 
     constructor(_path, mode = "r") {
         path = _path;
@@ -22,12 +23,17 @@ class FileHandler {
         try {
             _file = file(path, mode);
         } catch (err) {
-            error("Cannot open", err);
+            _err = err;
         }
     }
 
-    function error(message, error) {
-        print(format("%s '%s' [%s] - %s\n", message, error, _mode, path));
+    function get_error() {
+        return _err;
+    }
+
+    function log_error(title, error) {
+        _err = error;
+        print(format("%s '%s' [%s] - %s\n", title, error, _mode, path));
     }
 
     // Return length of file
@@ -98,7 +104,7 @@ class FileHandler {
                 }
             }
         } catch (err) {
-            error("Cannot read", err);
+            log_error("Cannot read", err);
             return null;
         }
         return line;
@@ -126,7 +132,7 @@ class FileHandler {
             for (local i=0, n=text.len(); i<n; i++) b.writen(text[i], 'b');
             _file.writeblob(b);
         } catch (err) {
-            error("Cannot write", err);
+            log_error("Cannot write", err);
         }
         return this;
     }

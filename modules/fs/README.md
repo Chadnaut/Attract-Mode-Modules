@@ -1,7 +1,7 @@
 # FileSystem
 
 > File reading and writing  
-> Version 0.4.0  
+> Version 0.4.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

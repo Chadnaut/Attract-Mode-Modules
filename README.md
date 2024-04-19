@@ -16,7 +16,7 @@ Extra features designers can use to build layouts.
 |<img src="./modules/console/example.png" width="100"/>|v0.9.0|[Console](./modules/console/README.md) - Coloured message list with animated typing|[Example](./layouts/Example.Console/)|
 |<img src="./modules/frame/example.png" width="100"/>|v0.1.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
 |<img src="./modules/mask/example.png" width="100"/>|v0.3.1|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
-|<img src="./modules/perspective/example.png" width="100"/>|v0.5.2|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
+|<img src="./modules/perspective/example.png" width="100"/>|v0.5.3|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
 |<img src="./modules/retention/example.png" width="100"/>|v0.7.2|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
 |Coming Soon|-|[Sequence](./modules/sequence/README.md) - Stackable animation system|Coming Soon|
 
@@ -29,11 +29,11 @@ Tools and utilities to improve workflow and debugging.
 |Screenshot|Version|Module|Example|
 |:-|:-|:-|:-|
 |<img src="./modules/chart/example.png" width="100"/>|v1.2.0|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
-|<img src="./modules/fs/example.png" width="100"/>|v0.4.0|[FileSystem](./modules/fs/README.md) - File reading and writing|[Example](./layouts/Example.FileSystem/)|
+|<img src="./modules/fs/example.png" width="100"/>|v0.4.1|[FileSystem](./modules/fs/README.md) - File reading and writing|[Example](./layouts/Example.FileSystem/)|
 |<img src="./modules/logplus/example.png" width="100"/>|v0.6.1|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
 |<img src="./modules/stringify/example.png" width="100"/>|v0.1.3|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
 |<img src="./modules/timer/example.png" width="100"/>|v0.2.0|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|
-|<img src="./modules/unittest/example.png" width="100"/>|v1.1.0|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
+|<img src="./modules/unittest/example.png" width="100"/>|v1.1.1|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
 
 ### Plugins
 

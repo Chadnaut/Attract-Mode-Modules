@@ -1,7 +1,7 @@
 # Perspective
 
 > Perspective correct texture mapping  
-> Version 0.5.3  
+> Version 0.5.4  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -42,7 +42,8 @@ These properties are *optional* if you would like precise control over the verti
 
 - Setting `offset_*` properties does not back-fill `pinch` or `skew`.
 - Perspective fails when `pinch_x >= width/2.0` or `pinch_y >= height/2.0`, please consume responsibly.
-- Uses `#extension GL_EXT_gpu_shader4` to provide `gl_VertexID`, which requires OpenGL 2.0.
+- Uses `#version 120` with `#extension GL_EXT_gpu_shader4` on OSX.
+- Uses `#version 130` which provides `gl_VertexID` on other operting systems, which requires `OpenGL 2.0`.
 - Over-pinching no longer creates "bow-ties", since the mesh remains a 4-point object rather than a 256-sliced [triangle strip](https://github.com/oomek/attractplus/blob/master/src/sprite.cpp#L300).
 
 ## Further Reading

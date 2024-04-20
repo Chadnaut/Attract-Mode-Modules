@@ -2,14 +2,14 @@
 # Perspective
 #
 # Perspective correct texture mapping
-# Version 0.5.3
+# Version 0.5.4
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
 ################################################*/
 
 class Perspective {
-    _dir = ::fe.module_dir;
+    _dir = ::fe.module_dir + (OS == "OSX" ? "120/" : "130/");
     _obj = null;
     _prop = null;
     _prop_defaults = {

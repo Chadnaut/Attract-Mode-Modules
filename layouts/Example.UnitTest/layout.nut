@@ -17,6 +17,11 @@ fe.do_nut("suite/fe_list_transition.nut");
 fe.do_nut("suite/fe_filter_index.nut");
 fe.do_nut("suite/fe_filter_transition.nut");
 
+// These suites require other modules from the repo
+fe.do_nut("suite/regex.nut");
+fe.do_nut("suite/stringify.nut");
+fe.do_nut("suite/quicksort.nut");
+
 // // These suites require ALL displays to use this layout
 // // - The display will be changed during these tests
 // fe.do_nut("suite/fe_display_index.nut");

@@ -2,7 +2,7 @@
 # FileSystem
 #
 # File reading and writing
-# Version 0.4.1
+# Version 0.5.0
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -112,6 +112,47 @@ class FileHandler {
 
     // ------------------------------------------
 
+    // Return all lines as csv array
+    function read_csv_lines(delim = ";") {
+        local lines = [];
+        local line = null;
+        while (line = read_csv_line()) lines.push(line);
+        return lines;
+    }
+
+    // Return next csv line in file, or null if none
+    function read_csv_line(delim = ";") {
+        if ((!_file || _file.eos()) && (!_blob || _blob.eos())) return null;
+        local d = delim[0];
+        local item = "";
+        local line = [];
+        local char;
+        try {
+            while (!_blob || !_blob.eos() || !_file.eos()) {
+                if (!_blob || _blob.eos()) _blob = _file.readblob(chunksize);
+                while (!_blob.eos()) {
+                    char = _blob.readn('b');
+                    if (char == 10) {
+                        line.push(item);
+                        return line;
+                    } else if (char == d) {
+                        line.push(item);
+                        item = "";
+                    } else {
+                        item += char.tochar();
+                    }
+                }
+            }
+        } catch (err) {
+            log_error("Cannot read", err);
+            return null;
+        }
+        line.push(item);
+        return line;
+    }
+
+    // ------------------------------------------
+
     // Write array of strings to file
     function write_lines(lines) {
         foreach (line in lines) write_line(line);
@@ -168,5 +209,8 @@ local readdir = function(path, absolute_path = false) {
 ::fs <- {
     open = @(path, mode = "r") FileHandler(path, mode),
     readdir = readdir,
+    exists = @(path) ::fe.path_test(path, PathTest.IsFileOrDirectory),
+    file_exists = @(path) ::fe.path_test(path, PathTest.IsFile),
+    directory_exists = @(path) ::fe.path_test(path, PathTest.IsDirectory),
     join = join,
 };

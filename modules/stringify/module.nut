@@ -2,14 +2,16 @@
 # Stringify
 #
 # JSON-like value stringification
-# Version 0.1.3
+# Version 0.1.4
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
 ################################################*/
 
 ::stringify <- function(value, space = "") {
-    local cr = (space != "") ? "\n" : "";
+    local has_space = (space != "");
+    local sp = has_space ? "" : " ";
+    local cr = has_space ? "\n" : "";
     local _stringify = null;
     _stringify = function(value, indent = "") {
         switch (typeof value) {
@@ -27,7 +29,7 @@
                     key = !!regexp(@"^[A-Za-z_][A-Za-z_0-9]*$").capture(k.tostring()) ? k : @"[""" + k + @"""]";
                     res += (i ? ", " : "") + cr + indent + space + key + " = " + _stringify(value[k], indent + space);
                 }
-                return "{" + ((res != "") ? (res + cr + indent) : "") + "}";
+                return "{" + sp + ((res != "") ? (res + cr + indent) : "") + sp + "}";
 
             case "array":
                 local res = "";

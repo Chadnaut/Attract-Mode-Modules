@@ -42,7 +42,7 @@ class Console {
         bg_blue = 0,
         align = Align.Left,
         alpha = 255,
-        zorder = 2147483647,
+        zorder = 0,
         visible = true,
     };
 

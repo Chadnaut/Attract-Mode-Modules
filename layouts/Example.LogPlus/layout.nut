@@ -12,5 +12,4 @@ fe.load_module("logplus");
 
 // ::logplus(getconsttable()); // un-comment to log the entire constants table
 
-local info = fe.add_text("See last_run.log", 0, 0, fe.layout.width, fe.layout.height);
-info.char_size = fe.layout.height / 20;
+fe.add_text("See last_run.log", 0, 0, fe.layout.width, fe.layout.height).char_size = fe.layout.height / 20;

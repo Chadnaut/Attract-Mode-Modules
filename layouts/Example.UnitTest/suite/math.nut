@@ -7,7 +7,7 @@ describe("Math", function() {
     local modulo = @(v, m) m ? (v % m + m) % m : 0;
 
     // random number (inclusive) returns same type as args (int/float)
-    local random = @(min, max) min + rand() * (max - min) / RAND_MAX;
+    local random = @(min, max) min + (rand() % 32768) * (max - min) / 32767;
 
     // =====================================================
 
@@ -25,7 +25,7 @@ describe("Math", function() {
 
     it("should random float", function() {
         srand(0);
-        local n = RAND_MAX * 10;
+        local n = 32767 * 10;
         local min = 0.0;
         local max = 100.0;
 
@@ -46,7 +46,7 @@ describe("Math", function() {
 
     it("should random int", function() {
         srand(0);
-        local n = RAND_MAX * 10;
+        local n = 32767 * 10;
         local min = 0;
         local max = 100;
 

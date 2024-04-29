@@ -1,7 +1,7 @@
 # Stringify
 
 > JSON-like value stringification  
-> Version 0.1.3  
+> Version 0.1.4  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -10,12 +10,12 @@
 ```cpp
 fe.load_module("stringify");
 
-local object = {a = 1, b = 2.0, c = ["d", "e"]};
+local object = { a = 1, b = 2.0, c = ["d", "e"] };
 print(stringify(object) + "\n");
 ```
 
 ```log
-{a = 1, b = 2.0, c = ["d", "e"]}
+{ a = 1, b = 2.0, c = ["d", "e"] }
 ```
 
 Pretty printing:

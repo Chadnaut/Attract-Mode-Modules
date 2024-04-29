@@ -16,6 +16,7 @@ fe.do_nut("suite/array.filter.nut");
 fe.do_nut("suite/array.loop.nut");
 fe.do_nut("suite/array.map.nut");
 fe.do_nut("suite/array.reduce.nut");
+fe.do_nut("suite/array.sort.nut");
 fe.do_nut("suite/array.top.nut");
 fe.do_nut("suite/array.unique.nut");
 fe.do_nut("suite/func.call.nut");

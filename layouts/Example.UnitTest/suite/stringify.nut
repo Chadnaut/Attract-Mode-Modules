@@ -15,6 +15,13 @@ describe("Stringify", function() {
         expect(stringify({ a = 1, b = 2 })).toEqual("{ a = 1, b = 2 }");
     });
 
+    it("should table key", function() {
+        expect(stringify({ ["a/c"] = 1, b = 2 })).toEqual(@"{ [""a/c""] = 1, b = 2 }");
+        expect(stringify({ [@"a\c"] = 1, b = 2 })).toEqual(@"{ [@""a\c""] = 1, b = 2 }");
+        expect(stringify({ ["0a"] = 1, b = 2 })).toEqual(@"{ [""0a""] = 1, b = 2 }");
+        expect(stringify({ [@"0""a"] = 1, b = 2 })).toEqual(@"{ [@""0""""a""] = 1, b = 2 }");
+    });
+
     it("should array", function() {
         expect(stringify([1, 2, 3])).toEqual("[1, 2, 3]");
     });
@@ -28,7 +35,10 @@ describe("Stringify", function() {
     });
 
     it("should float", function() {
+        expect(stringify(1.1)).toEqual("1.1");
         expect(stringify(1.0)).toEqual("1.0");
+        expect(stringify(1.10)).toEqual("1.1");
+        expect(stringify(1.00)).toEqual("1.0");
     });
 
     it("should integer", function() {

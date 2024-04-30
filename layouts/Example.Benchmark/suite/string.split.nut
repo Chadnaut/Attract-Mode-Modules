@@ -3,11 +3,11 @@ describe("String Split", function() {
     local str = "1;2;3;4;5;6;7;8;9;0";
     local delim = ";";
 
-    it("Native", function () {
+    it("native", function () {
         return split(str, delim);
     });
 
-    it("Char", function () {
+    it("char", function () {
         local a = [];
         local item = "";
         local d = delim[0];
@@ -23,7 +23,7 @@ describe("String Split", function() {
         return a;
     });
 
-    it("Find", function () {
+    it("find", function () {
         local i1 = 0;
         local i2 = 0;
         local n = delim.len();

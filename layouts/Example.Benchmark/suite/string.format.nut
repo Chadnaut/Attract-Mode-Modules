@@ -1,10 +1,10 @@
 describe("String Format", function() {
 
-    it("Native", function () {
+    it("native", function () {
         return format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
     });
 
-    it("Add", function () {
+    it("add", function () {
         return "1" + ";" + "2" + ";" + "3" + ";" + "4" + ";" + "5" + ";" + "6" + ";" + "7" + ";" + "8" + ";" + "9" + ";" + "0";
     });
 

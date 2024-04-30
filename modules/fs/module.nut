@@ -2,7 +2,7 @@
 # FileSystem
 #
 # File reading and writing
-# Version 0.7.0
+# Version 0.8.0
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -149,28 +149,6 @@ class FileHandler {
 
     // ------------------------------------------
 
-    // Return unsigned CRC32
-    function crc() {
-        if (!_file) return null;
-        try {
-            local p = _file.tell();
-            _file.seek(0, 'b');
-            local crc = 0xFFFFFFFF;
-            local _blob = null;
-            while (!_blob || !_blob.eos() || !_file.eos()) {
-                if (!_blob || _blob.eos()) _blob = _file.readblob(CHUNK_SIZE);
-                while (!_blob.eos()) crc = (crc >>> 8) ^ CRC_LOOKUP[(crc ^ _blob.readn('b')) & 0xFF];
-            }
-            _file.seek(p, 'b');
-            return crc ^ 0xFFFFFFFF;
-        } catch (err) {
-            log_error("Cannot read CRC", err, _path, _mode);
-            return null;
-        }
-    }
-
-    // ------------------------------------------
-
     // Write array of strings to file
     function write_lines(lines) {
         foreach (line in lines) write_line(line);
@@ -187,9 +165,9 @@ class FileHandler {
         if (!_file) return this;
         try {
             if (typeof text != "string") text = text.tostring();
-            local _blob = blob(text.len());
-            foreach (char in text) _blob.writen(char, 'b');
-            _file.writeblob(_blob);
+            local blob_data = blob(text.len());
+            foreach (char in text) blob_data.writen(char, 'b');
+            _file.writeblob(blob_data);
         } catch (err) {
             log_error("Cannot write", err, _path, _mode);
         }
@@ -226,8 +204,8 @@ local join = function(...) {
 
 // Return array of items in folder
 local readdir = function(path, absolute_path = false) {
-    local files = zip_get_dir(path);
-    return absolute_path ? files.map(@(f) join(path, f)) : files;
+    local items = zip_get_dir(path);
+    return absolute_path ? items.map(@(f) join(path, f)) : items;
 };
 
 // Wrappers for path checking methods
@@ -265,10 +243,10 @@ local copy = function(from, to, overwrite = false) {
         if (!overwrite && file_exists(to)) return log_error("Cannot copy", "Destination exists", to);
         local src = file(from, "rb");
         local dest = file(to, "wb");
-        local _blob = null;
-        while (!_blob || !_blob.eos() || !src.eos()) {
-            _blob = src.readblob(CHUNK_SIZE);
-            if (!_blob.eos()) dest.writeblob(_blob);
+        local blob_data = null;
+        while (!blob_data || !blob_data.eos() || !src.eos()) {
+            blob_data = src.readblob(CHUNK_SIZE);
+            if (!blob_data.eos()) dest.writeblob(blob_data);
         }
         src.close();
         dest.close();
@@ -288,9 +266,39 @@ local move = function(from, to, overwrite = false) {
         }
         return rename(from, to);
     } catch (err) {
-        return false;
+        return log_error("Cannot move", err, to);
     }
 };
+
+// Return size of file
+local file_size = function(path) {
+    try {
+        local src = file(path, "r");
+        local size = src.len();
+        src.close();
+        return size;
+    } catch (err) {
+        log_error("Cannot get size", err, path);
+        return null;
+    }
+}
+
+// Return unsigned CRC32
+local crc32 = function(path) {
+    try {
+        local src = file(path, "r");
+        local blob_data = null;
+        local crc = 0xFFFFFFFF;
+        while (!blob_data || !blob_data.eos() || !src.eos()) {
+            blob_data = src.readblob(CHUNK_SIZE);
+            while (!blob_data.eos()) crc = (crc >>> 8) ^ CRC_LOOKUP[(crc ^ blob_data.readn('b')) & 0xFF];
+        }
+        return crc ^ 0xFFFFFFFF;
+    } catch (err) {
+        log_error("Cannot read CRC32", err, path);
+        return null;
+    }
+}
 
 // =====================================================
 
@@ -300,10 +308,12 @@ local move = function(from, to, overwrite = false) {
     move = move,
     unlink = unlink,
     rename = rename,
+    crc32 = crc32,
 
     exists = exists,
     file_exists = file_exists,
     directory_exists = directory_exists,
+    file_size = file_size,
 
     join = join,
     readdir = readdir,

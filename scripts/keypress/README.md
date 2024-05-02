@@ -7,7 +7,7 @@
 
 ## Requirements
 
-[Python 3.12.1](https://www.python.org/downloads/)
+- [Python 3.12.1](https://www.python.org/downloads/)
 
 ```sh
 python -m pip install --upgrade pip

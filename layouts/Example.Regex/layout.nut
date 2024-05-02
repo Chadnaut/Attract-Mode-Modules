@@ -10,11 +10,11 @@ text.char_size = text.height / 10;
 text.word_wrap = true;
 text.margin = 0;
 
-local str = "Cat Dog";
 local pattern = "([A-Z])([a-z]+)";
-local matches = Regex(str).match_all(pattern);
+local str = "Cat Dog";
+local matches = Regex(pattern).match_all(str);
 
-text.msg = format("%s\n", str) + format("%s\n", pattern) + "\n";
+text.msg = format("%s\n", pattern) + format("%s\n", str) + "\n";
 text.msg += "[";
 foreach (m, match in matches) {
     text.msg += (m ? ", " : "") + "[";

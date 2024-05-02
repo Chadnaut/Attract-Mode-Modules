@@ -2,11 +2,13 @@
 # Stringify
 #
 # JSON-like value stringification
-# Version 0.1.5
+# Version 0.1.6
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
 ################################################*/
+
+local key_regex = regexp(@"^[A-Za-z_][A-Za-z_0-9]*$");
 
 ::stringify <- function(value, space = "") {
     local sp = (space != "") ? "" : " ";
@@ -21,11 +23,11 @@
                 local info = value.getinfos();
                 local args = "";
                 local delim = "";
-                if ("parameters" in info) foreach (i, arg in info.parameters.slice(1)) {
+                foreach (i, arg in info.parameters.slice(1)) {
                     args += format("%s%s", delim, arg);
                     delim = delim_value;
                 }
-                return format("function(%s)", args);
+                return format("function%s%s(%s) { ... }", info.name ? " " : "", info.name || "", args);
 
             case "table":
                 local key;
@@ -39,7 +41,7 @@
                 keys.sort(@(a, b) a.tostring() <=> b.tostring());
 
                 foreach (i, k in keys) {
-                    key = !!regexp(@"^[A-Za-z_][A-Za-z_0-9]*$").capture(k.tostring()) ? k : format("[%s]", _stringify(k));
+                    key = !!key_regex.capture(k.tostring()) ? k : format("[%s]", _stringify(k));
                     result += format("%s%s%s%s%s", delim, nl, key, equals_value, _stringify(value[k], insp));
                     delim = delim_value;
                 }

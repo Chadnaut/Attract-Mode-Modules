@@ -30,10 +30,10 @@ Tools and utilities to improve workflow and debugging.
 |:-|:-|:-|:-|
 |[<img src="./modules/chart/example.png" width="100"/>](./modules/chart/README.md)|v1.2.0|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
 |[<img src="./modules/fs/example.png" width="100"/>](./modules/fs/README.md)|v0.8.1|[FileSystem](./modules/fs/README.md) - File reading and writing|[Example](./layouts/Example.FileSystem/)|
-|[<img src="./modules/logplus/example.png" width="100"/>](./modules/logplus/README.md)|v0.6.2|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
+|[<img src="./modules/logplus/example.png" width="100"/>](./modules/logplus/README.md)|v0.6.4|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
 |[<img src="./modules/quicksort/example.png" width="100"/>](./modules/quicksort/README.md)|v0.1.1|[Quicksort](./modules/quicksort/README.md) - Yielding Quicksort|[Example](./layouts/Example.Quicksort/)|
-|[<img src="./modules/regex/example.png" width="100"/>](./modules/regex/README.md)|v0.1.1|[Regex](./modules/regex/README.md) - Regular Expression handler|[Example](./layouts/Example.Regex/)|
-|[<img src="./modules/stringify/example.png" width="100"/>](./modules/stringify/README.md)|v0.1.5|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
+|[<img src="./modules/regex/example.png" width="100"/>](./modules/regex/README.md)|v0.2.0|[Regex](./modules/regex/README.md) - Regular Expression handler|[Example](./layouts/Example.Regex/)|
+|[<img src="./modules/stringify/example.png" width="100"/>](./modules/stringify/README.md)|v0.1.6|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
 |[<img src="./modules/timer/example.png" width="100"/>](./modules/timer/README.md)|v0.2.0|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|
 |[<img src="./modules/unittest/example.png" width="100"/>](./modules/unittest/README.md)|v1.1.2|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
 

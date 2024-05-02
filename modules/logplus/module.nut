@@ -2,7 +2,7 @@
 # LogPlus
 #
 # Extended logging functionality
-# Version 0.6.2
+# Version 0.6.4
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -31,13 +31,18 @@ class LogPlus {
     _frame = 0;
     _next_time = 0;
     _last_time = 0;
+    _regex_filter = null;
 
-    // patterns for special values that dont get stringified
-    OBJ = @"{.*}|<.*>";
-    BULLET = @"[\s\t\r\n\-]+";
-    KEYWORD = @"INFO|NOTICE|ALERT|DEBUG|ERROR|WARN(ING)?|\X+";
-    DATETIME = @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}";
-    TIMEINFO = @"(\d+:\d{2}:\d{2}\.\d{3})?(\s?\+[\d#]+)?(\s?\[[\d#]+\])?";
+    // regex for special values that dont get stringified
+    _char_special = "✔️⚠️❌";
+    _regex_special = regexp(format(
+        @"^(%s|%s|%s|%s|%s)$",
+        @"{.*}|<.*>",
+        @"[\s\t\r\n\-]+",
+        @"INFO|NOTICE|ALERT|DEBUG|ERROR|WARN(ING)?",
+        @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}",
+        @"(\d+:\d{2}:\d{2}\.\d{3})?(\s?[\+\-][\d\.]+)?(\s?\[\d+\])?"
+    ));
 
     constructor() {
         _has_fe_log = ("log" in ::fe);
@@ -76,9 +81,19 @@ class LogPlus {
         if (before && _next_time > before) return null;
         if (after && _next_time < after) return null;
         local value = stringify_args(args);
-        if (filter && !regexp(filter).capture(value)) return null;
+        if (refresh_filter() && !_regex_filter.capture(value)) return null;
         _count++
         return value;
+    }
+
+    // Make regex filter
+    function refresh_filter() {
+        if (filter && !_regex_filter) {
+            _regex_filter = regexp(filter);
+        } else if (!filter && _regex_filter) {
+            _regex_filter = null;
+        }
+        return _regex_filter;
     }
 
     // Format args so they're ready for printing
@@ -89,7 +104,7 @@ class LogPlus {
             value += (
                     show_specials
                     && typeof v == "string"
-                    && !!regexp(format(@"^(%s|%s|%s|%s|%s)$", OBJ, BULLET, KEYWORD, DATETIME, TIMEINFO)).capture(v)
+                    && ((_char_special.find(v) != null) || !!_regex_special.capture(v))
                 ) ? v : ::stringify(v, indent);
         }
         return value;

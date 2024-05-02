@@ -2,7 +2,7 @@
 # Regex
 #
 # Regular Expression handler
-# Version 0.1.1
+# Version 0.2.0
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -34,10 +34,10 @@ local replace_inner = function(value, match, replace) {
 
 class Regex {
 
-    _value = "";
+    rx = null;
 
-    constructor(value = "") {
-        _value = value;
+    constructor(pattern = ".") {
+        rx = regexp(pattern);
     }
 
     function _tostring() {
@@ -45,61 +45,59 @@ class Regex {
     }
 
     // Return true if pattern matchs
-    function test(pattern) {
-        return !!regexp(pattern).capture(_value);
+    function test(value) {
+        return !!rx.capture(value);
     }
 
     // Return index of pattern in value, or -1 if none
-    function search(pattern, start = 0) {
-        local match = regexp(pattern).capture(_value, start);
+    function search(value, start = 0) {
+        local match = rx.capture(value, start);
         return match ? match[0].begin : -1;
     }
 
     // Return array of full-matches
-    function match(pattern) {
-        local groups = match_all(pattern);
+    function match(value) {
+        local groups = match_all(value);
         return (typeof groups == "array") ? groups.map(@(r) r[0]) : groups;
     }
 
     // Return array of group matches
-    function match_all(pattern) {
-        local ex = regexp(pattern);
-        local match = ex.capture(_value, 0);
+    function match_all(value) {
+        local match = rx.capture(value, 0);
         if (!match) return null;
 
-        local len = _value.len();
+        local len = value.len();
         local groups = [];
         local group;
 
         while (match) {
             group = [];
-            foreach (item in match) group.push(_value.slice(item.begin, (item.end > len) ? len : item.end));
+            foreach (item in match) group.push(value.slice(item.begin, (item.end > len) ? len : item.end));
             groups.push(group);
-            match = (match[0].end < len) ? ex.capture(_value, match[0].end) : null;
+            match = (match[0].end < len) ? rx.capture(value, match[0].end) : null;
         }
 
         return groups;
     }
 
     // Replace first matching pattern
-    function replace(pattern, replace) {
-        local match = regexp(pattern).capture(_value);
-        return match ? replace_inner(_value, match, replace) : _value;
+    function replace(value, replace) {
+        local match = rx.capture(value);
+        return match ? replace_inner(value, match, replace) : value;
     }
 
     // Replace all matching patterns
-    function replace_all(pattern, replace) {
-        local value = _value;
-        local ex = regexp(pattern);
-        local match = ex.capture(value);
+    function replace_all(value, replace) {
+        local val = value;
+        local match = rx.capture(val);
         local len;
 
         while (match) {
-            len = value.len();
-            value = replace_inner(value, match, replace);
-            match = ex.capture(value, match[0].begin + value.len() - len);
+            len = val.len();
+            val = replace_inner(val, match, replace);
+            match = rx.capture(val, match[0].begin + val.len() - len);
         }
 
-        return value;
+        return val;
     }
 }

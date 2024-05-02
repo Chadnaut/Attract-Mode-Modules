@@ -8,7 +8,7 @@ describe("Stringify", function() {
     local arr1 = [4,2,5,1,3];
 
     it("should function", function() {
-        expect(stringify(function(a, b, c){})).toEqual("function(a, b, c)");
+        expect(stringify(function(a, b, c){})).toEqual("function(a, b, c) { ... }");
     });
 
     it("should table", function() {

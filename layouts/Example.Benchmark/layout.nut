@@ -13,6 +13,7 @@ fe.do_nut("suite/array.clone.nut");
 fe.do_nut("suite/array.create.nut");
 fe.do_nut("suite/array.extend.nut");
 fe.do_nut("suite/array.filter.nut");
+fe.do_nut("suite/array.find.nut");
 fe.do_nut("suite/array.loop.nut");
 fe.do_nut("suite/array.map.nut");
 fe.do_nut("suite/array.reduce.nut");

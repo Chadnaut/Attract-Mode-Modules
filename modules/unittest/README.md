@@ -1,7 +1,7 @@
 # UnitTest
 
 > Testing and benchmarking  
-> Version 1.1.1  
+> Version 1.1.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -35,8 +35,8 @@ The syntax mostly follows popular testing frameworks. A summary will be displaye
 
 ```log
 "MyTest"
-  INFO should be truthy
-  WARN should fail
+  ✔️ should be truthy
+  ❌ should fail
     0 toBeTruthy
 
 1 suites, 2 specs, 1 failures

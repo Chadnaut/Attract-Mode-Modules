@@ -2,7 +2,7 @@
 # UnitTest
 #
 # Testing and benchmarking
-# Version 1.1.1
+# Version 1.1.2
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -17,6 +17,7 @@ class UnitTest {
 
     console = ::Console();
     _am_ver = null;
+    _am_log = false;
 
     _prop = null;
     _prop_defaults = {
@@ -52,7 +53,8 @@ class UnitTest {
 
     constructor() {
         _prop = clone _prop_defaults;
-        _am_ver = "Attract-Mode" + (("log" in ::fe) ? " Plus " : " ") + getconsttable().FeVersion;
+        _am_log = ("log" in ::fe);
+        _am_ver = format("Attract-Mode %s%s", _am_log ? "Plus " : "", getconsttable().FeVersion);
         fe.add_ticks_callback(this, "on_tick");
     }
 
@@ -196,7 +198,7 @@ class UnitTest {
             local response = suite.specs.len() ? suite.specs[0].response : null;
             foreach (spec in suite.specs)
                 if (!close_to(spec.response, response, 0.0001))
-                    spec.errors.push("spec " + ::stringify(spec.response) + " does not equal " + ::stringify(response));
+                    spec.errors.push(format("spec %s does not equal %s", ::stringify(spec.response), ::stringify(response)));
         }
         if (has_errors()) {
             refresh_console();
@@ -326,12 +328,12 @@ class UnitTest {
         _spec.matchers++;
         if (_not == success) {
             local info = getstackinfos(2); // matcher must be class function
-            _spec.errors.push(
-                ::stringify(_expectation)
-                + (_not ? " not" : "")
-                + (error ? " " + info.func : "")
-                + ("expected" in info.locals ? " " + ::stringify(info.locals.expected) : "")
-            );
+            _spec.errors.push(format("%s%s%s%s",
+                ::stringify(_expectation),
+                (_not ? " not" : ""),
+                (error ? " " + info.func : ""),
+                ("expected" in info.locals ? " " + ::stringify(info.locals.expected) : "")
+            ));
         }
         return this;
     }
@@ -361,7 +363,7 @@ class UnitTest {
             // create message
             local specs_len = suite.specs.filter(@(i, s) !s.omit).len();
             local success = complete && !fail;
-            local message = suite.title + " (" + pass + "/" + specs_len + ")" + (current ? " <" : "");
+            local message = format("%s (%d/%d)%s", suite.title, pass, specs_len, (current ? " <" : ""));
 
             // add bench result
             if (_bench && success) {
@@ -371,7 +373,7 @@ class UnitTest {
                     local next = { calls = 0 };
                     foreach (spec in suite.specs) if (spec.calls > best.calls) best = spec;
                     foreach (spec in suite.specs) if (spec.calls > next.calls && spec != best) next = spec;
-                    message += " = " + best.title + " +" + floor((best.calls - next.calls) * 100.0 / best.calls) + "%";
+                    message += format(" = %s +%d%%", best.title, floor((best.calls - next.calls) * 100.0 / best.calls));
                 } else {
                     message += " no specs";
                 }
@@ -384,7 +386,7 @@ class UnitTest {
     }
 
     function print_log(message) {
-        if ("log" in fe) {
+        if (_am_log) {
             fe.log(message);
         } else {
             print(message + "\n");
@@ -393,13 +395,13 @@ class UnitTest {
 
     // Print results to last_run.log
     function print_report() {
-        print_log("\n" + (_bench ? "Benchmark" : "Test") + (summary ? " Summary" : " Results") + "\n");
+        print_log(format("\n%s %s\n", _bench ? "Benchmark" : "Test", summary ? "Summary" : "Results"));
 
         local end_time = fe.layout.time;
         local total_error = has_errors();
         local total_specs = 0;
         local total_fails = 0;
-        if (!_bench && summary && !total_error) print_log("INFO - All suites passed!");
+        if (!_bench && summary && !total_error) print_log("✔️ - All suites passed!");
 
         foreach (suite in _suites) {
             local pass = 0;
@@ -412,7 +414,7 @@ class UnitTest {
             }
 
             // Suite title
-            if (_bench || (!summary || !!fail)) print_log(@"""" + suite.title + @"""");
+            if (!!fail || (_bench ? !total_error : !summary)) print_log(format(@"""%s""", suite.title));
 
             // Sort by benchmark results
             local max_calls = 0;
@@ -423,33 +425,32 @@ class UnitTest {
             }
 
             if (!specs.len()) {
-                print_log("  WARN no specs");
+                print_log("  ⚠️ no specs");
             }
 
             foreach (i, spec in specs) {
                 if (spec.errors.len()) {
                     // Spec errors
-                    print_log("  WARN " + spec.title + "\n");
-                    foreach (error in spec.errors) print_log("    " + error);
+                    print_log("  ❌ " + spec.title);
+                    foreach (error in spec.errors) print_log(format("    %s", error));
                 } else if (!spec.omit) {
                     if (_bench && !total_error) {
                         // Bench result
                         if (!summary || (i == 0)) {
-                            local percent = ("  " + ceil(spec.calls * 100.0 / max_calls)).slice(-3);
-                            print_log("  " + percent + "% " + spec.title + " (" + spec.calls + ")");
+                            print_log(format("  %3.0f%% %s (%d)", spec.calls * 100.0 / max_calls, spec.title, spec.calls));
                         }
-                    } else if (!summary || total_error) {
+                    } else if (!summary && (!_bench || !!fail)) {
                         // Passed
-                        print_log("  INFO " + spec.title);
+                        print_log(format("  ✔️ %s", spec.title));
                     }
                 }
             }
         }
 
         // Footer
-        print_log("\n" + _suites.len() + " suites, " + total_specs + " specs, " + total_fails + " failures");
-        if (_bench) print_log("Benchmark for " + (_duration / 1000.0) + " seconds");
-        print_log("Finished in " + ((end_time - _start) / 1000.0) + " seconds");
-        print_log(_am_ver + "\n");
+        print_log(format("\n%d suites, %d specs, %d failures", _suites.len(), total_specs, total_fails));
+        if (_bench) print_log(format("Benchmark for %d seconds", _duration / 1000.0));
+        print_log(format("Finished in %d seconds", (end_time - _start) / 1000.0));
+        print_log(format("%s\n", _am_ver));
     }
 }

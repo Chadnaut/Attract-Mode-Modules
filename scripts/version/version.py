@@ -87,7 +87,7 @@ def parseReadme(path: str):
     if (os.path.isfile(path)):
         arr = []
         head = False
-        with open(path) as file:
+        with open(path, encoding='utf-8') as file:
             for line in file:
                 if head:
                     m = re.findall(r'> (.*)\n', line)
@@ -107,7 +107,7 @@ def parseReadme(path: str):
 def parseScript(path: str):
     if (os.path.isfile(path)):
         arr = []
-        with open(path) as file:
+        with open(path, encoding='utf-8') as file:
             for n in file:
                 if re.match(r'^/\*', n): continue
                 if re.match(r'^//', n): continue
@@ -132,7 +132,7 @@ def summaryPattern(info: Info):
 
 def parseSummary(path: str, find_info: Info):
     if (os.path.isfile(path)):
-        with open(path) as file:
+        with open(path, encoding='utf-8') as file:
             for line in file:
                 m = re.findall(summaryPattern(find_info), line)
                 if m:
@@ -147,7 +147,7 @@ def parseSummary(path: str, find_info: Info):
     return None
 
 def updateScript(path: str, r: Info):
-    with open(path, 'r') as file: content = file.read()
+    with open(path, 'r', encoding='utf-8') as file: content = file.read()
     content = re.sub(r'^/\*[\w\W]*?\*/\n', '', content)
     while re.match(r'^(#[^\n]*)?\s*\n', content): content = re.sub(r'^(\s*|#[^\n]*)\n', '', content)
 
@@ -165,13 +165,13 @@ def updateScript(path: str, r: Info):
         ('' if is_py else '*/').rjust(max_len, '#')
     ]
     content = '\n'.join(header) + '\n\n' + content
-    with open(path, 'w') as file: file.write(content)
+    with open(path, 'w', encoding='utf-8') as file: file.write(content)
 
 def updateSummary(path: str, r: Info):
-    with open(path, 'r') as file: content = file.read()
+    with open(path, 'r', encoding='utf-8') as file: content = file.read()
     replace = f'|{r.image}|v{r.version}|[{r.title}]({r.readme}) - {r.description}|{r.examples}|'
     content = re.sub(summaryPattern(r), replace, content)
-    with open(path, 'w') as file: file.write(content)
+    with open(path, 'w', encoding='utf-8') as file: file.write(content)
 
 # ===================================================
 
@@ -220,13 +220,13 @@ def updateItems(summary, path, readme_file, script_file):
 
         applied = 'applied' if apply else 'required'
         if update_script:
-            print(f'{readme_data.title} - script update {applied}')
+            print(f'{'✔️' if apply else '⚠️'}  {readme_data.title} - script update {applied}')
             if apply: updateScript(script, readme_data)
         if update_summary:
-            print(f'{readme_data.title} - summary update {applied}')
+            print(f'{'✔️' if apply else '⚠️'}  {readme_data.title} - summary update {applied}')
             if apply: updateSummary(summary, readme_data)
         if not update_script and not update_summary:
-            print(f'{readme_data.title} ' + u'\u2713')
+            print(f'✔️  {readme_data.title}')
 
 updateItems('../../README.md', '../../modules', 'README.md', 'module.nut')
 updateItems('../../README.md', '../../plugins', 'README.md', 'plugin.nut')

@@ -21,9 +21,11 @@ describe("FileSystem Read", function() {
         f.close();
     });
 
-    it("crc", function () {
-        local f = ::fs.open(FeConfigDirectory + "attract.cfg", "r");
-        local v = f.crc();
-        f.close();
+    it("crc32", function () {
+        local v = ::fs.crc32(FeConfigDirectory + "attract.cfg");
+    });
+
+    it("size", function () {
+        local v = ::fs.file_size(FeConfigDirectory + "attract.cfg");
     });
 });

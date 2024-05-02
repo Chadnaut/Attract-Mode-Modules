@@ -2,7 +2,7 @@
 # LogPlus
 #
 # Extended logging functionality
-# Version 0.6.1
+# Version 0.6.2
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -35,7 +35,7 @@ class LogPlus {
     // patterns for special values that dont get stringified
     OBJ = @"{.*}|<.*>";
     BULLET = @"[\s\t\r\n\-]+";
-    KEYWORD = @"INFO|NOTICE|ALERT|DEBUG|ERROR|WARN(ING)?";
+    KEYWORD = @"INFO|NOTICE|ALERT|DEBUG|ERROR|WARN(ING)?|\X+";
     DATETIME = @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}";
     TIMEINFO = @"(\d+:\d{2}:\d{2}\.\d{3})?(\s?\+[\d#]+)?(\s?\[[\d#]+\])?";
 
@@ -89,7 +89,7 @@ class LogPlus {
             value += (
                     show_specials
                     && typeof v == "string"
-                    && !!regexp(@"^("+OBJ+"|"+BULLET+"|"+KEYWORD+"|"+DATETIME+"|"+TIMEINFO+@")$").capture(v)
+                    && !!regexp(format(@"^(%s|%s|%s|%s|%s)$", OBJ, BULLET, KEYWORD, DATETIME, TIMEINFO)).capture(v)
                 ) ? v : ::stringify(v, indent);
         }
         return value;
@@ -124,30 +124,24 @@ class LogPlus {
         _frame++;
     }
 
-    function crop_number(value) {
-        return (value > 99999)
-            ? "#####"
-            : ("00000" + value).slice(-5);
-    }
-
     function get_time() {
         return format(
-            "%d:%s:%s.%s",
+            "%d:%02d:%02d.%03d",
             _next_time / 3600000,
-            ("00" + (_next_time / 60000 % 60)).slice(-2),
-            ("00" + (_next_time / 1000 % 60)).slice(-2),
-            ("000" + (_next_time % 1000)).slice(-3)
+            _next_time / 60000 % 60,
+            _next_time / 1000 % 60,
+            _next_time % 1000
         );
     }
 
     function get_diff() {
         local diff = _next_time - _last_time;
         _last_time = _next_time;
-        return crop_number(diff);
+        return format("%03d", diff);
     }
 
     function get_frame() {
-        return crop_number(_frame);
+        return format("%03d", _frame);
     }
 }
 

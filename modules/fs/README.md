@@ -1,7 +1,7 @@
 # FileSystem
 
 > File reading and writing  
-> Version 0.8.0  
+> Version 0.8.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -25,19 +25,19 @@ foreach (d in dir) print(d + "\n")
 
 ## Functions
 
-- `::fs.open(path, mode = "r")` *FileHander* - Returns a FileHander
-- `::fs.copy(from, to, overwrite?)` *bool* - Copy file
-- `::fs.move(from, to, overwrite?)` *bool* - Move file
-- `::fs.unlink(path)` *bool* - Delete file
-- `::fs.rename(from, to)` *bool* - Rename file
+- `::fs.open(path, mode = "r")` *FileHander* - Returns a FileHander.
+- `::fs.copy(from, to, overwrite?)` *bool* - Copy file.
+- `::fs.move(from, to, overwrite?)` *bool* - Move file.
+- `::fs.unlink(path)` *bool* - Delete file.
+- `::fs.rename(from, to)` *bool* - Rename file.
 - `::fs.crc32(path)` *int* - Return unsigned CRC32 of file.
-- `::fs.exists(path)` *bool* - Return true if path exists
-- `::fs.file_exists(path)` *bool* - Return true if file exists
-- `::fs.directory_exists(path)` *bool* - Return true if directory exists
-- `::fs.file_size(path)` *bool* - Return size of file
+- `::fs.exists(path)` *bool* - Return true if path exists.
+- `::fs.file_exists(path)` *bool* - Return true if file exists.
+- `::fs.directory_exists(path)` *bool* - Return true if directory exists.
+- `::fs.file_size(path)` *bool* - Return size of file.
 - `::fs.join(...)` *string* - Joins passed arguments using slash `/` delimiter.
 - `::fs.readdir(path, absolute = false)` *[string]* - Returns an array of paths from `path`.
-- `::fs.add_trailing_slash(path)` *string* - Ensure path has trailing slash
+- `::fs.add_trailing_slash(path)` *string* - Ensure path has trailing slash.
 
 ## Modes
 
@@ -71,9 +71,9 @@ foreach (d in dir) print(d + "\n")
 - `close()` - Closes file.
 - `rewind()` - Place pointer at start of file.
 - `end()` - Place pointer at end of file.
-- `seek(offset, origin?)` - Move pointer within file
-  - `offset` - character to move, '\n' == 2 chars
-  - `origin` - start from beginning, end, current: `'b', 'e', 'c'`
+- `seek(offset, origin?)` - Move pointer within file.
+  - `offset` - number of characters to move (NOTE: `\n` == 2 chars).
+  - `origin` - offset from beginning `b`, end `e`, or current `c`.
 
 ## Further Reading
 

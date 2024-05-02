@@ -2,7 +2,7 @@
 # FileSystem
 #
 # File reading and writing
-# Version 0.8.0
+# Version 0.8.1
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -21,6 +21,8 @@ class FileHandler {
     _file = null;
     _blob = null;
 
+    // Open a file
+    // - usually instant, but sometimes this can take up to 13ms to complete!
     constructor(_path, _mode = "r") {
         path = _path;
         mode = _mode;
@@ -227,8 +229,8 @@ local unlink = function(path) {
 // Rename a file
 local rename = function(from, to) {
     try {
-        if (!file_exists(from)) return log_error("Cannot rename", "Source not found", from);
-        if (file_exists(to)) return log_error("Cannot rename", "Destination exists", to);
+        if (!exists(from)) return log_error("Cannot rename", "Source not found", from);
+        if (exists(to)) return log_error("Cannot rename", "Destination exists", to);
         ::rename(from, to);
         return true;
     } catch (err) {

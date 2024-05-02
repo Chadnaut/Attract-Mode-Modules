@@ -49,7 +49,7 @@ Tools and utilities to improve workflow and debugging.
 |:-|:-|:-|:-|
 |Python|v0.2.0|[Keypress](./scripts/keypress/README.md) - Send keypress to a window|[Example](./scripts/keypress/README.md#example)|
 |Python|v0.3.0|[Link](./scripts/link/README.md) - Create a series of symlinks|[Example](./scripts/link/README.md#example)|
-|Python|v0.1.0|[Version](./scripts/version/README.md) - Sync version info between files|[Example](./scripts/version/README.md#example)|
+|Python|v0.1.1|[Version](./scripts/version/README.md) - Sync version info between files|[Example](./scripts/version/README.md#example)|
 
 ## Looking for More?
 

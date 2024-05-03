@@ -38,6 +38,7 @@ foreach (d in dir) print(d + "\n")
 - `::fs.join(...)` *string* - Joins passed arguments using slash `/` delimiter.
 - `::fs.readdir(path, absolute = false)` *[string]* - Returns an array of paths from `path`.
 - `::fs.add_trailing_slash(path)` *string* - Ensure path has trailing slash.
+- `::fs.remove_trailing_slash(path)` *string* - Ensure path has no trailing.
 
 ## Modes
 

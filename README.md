@@ -33,7 +33,7 @@ Tools and utilities to improve workflow and debugging.
 |[<img src="./modules/logplus/example.png" width="100"/>](./modules/logplus/README.md)|v0.6.4|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
 |[<img src="./modules/quicksort/example.png" width="100"/>](./modules/quicksort/README.md)|v0.1.1|[Quicksort](./modules/quicksort/README.md) - Yielding Quicksort|[Example](./layouts/Example.Quicksort/)|
 |[<img src="./modules/regex/example.png" width="100"/>](./modules/regex/README.md)|v0.2.0|[Regex](./modules/regex/README.md) - Regular Expression handler|[Example](./layouts/Example.Regex/)|
-|[<img src="./modules/stringify/example.png" width="100"/>](./modules/stringify/README.md)|v0.1.6|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
+|[<img src="./modules/stringify/example.png" width="100"/>](./modules/stringify/README.md)|v0.1.7|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
 |[<img src="./modules/timer/example.png" width="100"/>](./modules/timer/README.md)|v0.2.0|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|
 |[<img src="./modules/unittest/example.png" width="100"/>](./modules/unittest/README.md)|v1.1.2|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
 
@@ -41,7 +41,8 @@ Tools and utilities to improve workflow and debugging.
 
 |Type|Version|Module|Example|
 |:-|:-|:-|:-|
-|Plugin|v0.1.0|[Reload hotkey](./plugins/ReloadHotkey/README.md) - Reload layout when custom key pressed|[Example](./plugins/ReloadHotkey/README.md#quickstart)|
+|Plugin|v0.1.0|[Message Queue](./plugins/MessageQueue/README.md) - Send messages using files|[Example](./plugins/MessageQueue/README.md#quickstart)|
+|Plugin|v0.1.0|[Reload Hotkey](./plugins/ReloadHotkey/README.md) - Reload layout when custom key pressed|[Example](./plugins/ReloadHotkey/README.md#quickstart)|
 
 ### Scripts
 

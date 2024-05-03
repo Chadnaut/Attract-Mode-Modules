@@ -2,7 +2,7 @@
 # Stringify
 #
 # JSON-like value stringification
-# Version 0.1.6
+# Version 0.1.7
 # Chadnaut 2024
 # https://github.com/Chadnaut/Attract-Mode-Modules
 #
@@ -23,11 +23,11 @@ local key_regex = regexp(@"^[A-Za-z_][A-Za-z_0-9]*$");
                 local info = value.getinfos();
                 local args = "";
                 local delim = "";
-                foreach (i, arg in info.parameters.slice(1)) {
+                if ("parameters" in info) foreach (i, arg in info.parameters.slice(1)) {
                     args += format("%s%s", delim, arg);
                     delim = delim_value;
                 }
-                return format("function%s%s(%s) { ... }", info.name ? " " : "", info.name || "", args);
+                return format("function%s%s(%s) {}", info.name ? " " : "", info.name || "", args);
 
             case "table":
                 local key;

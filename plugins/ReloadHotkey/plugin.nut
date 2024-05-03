@@ -1,5 +1,5 @@
 /*################################################
-# Reload hotkey
+# Reload Hotkey
 #
 # Reload layout when custom key pressed
 # Version 0.1.0
@@ -8,7 +8,7 @@
 #
 ################################################*/
 
-class UserConfig</ help="Reload layout when custom key pressed (v0.1)" /> {
+class UserConfig</ help="Reload layout when custom key pressed (v0.1.0)" /> {
     </  label="Hotkey",
         options="Custom1,Custom2,Custom3,Custom4,Custom5,Custom6",
         help="Key to reload the layout",

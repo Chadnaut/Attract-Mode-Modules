@@ -190,10 +190,16 @@ local log_error = function(title, error, path = null, mode = null) {
     return false;
 }
 
-// Ensure path has a single trailing slash
+// Ensure path has trailing slash
 local add_trailing_slash = function(path) {
     local tail = path[path.len() - 1];
     return (tail == FORWARDSLASH_CODE || tail == BACKSLASH_CODE) ? path : path + "/";
+}
+
+// Ensure path has no trailing slash
+local remove_trailing_slash = function(path) {
+    local tail = path[path.len() - 1];
+    return (tail == FORWARDSLASH_CODE || tail == BACKSLASH_CODE) ? path.slice(0, path.len() - 2) : path;
 }
 
 // Join args into path delimited by slashes
@@ -211,9 +217,9 @@ local readdir = function(path, absolute_path = false) {
 };
 
 // Wrappers for path checking methods
-local exists = @(path) ::fe.path_test(path, PathTest.IsFileOrDirectory);
+local exists = @(path) ::fe.path_test(remove_trailing_slash(path), PathTest.IsFileOrDirectory);
 local file_exists = @(path) ::fe.path_test(path, PathTest.IsFile);
-local directory_exists = @(path) ::fe.path_test(path, PathTest.IsDirectory);
+local directory_exists = @(path) ::fe.path_test(remove_trailing_slash(path), PathTest.IsDirectory);
 
 // Delete a file
 local unlink = function(path) {
@@ -320,4 +326,5 @@ local crc32 = function(path) {
     join = join,
     readdir = readdir,
     add_trailing_slash = add_trailing_slash,
+    remove_trailing_slash = remove_trailing_slash,
 };

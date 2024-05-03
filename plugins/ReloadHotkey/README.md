@@ -1,4 +1,4 @@
-# Reload hotkey
+# Reload Hotkey
 
 > Reload layout when custom key pressed  
 > Version 0.1.0  

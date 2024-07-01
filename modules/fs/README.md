@@ -1,7 +1,7 @@
 # FileSystem
 
 > File reading and writing  
-> Version 0.8.1  
+> Version 0.9.0  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -30,15 +30,30 @@ foreach (d in dir) print(d + "\n")
 - `::fs.move(from, to, overwrite?)` *bool* - Move file.
 - `::fs.unlink(path)` *bool* - Delete file.
 - `::fs.rename(from, to)` *bool* - Rename file.
-- `::fs.crc32(path)` *int* - Return unsigned CRC32 of file.
 - `::fs.exists(path)` *bool* - Return true if path exists.
 - `::fs.file_exists(path)` *bool* - Return true if file exists.
 - `::fs.directory_exists(path)` *bool* - Return true if directory exists.
-- `::fs.file_size(path)` *bool* - Return size of file.
+- `::fs.crc32(path)` *int* - Return unsigned CRC32 of file.
+- `::fs.readdir(path, absolute = false)` *[string]* - Returns a list of items in path.
 - `::fs.join(...)` *string* - Joins passed arguments using slash `/` delimiter.
-- `::fs.readdir(path, absolute = false)` *[string]* - Returns an array of paths from `path`.
 - `::fs.add_trailing_slash(path)` *string* - Ensure path has trailing slash.
 - `::fs.remove_trailing_slash(path)` *string* - Ensure path has no trailing.
+
+Note that functions will *throw* errors on invalid actions, such as copying a file that doesn't exist.
+
+### Shortcuts
+
+These shortcuts are provided to make it easier to perform simple tasks.
+
+- `::fs.file_size(path)` *int* - Shortcut for `FileHander.len`.
+- `::fs.read(path)` *string* - Shortcut for `FileHander.read`.
+- `::fs.read_lines(path)` *[string]* - Shortcut for `FileHander.read_lines`.
+- `::fs.read_csv(path)` *[[string]]* - Shortcut for `FileHander.read_csv`.
+- `::fs.read_pairs(path)` *[[string]]* - Shortcut for `FileHander.read_pairs`.
+- `::fs.write(path, string)` - Shortcut for `FileHander.write`.
+- `::fs.write_lines(path, lines)` - Shortcut for `FileHander.write_lines`.
+- `::fs.write_csv(path, csv)` - Shortcut for `FileHander.write_csv`.
+- `::fs.write_pairs(path, pairs)` - Shortcut for `FileHander.write_pairs`.
 
 ## Modes
 
@@ -59,17 +74,25 @@ foreach (d in dir) print(d + "\n")
 
 ## FileHandler
 
-- `read()` *string* - Return entire file as string.
+The FileHander should be used to process file data one line at a time, which is more efficient than reading the entire file and looping through the results.
+
 - `read_line()` *string* - Return next line in file, or null if none.
 - `read_lines()` *[string]* - Return all lines as array.
-- `read_csv_line(delim = ";")` *[string]* - Return next csv line as array in file, or null if none.
-- `read_csv_lines(delim = ";")` *[[string]]* - Return all csv lines as array.
-- `write(string)` - Write string to file.
+- `read()` *string* - Return entire file as string.
 - `write_line(string)` - Write string to file with new line after.
-- `write_lines([string])` - Write array of strings to file.
+- `write_lines([string])` - Write array of strings to file with new lines after.
+- `write(string)` - Write string to entire file.
+- `read_csv_line(delim = ";")` *[string]* - Return next csv line as array, or null if none.
+- `read_csv(delim = ";")` *[[string]]* - Return all csv lines as an array of arrays.
+- `write_csv_line(row, delim = ";")` - Write delimited values to file.
+- `write_csv(csv, delim = ";")` - Write array of delimited values to file.
+- `read_pairs_line()` *[string]* - Return next pairs line as array, or null if none.
+- `read_pairs()` *[[string]]* - Return all pairs lines as an array of arrays.
+- `write_pairs_line(row)` - Write pair values to file.
+- `write_pairs(pairs)` - Write array of pair values to file.
+- `close()` - Closes the file, and allow other handlers to open it.
+- `len()` *int* - Return length of file.
 - `exists()` *bool* - Return true if file exists.
-- `len()` *int* - Return length of file (null if no file).
-- `close()` - Closes file.
 - `rewind()` - Place pointer at start of file.
 - `end()` - Place pointer at end of file.
 - `seek(offset, origin?)` - Move pointer within file.

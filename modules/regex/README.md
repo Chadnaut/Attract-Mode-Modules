@@ -1,7 +1,7 @@
 # Regex
 
 > Regular Expression handler  
-> Version 0.2.0  
+> Version 0.2.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 

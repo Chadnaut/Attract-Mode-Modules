@@ -1,12 +1,9 @@
-/*################################################
-# Frame
-#
-# 9-slice image scaling
-# Version 0.1.1
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Frame
+//
+// > 9-slice image scaling
+// > Version 0.1.1
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 class Frame {
     _dir = ::fe.module_dir;

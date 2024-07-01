@@ -13,6 +13,10 @@ describe("Stringify", function() {
 
     it("should table", function() {
         expect(stringify({ a = 1, b = 2 })).toEqual("{ a = 1, b = 2 }");
+        expect(stringify({ a = 1, b = 2 }, -1)).toEqual("{a=1,b=2}");
+        expect(stringify({ a = 1, b = 2 }, 2)).toEqual("{\n  a = 1,\n  b = 2\n}");
+        expect(stringify({ a = 1, b = 2 }, "  ")).toEqual("{\n  a = 1,\n  b = 2\n}");
+        expect(stringify({ a = 1, b = { c = 3} }, "  ")).toEqual("{\n  a = 1,\n  b = {\n    c = 3\n  }\n}");
     });
 
     it("should table key", function() {
@@ -24,6 +28,9 @@ describe("Stringify", function() {
 
     it("should array", function() {
         expect(stringify([1, 2, 3])).toEqual("[1, 2, 3]");
+        expect(stringify([1, 2, 3], -1)).toEqual("[1,2,3]");
+        expect(stringify([1, 2, 3], 2)).toEqual("[\n  1,\n  2,\n  3\n]");
+        expect(stringify([1, 2, 3], "  ")).toEqual("[\n  1,\n  2,\n  3\n]");
     });
 
     it("should string", function() {
@@ -63,7 +70,7 @@ describe("Stringify", function() {
     });
 
     it("should other", function() {
-        expect(stringify(::fe.overlay)).toMatch(@"<[A-Za-z0-9_]+>")
+        expect(stringify(::fe.overlay)).toMatch(@"<\!--[A-Za-z0-9_]+-->")
     });
 
 });

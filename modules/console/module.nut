@@ -1,12 +1,9 @@
-/*################################################
-# Console
-#
-# Coloured message list with animated typing
-# Version 0.9.0
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Console
+//
+// > Coloured message list with animated typing
+// > Version 0.9.0
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 fe.load_module("stringify");
 

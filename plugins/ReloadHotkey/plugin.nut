@@ -1,12 +1,9 @@
-/*################################################
-# Reload Hotkey
-#
-# Reload layout when custom key pressed
-# Version 0.1.0
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Reload Hotkey
+//
+// > Reload layout when custom key pressed
+// > Version 0.1.0
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 class UserConfig</ help="Reload layout when custom key pressed (v0.1.0)" /> {
     </  label="Hotkey",

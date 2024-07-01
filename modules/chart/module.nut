@@ -1,12 +1,9 @@
-/*################################################
-# Chart
-#
-# Plot events over time
-# Version 1.2.0
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Chart
+//
+// > Plot events over time
+// > Version 1.2.0
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 class Chart {
     _dir = fe.module_dir;

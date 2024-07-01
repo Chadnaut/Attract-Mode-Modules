@@ -14,6 +14,7 @@ fe.do_nut("suite/array.create.nut");
 fe.do_nut("suite/array.extend.nut");
 fe.do_nut("suite/array.filter.nut");
 fe.do_nut("suite/array.find.nut");
+fe.do_nut("suite/array.join.nut");
 fe.do_nut("suite/array.loop.nut");
 fe.do_nut("suite/array.map.nut");
 fe.do_nut("suite/array.reduce.nut");
@@ -25,6 +26,8 @@ fe.do_nut("suite/func.call.nut");
 fe.do_nut("suite/func.nest.nut");
 fe.do_nut("suite/string.format.nut");
 fe.do_nut("suite/string.split.nut");
+fe.do_nut("suite/string.strip.nut");
+fe.do_nut("suite/table.slot.nut");
 fe.do_nut("suite/variable.getter.nut");
 
 ut.benchmark(100);

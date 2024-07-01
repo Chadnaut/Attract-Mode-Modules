@@ -10,7 +10,7 @@ local flh = fe.layout.height;
 
 // read a file one line at a time, good for processing large files
 local display = ::fe.displays[::fe.list.display_index];
-local fh1 = ::fs.open(FeConfigDirectory + "romlists/" + display.romlist + ".txt", "r");
+local fh1 = ::fs.open(FeConfigDirectory + "romlists/" + display.romlist + ".txt", "rb");
 local line1 = null;
 local content1 = "";
 while (line1 = fh1.read_line()) content1 += line1 + "\n";
@@ -23,7 +23,7 @@ msg1.word_wrap = true;
 // =================================
 
 // read a file all at once
-local fh2 = ::fs.open(FeConfigDirectory + "attract.cfg", "r");
+local fh2 = ::fs.open(FeConfigDirectory + "attract.cfg", "rb");
 local content2 = fh2.read();
 
 local msg2 = fe.add_text(content2, flw/3, 0, flw/3, flh * 19 / 20);

@@ -1,12 +1,9 @@
-/*################################################
-# Mask
-#
-# 9-slice image masking
-# Version 0.3.1
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Mask
+//
+// > 9-slice image masking
+// > Version 0.3.1
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 ::MaskType <- {
     None = 0,

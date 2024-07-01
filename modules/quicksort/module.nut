@@ -1,12 +1,9 @@
-/*################################################
-# Quicksort
-#
-# Yielding Quicksort
-# Version 0.1.1
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Quicksort
+//
+// > Yielding Quicksort
+// > Version 0.1.1
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 const MAX_LEVELS = 64;
 local max_arr = array(MAX_LEVELS);

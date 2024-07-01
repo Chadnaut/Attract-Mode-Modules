@@ -10,8 +10,9 @@
 - [Python 3.12.1](https://www.python.org/downloads/)
 
 ```sh
+# Update pip and install requirements
 python -m pip install --upgrade pip
-python -m pip install --upgrade pywin32
+pip install -r requirements.txt
 ```
 
 ## Usage

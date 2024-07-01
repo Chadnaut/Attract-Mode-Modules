@@ -76,6 +76,6 @@ Where `options` are:
 - `bg_rgb` *[r,g,b]* - Background color
 - `align` *Align* - Alignment
 
-# Further Reading
+## Further Reading
 
 - [C64 TrueType (TTF) Fonts](https://style64.org/c64-truetype)

@@ -1,12 +1,9 @@
-/*################################################
-# LogPlus
-#
-# Extended logging functionality
-# Version 0.6.4
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// LogPlus
+//
+// > Extended logging functionality
+// > Version 0.6.4
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 if ("logplus" in this) return;
 

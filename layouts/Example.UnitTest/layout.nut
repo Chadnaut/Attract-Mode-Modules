@@ -5,7 +5,7 @@ fe.load_module("unittest");
 
 local run_self_tests = true;
 local run_squirrel_tests = true;
-local run_list_tests = true;
+local run_list_tests = true; // Require Confirm Favourites = No
 local run_module_tests = true; // Require other modules from the repo
 local run_display_tests = false; // Require ALL displays to use this layout
 local run_overlay_tests = false; // Require "scripts" in your AM folder (see the repo)
@@ -32,6 +32,7 @@ if (run_list_tests) {
 }
 
 if (run_module_tests) {
+    fe.do_nut("suite/fs.nut");
     fe.do_nut("suite/regex.nut");
     fe.do_nut("suite/stringify.nut");
     fe.do_nut("suite/quicksort.nut");

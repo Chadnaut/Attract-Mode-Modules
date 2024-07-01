@@ -1,7 +1,7 @@
 # Message Queue
 
 > Send messages using files  
-> Version 0.1.0  
+> Version 0.1.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -43,3 +43,11 @@ If you require a specific order ensure your message files are named appropriatel
 - message-1714705100.txt
 - message-1714705101.txt
 - message-1714705102.txt
+
+## Potential Uses
+
+Have your 3rd-party app write message files to the queue path, then handle the incoming message however you wish.
+
+- Start games using a NFC card-reader
+- Trigger signals using a remote Web-app
+- Communicate between multiple AM instances

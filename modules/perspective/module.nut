@@ -1,15 +1,13 @@
-/*################################################
-# Perspective
-#
-# Perspective correct texture mapping
-# Version 0.5.4
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Perspective
+//
+// > Perspective correct texture mapping
+// > Version 0.5.4
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 class Perspective {
-    _dir = ::fe.module_dir + (OS == "OSX" ? "120/" : "130/");
+    _dir = ::fe.module_dir;
+    _ver = OS == "OSX" ? "120" : "130";
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -29,7 +27,11 @@ class Perspective {
 
     constructor(obj) {
         _obj = obj;
-        _obj.shader = ::fe.add_shader(Shader.VertexAndFragment, _dir + "perspective.vert", _dir + "perspective.frag");
+        _obj.shader = ::fe.add_shader(
+            Shader.VertexAndFragment,
+            ::format("%sperspective-%s.vert", _dir, _ver),
+            ::format("%sperspective-%s.frag", _dir, _ver)
+        );
         _prop = clone _prop_defaults;
 
         // re-set existing props to update shader

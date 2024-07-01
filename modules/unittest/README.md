@@ -46,7 +46,7 @@ Finished in 0.16 seconds
 ![Example](example.png)\
 *Example console output*
 
-# Test
+## Test
 
 - `Suites` are groups of related `Specs`.
 - `Specs` are individual tests that have a number of `Expectations`.
@@ -56,7 +56,7 @@ Finished in 0.16 seconds
 - On completion a report is printed to `last_run.log`.
 - `Specs` with failed `Expectations` are flagged.
 
-# Benchmark
+## Benchmark
 
 - `Suites` are groups of related `Specs`.
 - `Specs` are methods to benchmark, each must return the same result.

@@ -1,12 +1,9 @@
-/*################################################
-# UnitTest
-#
-# Testing and benchmarking
-# Version 1.1.2
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// UnitTest
+//
+// > Testing and benchmarking
+// > Version 1.1.2
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 fe.do_nut(fe.module_dir + "utils.nut");
 
@@ -15,7 +12,7 @@ fe.load_module("console");
 
 class UnitTest {
 
-    console = ::Console();
+    console = null;
     _am_ver = null;
     _am_log = false;
 
@@ -52,6 +49,9 @@ class UnitTest {
     // =============================================
 
     constructor() {
+        console = ::Console();
+        console.char_size = 20;
+        console.height = ::fe.layout.height - 50;
         _prop = clone _prop_defaults;
         _am_log = ("log" in ::fe);
         _am_ver = format("Attract-Mode %s%s", _am_log ? "Plus " : "", getconsttable().FeVersion);

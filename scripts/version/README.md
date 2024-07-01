@@ -1,7 +1,6 @@
 # Version
-
 > Sync version info between files  
-> Version 0.1.1  
+> Version 0.1.2  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -31,6 +30,7 @@ No changes will be made unless the `-w` flag is provided.
 
 ```md
 # Title
+
 > Description
 > Version 1.2.3  
 > Author

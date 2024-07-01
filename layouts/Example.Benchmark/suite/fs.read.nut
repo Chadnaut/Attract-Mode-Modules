@@ -1,31 +1,38 @@
-::fe.load_module("stringify");
 ::fe.load_module("fs");
+
+local filename = FeConfigDirectory + "attract.cfg";
 
 describe("FileSystem Read", function() {
 
-    it("stringify", function () {
-        local f = ::fs.open(FeConfigDirectory + "attract.cfg", "r");
-        local v = stringify(f.read_lines());
+    it("read_line", function () {
+        local f = ::fs.open(filename, "rb");
+        local v;
+        while (v = f.read_line()) {}
         f.close();
     });
 
     it("read_lines", function () {
-        local f = ::fs.open(FeConfigDirectory + "attract.cfg", "r");
+        local f = ::fs.open(filename, "rb");
         local v = f.read_lines();
         f.close();
     });
 
-    it("read", function () {
-        local f = ::fs.open(FeConfigDirectory + "attract.cfg", "r");
-        local v = f.read();
+    it("read_pairs_line", function () {
+        local f = ::fs.open(filename, "rb");
+        local v;
+        while (v = f.read_pairs_line()) {}
         f.close();
     });
 
-    it("crc32", function () {
-        local v = ::fs.crc32(FeConfigDirectory + "attract.cfg");
+    it("read_pairs", function () {
+        local f = ::fs.open(filename, "rb");
+        local v = f.read_pairs();
+        f.close();
     });
 
-    it("size", function () {
-        local v = ::fs.file_size(FeConfigDirectory + "attract.cfg");
+    it("read", function () {
+        local f = ::fs.open(filename, "rb");
+        local v = f.read();
+        f.close();
     });
 });

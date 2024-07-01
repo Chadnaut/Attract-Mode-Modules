@@ -1,15 +1,18 @@
-##################################################
 # Keypress
 #
-# Send keypress to a window
-# Version 0.2.0
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-##################################################
+# > Send keypress to a window
+# > Version 0.2.0
+# > Chadnaut 2024
+# > https://github.com/Chadnaut/Attract-Mode-Modules
 
 import sys, argparse, win32con
-from win32gui import SendMessage, EnumWindows, GetWindowText, GetClassName, GetForegroundWindow
+from win32gui import (
+    SendMessage,
+    EnumWindows,
+    GetWindowText,
+    GetClassName,
+    GetForegroundWindow,
+)
 
 parser = argparse.ArgumentParser(description="Send keypress to window")
 parser.add_argument("key", help="key name or code")
@@ -32,14 +35,20 @@ elif hasattr(win32con, f"VK_{key}"):
 else:
     sys.exit(f"Unknown key {key}")
 
+
 def sendKeypress(hwnd, code):
     SendMessage(hwnd, win32con.WM_KEYDOWN, code, 0)
     SendMessage(hwnd, win32con.WM_KEYUP, code, 0)
 
+
 if window_name:
+
     def enumHandler(hwnd, lParam):
-        if (GetWindowText(hwnd) == window_name) and ((class_name == None) or (GetClassName(hwnd) == class_name)):
+        if (GetWindowText(hwnd) == window_name) and (
+            (class_name == None) or (GetClassName(hwnd) == class_name)
+        ):
             sendKeypress(hwnd, code)
+
     EnumWindows(enumHandler, None)
 else:
     sendKeypress(GetForegroundWindow(), code)

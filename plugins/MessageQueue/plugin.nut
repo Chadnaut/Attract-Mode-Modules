@@ -1,12 +1,9 @@
-/*################################################
-# Message Queue
-#
-# Send messages using files
-# Version 0.1.0
-# Chadnaut 2024
-# https://github.com/Chadnaut/Attract-Mode-Modules
-#
-################################################*/
+// Message Queue
+//
+// > Send messages using files
+// > Version 0.1.1
+// > Chadnaut 2024
+// > https://github.com/Chadnaut/Attract-Mode-Modules
 
 class UserConfig</ help="Send messages using files (v0.1.0)" /> {
     </  label="Queue Path",
@@ -80,12 +77,12 @@ class MessageQueue {
 
     function remove_trailing_slash(path) {
         local tail = path[path.len() - 1];
-        return (tail == 47 || tail == 92) ? path.slice(0, path.len() - 2) : path;
+        return (tail == '/' || tail == '\\') ? path.slice(0, path.len() - 2) : path;
     }
 
     function add_trailing_slash(path) {
         local tail = path[path.len() - 1];
-        return (tail == 47 || tail == 92) ? path : path + "/";
+        return (tail == '/' || tail == '\\') ? path : path + "/";
     }
 
     function match_ext(filename) {
@@ -96,7 +93,7 @@ class MessageQueue {
     function read_file(filename) {
         try {
             local content = "";
-            local f = ::file(filename, "r");
+            local f = ::file(filename, "rb");
             local b = f.readblob(f.len());
             while (!b.eos()) content += b.readn('b').tochar();
             f.close();

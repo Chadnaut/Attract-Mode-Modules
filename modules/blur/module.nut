@@ -27,8 +27,6 @@ class Blur {
         _obj = obj;
         _prop = clone _prop_defaults;
 
-        ::fe.load_module("logplus");
-
         // default mask
         if (!_default.mask) {
             _default.mask = ::fe.add_image(_dir + "pixel.png", 0, 0, 1, 1);

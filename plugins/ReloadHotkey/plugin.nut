@@ -18,14 +18,14 @@ class ReloadHotkey {
     reload_signal = null;
 
     constructor() {
-        local config = fe.get_config();
+        local config = ::fe.get_config();
         reload_signal = config["reload_signal"].tolower();
-        fe.add_signal_handler(this, "on_signal");
+        ::fe.add_signal_handler(this, "on_signal");
     }
 
     function on_signal(signal) {
-        if (signal == reload_signal) fe.signal("reload");
+        if (signal == reload_signal) ::fe.signal("reload");
     }
 }
 
-fe.plugin["ReloadHotkey"] <- ReloadHotkey();
+::fe.plugin["ReloadHotkey"] <- ReloadHotkey();

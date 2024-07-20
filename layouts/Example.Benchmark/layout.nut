@@ -24,6 +24,7 @@ fe.do_nut("suite/array.unique.nut");
 fe.do_nut("suite/fs.read.nut");
 fe.do_nut("suite/func.call.nut");
 fe.do_nut("suite/func.nest.nut");
+fe.do_nut("suite/string.escape.nut");
 fe.do_nut("suite/string.format.nut");
 fe.do_nut("suite/string.split.nut");
 fe.do_nut("suite/string.strip.nut");

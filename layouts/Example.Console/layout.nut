@@ -4,14 +4,19 @@
 fe.load_module("console");
 
 ::console <- Console();
-::console.x = floor(fe.layout.width / 20);
-::console.y = floor(fe.layout.height / 20);
-::console.width = floor(fe.layout.width * 18 / 20);
-::console.height = floor(fe.layout.height * 17 / 20);
 ::console.set_text_rgb(128, 116, 220);
 ::console.set_bg_rgb(68, 55, 165);
 ::console.font = "./fonts/C64_Pro_Mono-STYLE.ttf";
 ::console.char_size = 21;
+::console.line_height = 21;
+::console.x = floor(fe.layout.width / 20);
+::console.y = floor(fe.layout.height / 20);
+::console.width = floor(fe.layout.width * 18 / 20);
+::console.height = floor(fe.layout.height * 18 / 20);
+
+// C64 font is monospace so we can easily calculate columns and rows
+::console.height -= ::console.height % ::console.line_height;
+local line_cols = floor(::console.width / ::console.char_size);
 
 ::console.char_delay = 10;
 ::console.line_delay = 100;
@@ -25,9 +30,14 @@ bg.zorder = -1;
 
 //===================================================
 
-::console.print("     **** CHADNAUT 64 BASIC V2 ****");
+local line1 = "**** CHADNAUT 64 BASIC V2 ****";
+local line2 = "64K RAM SYSTEM  38911 BASIC BYTES FREE";
+
+// This formatting adds spaces to center the text
+// Doing this maintains the left-to-right type-in animation
+::console.print(format("%"+floor((line_cols+line1.len())/2)+"s", line1));
 ::console.print();
-::console.print(" 64K RAM SYSTEM  38911 BASIC BYTES FREE")
+::console.print(format("%"+floor((line_cols+line2.len())/2)+"s", line2));
 ::console.print();
 ::console.print("READY.");
 ::console.print(@"LOAD ""*"",8,1");

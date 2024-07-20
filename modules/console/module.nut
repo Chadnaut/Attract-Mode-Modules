@@ -1,7 +1,7 @@
 // Console
 //
 // > Coloured message list with animated typing
-// > Version 0.9.0
+// > Version 0.9.1
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -15,7 +15,8 @@ class Console {
         font = fe.layout.font,
         char_size = 24,
         char_spacing = 1.0,
-        line_space = 0,
+        line_margin = null,
+        line_height = 0,
     };
 
     _prop = null;
@@ -231,15 +232,18 @@ class Console {
         first.char_spacing = char_spacing;
         first.margin = 0;
         first.word_wrap = true;
-        first.msg = "M";
-        local h1 = first.msg_height;
-        first.msg = first.msg + "\n" + first.msg;
-        local h2 = first.msg_height;
-        first.msg = "";
+
+        if (!line_height) {
+            first.msg = "M";
+            local h1 = first.msg_height;
+            first.msg = first.msg + "\n" + first.msg;
+            local h2 = first.msg_height;
+            first.msg = "";
+            _once["line_height"] = h2 - h1 + ((line_margin || 0) * 2);
+        }
 
         // calc total lines
-        local line_height = h2 - h1 + line_space;
-        local line_head = h2 - h1 - char_size;
+        local margin = (line_margin == null) ? ((line_height - char_size) / 2) : 0;
         _lines = floor(height / line_height);
         first.height = line_height;
         local remainder = _lines * line_height < height;
@@ -251,7 +255,7 @@ class Console {
             line.char_size = char_size;
             line.char_spacing = char_spacing;
             line.word_wrap = false;
-            line.margin = line_head;
+            line.margin = margin;
             line.align = align;
             _texts.push(line);
         }

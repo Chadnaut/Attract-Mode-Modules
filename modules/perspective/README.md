@@ -10,8 +10,7 @@
 ```cpp
 fe.load_module("perspective");
 
-local object = fe.add_artwork("snap", 0, 0, 400 400);
-object = Perspective(object);
+local object = Perspective(fe.add_artwork("snap", 0, 0, 400 400));
 object.pinch_x = 100;
 object.pinch_y = 100;
 ```

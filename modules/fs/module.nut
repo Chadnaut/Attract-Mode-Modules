@@ -250,7 +250,7 @@ local join = function(...) {
 
 // Return array of items in folder
 local readdir = function(path, absolute_path = false) {
-    return absolute_path ? zip_get_dir(path).map(@(f) join(path, f)) : zip_get_dir(path);
+    return absolute_path ? ::zip_get_dir(path).map(@(f) join(path, f)) : ::zip_get_dir(path);
 };
 
 // True if file or dir exists

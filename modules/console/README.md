@@ -1,7 +1,7 @@
 # Console
 
 > Coloured message list with animated typing  
-> Version 0.9.0  
+> Version 0.9.1  
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
@@ -39,7 +39,8 @@ fe.load_module("console");
 - `font` *string* - Get/set<sup>1</sup> console font.
 - `char_size` *int* - Get/set<sup>1</sup> console font size.
 - `char_space` *int* - Get/set<sup>1</sup> console char space.
-- `line_space` *int* - Get/set<sup>1</sup> console font line space.
+- `line_height` *int* - Get/set<sup>1</sup> console line height.
+- `line_margin` *int* - Get/set<sup>1</sup> console line margin (ignored if `line_height` set).
 - `align` *Align* - Get/set text alignment.
 - `lines` *int* - Get total number of printed lines.
 - `lines_total` *int* - Get total number of lines that fit in the console.

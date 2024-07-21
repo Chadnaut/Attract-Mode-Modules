@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("ease");
+::fe.load_module("ease");
 
 for (local i=0, n=10; i<=n; i++) {
     print(::ease.out_cubic(i.tofloat(), 0.0, 1.0, n.tofloat()) + "\n");

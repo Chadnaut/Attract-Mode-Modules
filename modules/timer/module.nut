@@ -25,7 +25,7 @@ class Timer {
     static add = function(callback, delay, repeat) {
         local timer_id = _global.id++;
         local timer = _timers[timer_id] <- clone _timer_defaults;
-        timer.start_time = delay ? fe.layout.time : null;
+        timer.start_time = delay ? ::fe.layout.time : null;
         timer.start_frame = _global.frame;
         timer.delay = delay.tointeger();
         timer.repeat = !!repeat;
@@ -41,7 +41,7 @@ class Timer {
 
     static on_tick = function(_ttime) {
         _global.frame++;
-        local tick_time = fe.layout.time;
+        local tick_time = ::fe.layout.time;
         local frame = _global.frame;
         local start_time;
         local delay;
@@ -80,7 +80,7 @@ class Timer {
     }
 }
 
-fe.add_ticks_callback(Timer, "on_tick");
+::fe.add_ticks_callback(Timer, "on_tick");
 
 ::set_timeout <- @(callback, delay = 0) Timer.add(callback, delay, false);
 ::set_interval <- @(callback, delay = 0) Timer.add(callback, delay, true);

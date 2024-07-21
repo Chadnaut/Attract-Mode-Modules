@@ -5,8 +5,9 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
+local module_dir = ::fe.module_dir;
+
 class Retention {
-    _dir = ::fe.module_dir;
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -22,7 +23,7 @@ class Retention {
         local c = b.add_clone(obj);
         _obj = obj.add_clone(b);
         _obj.zorder = -2147483647;
-        _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "retention.frag")
+        _obj.shader = ::fe.add_shader(Shader.Fragment, module_dir + "retention.frag")
         _obj.shader.set_texture_param("texture2", obj);
         c.set_pos(0, 0);
         b.visible = false;

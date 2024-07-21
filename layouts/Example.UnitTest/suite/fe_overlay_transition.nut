@@ -5,14 +5,14 @@ function _fe_overlay_transition_callback(ttype, var, ttime) {
 }
 
 function keypress(key) {
-    fe.plugin_command_bg("python", format("%s %s Attract-Mode SFML_Window", FeConfigDirectory + "scripts/keypress/keypress.py", key));
+    ::fe.plugin_command_bg("python", format("%s %s Attract-Mode SFML_Window", FeConfigDirectory + "scripts/keypress/keypress.py", key));
 }
 
 describe("Frontend Overlay Transition", function() {
 
     before("should overlay show", function() {
         tlist.clear();
-        fe.signal("filters_menu");
+        ::fe.signal("filters_menu");
         wait(10);
     });
     before("should overlay exit", function() {
@@ -27,7 +27,7 @@ describe("Frontend Overlay Transition", function() {
 
     before("should overlay-select", function() {
         tlist.clear();
-        fe.signal("filters_menu");
+        ::fe.signal("filters_menu");
         wait(10);
     });
     before("should overlay-select move", function() {
@@ -47,7 +47,7 @@ describe("Frontend Overlay Transition", function() {
 
     before("should add_tags show", function() {
         tlist.clear();
-        fe.signal("add_tags");
+        ::fe.signal("add_tags");
         wait(10);
     });
     before("should add_tags exit", function() {
@@ -62,7 +62,7 @@ describe("Frontend Overlay Transition", function() {
 
     before("should configure show", function() {
         tlist.clear();
-        fe.signal("configure");
+        ::fe.signal("configure");
         wait(10);
     });
     before("should configure exit", function() {

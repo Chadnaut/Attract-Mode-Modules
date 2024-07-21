@@ -1,8 +1,8 @@
-fe.add_text(split(fe.script_dir, "/").top(), 0, fe.layout.height * 19 / 20, fe.layout.width, fe.layout.height / 20).align = Align.BottomLeft;
+::fe.add_text(split(::fe.script_dir, "/").top(), 0, ::fe.layout.height * 0.95, ::fe.layout.width, ::fe.layout.height * 0.05).align = Align.BottomLeft;
 //===================================================
 
-local text = fe.add_text("", 0, 0, fe.layout.width, fe.layout.height);
-text.char_size = fe.layout.height / 20;
+local text = ::fe.add_text("", 0, 0, ::fe.layout.width, ::fe.layout.height);
+text.char_size = ::fe.layout.height / 20;
 text.word_wrap = true;
 
 if (!("MessageQueue" in ::fe.plugin)) {

@@ -5,8 +5,9 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
+local module_dir = ::fe.module_dir;
+
 class Perspective {
-    _dir = ::fe.module_dir;
     _ver = OS == "OSX" ? "120" : "130";
     _obj = null;
     _prop = null;
@@ -29,8 +30,8 @@ class Perspective {
         _obj = obj;
         _obj.shader = ::fe.add_shader(
             Shader.VertexAndFragment,
-            ::format("%sperspective-%s.vert", _dir, _ver),
-            ::format("%sperspective-%s.frag", _dir, _ver)
+            ::format("%sperspective-%s.vert", module_dir, _ver),
+            ::format("%sperspective-%s.frag", module_dir, _ver)
         );
         _prop = clone _prop_defaults;
 

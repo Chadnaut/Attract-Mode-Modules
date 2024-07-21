@@ -1,8 +1,8 @@
-fe.add_text(split(fe.script_dir, "/").top(), 0, fe.layout.height * 19 / 20, fe.layout.width, fe.layout.height / 20).align = Align.BottomLeft;
+::fe.add_text(split(::fe.script_dir, "/").top(), 0, ::fe.layout.height * 0.95, ::fe.layout.width, ::fe.layout.height * 0.05).align = Align.BottomLeft;
 //===================================================
 
-fe.load_module("retention");
-fe.load_module("ease");
+::fe.load_module("retention");
+::fe.load_module("ease");
 
 local duration = 2000;
 local rows = 5;
@@ -65,7 +65,7 @@ local easings = [
     ::ease.none,
 ];
 
-local s1 = fe.add_surface(fe.layout.width, fe.layout.height);
+local s1 = ::fe.add_surface(::fe.layout.width, ::fe.layout.height);
 local s2 = Retention(s1);
 s2.persistence = 0.98;
 
@@ -84,15 +84,15 @@ function add_item(x, y, w, h, ease) {
 }
 
 local i = 0;
-local w = fe.layout.width / cols;
-local h = fe.layout.height / rows;
+local w = ::fe.layout.width / cols;
+local h = ::fe.layout.height / rows;
 for (local y=0; y<rows; y++) {
     for (local x=0; x<cols; x++) {
         add_item(x*w, y*h, w, h, easings[i++ % easings.len()]);
     }
 }
 
-fe.add_ticks_callback("on_tick");
+::fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     local t = (ttime % duration).tofloat();
     foreach (item in items) {

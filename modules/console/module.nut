@@ -5,14 +5,14 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
-fe.load_module("stringify");
+::fe.load_module("stringify");
 
 class Console {
     _once = null;
     _once_defaults = {
-        width = fe.layout.width,
-        height = fe.layout.height,
-        font = fe.layout.font,
+        width = ::fe.layout.width,
+        height = ::fe.layout.height,
+        font = ::fe.layout.font,
         char_size = 24,
         char_spacing = 1.0,
         line_margin = null,
@@ -70,7 +70,7 @@ class Console {
             bg_rgb = [bg_red, bg_green, bg_blue],
             align = Align.Left,
         };
-        fe.add_ticks_callback(this, "on_tick");
+        ::fe.add_ticks_callback(this, "on_tick");
     }
 
     // =============================================
@@ -223,7 +223,7 @@ class Console {
 
     function init_container() {
         if (_container) return;
-        _container = fe.add_surface(width, height);
+        _container = ::fe.add_surface(width, height);
 
         // measure line height
         local first = _container.add_text("", 0, 0, width, height);

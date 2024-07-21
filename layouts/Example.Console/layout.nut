@@ -1,7 +1,7 @@
-// fe.add_text(split(fe.script_dir, "/").top(), 0, fe.layout.height * 19 / 20, fe.layout.width, fe.layout.height / 20).align = Align.BottomLeft;
+// ::fe.add_text(split(::fe.script_dir, "/").top(), 0, ::fe.layout.height * 0.95, ::fe.layout.width, ::fe.layout.height * 0.05).align = Align.BottomLeft;
 //===================================================
 
-fe.load_module("console");
+::fe.load_module("console");
 
 ::console <- Console();
 ::console.set_text_rgb(128, 116, 220);
@@ -9,10 +9,10 @@ fe.load_module("console");
 ::console.font = "./fonts/C64_Pro_Mono-STYLE.ttf";
 ::console.char_size = 21;
 ::console.line_height = 21;
-::console.x = floor(fe.layout.width / 20);
-::console.y = floor(fe.layout.height / 20);
-::console.width = floor(fe.layout.width * 18 / 20);
-::console.height = floor(fe.layout.height * 18 / 20);
+::console.x = floor(::fe.layout.width / 20);
+::console.y = floor(::fe.layout.height / 20);
+::console.width = floor(::fe.layout.width * 18 / 20);
+::console.height = floor(::fe.layout.height * 18 / 20);
 
 // C64 font is monospace so we can easily calculate columns and rows
 ::console.height -= ::console.height % ::console.line_height;
@@ -24,7 +24,7 @@ local line_cols = floor(::console.width / ::console.char_size);
 
 //===================================================
 
-local bg = fe.add_text("", 0, 0, fe.layout.width, fe.layout.height);
+local bg = ::fe.add_text("", 0, 0, ::fe.layout.width, ::fe.layout.height);
 bg.set_bg_rgb(128, 116, 220);
 bg.zorder = -1;
 
@@ -51,7 +51,7 @@ local col = @() 255 * rand() / RAND_MAX;
 local rgb = @() [col(), col(), col()];
 local ready_time = null;
 
-fe.add_ticks_callback("on_tick");
+::fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     if (!(ttime % 5)) {
         if (::console.ready && !ready_time) {

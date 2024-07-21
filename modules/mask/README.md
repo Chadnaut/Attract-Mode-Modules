@@ -8,12 +8,12 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("mask");
+::fe.load_module("mask");
 
-local mask = fe.add_image("mask.png");
+local mask = ::fe.add_image("mask.png");
 mask.visible = false;
 
-local art = Mask(fe.add_image("mask.png", 50, 50, 400, 300));
+local art = Mask(::fe.add_image("mask.png", 50, 50, 400, 300));
 art.mask = mask;
 art.set_mask_slice(50, 50, 50, 50);
 ```
@@ -23,7 +23,7 @@ art.set_mask_slice(50, 50, 50, 50);
 
 ## Properties
 
-- `mask` *fe.Image* - Source texture for the mask.
+- `mask` *::fe.Image* - Source texture for the mask.
 - `mask_type` *enum* - Type of mask to use (see [Mask Types](#mask-types)).
 - `mask_mirror_x` *bool* - Flip the mask horizontally.
 - `mask_mirror_y` *bool* - Flip the mask vertically.

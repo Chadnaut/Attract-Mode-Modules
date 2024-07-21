@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("fs");
+::fe.load_module("fs");
 
 // read a file line-by-line
 local file = ::fs.open(FeConfigDirectory + "attract.cfg", "r");

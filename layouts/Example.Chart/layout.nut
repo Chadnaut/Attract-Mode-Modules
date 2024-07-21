@@ -1,12 +1,12 @@
-fe.add_text(split(fe.script_dir, "/").top(), 0, fe.layout.height * 19 / 20, fe.layout.width, fe.layout.height / 20).align = Align.BottomLeft;
+::fe.add_text(split(::fe.script_dir, "/").top(), 0, ::fe.layout.height * 0.95, ::fe.layout.width, ::fe.layout.height * 0.05).align = Align.BottomLeft;
 //===================================================
 
-fe.load_module("chart");
+::fe.load_module("chart");
 
 ::chart <- Chart();
-::chart.x = fe.layout.width / 20;
-::chart.y = fe.layout.height / 20;
-::chart.width = fe.layout.width * 18 / 20;
+::chart.x = ::fe.layout.width / 20;
+::chart.y = ::fe.layout.height / 20;
+::chart.width = ::fe.layout.width * 18 / 20;
 ::chart.height = 100;
 ::chart.thickness = 3;
 ::chart.char_size = 40;
@@ -24,7 +24,7 @@ function my_func4() { ::chart.add("animation", 10); }
 
 function randnum() { return 10.0 * rand() / RAND_MAX; }
 
-fe.add_ticks_callback("on_tick");
+::fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     for (local i=0, n=randnum(); i < n; i++) my_func1();
     for (local i=0, n=randnum(); i < n; i++) my_func2();
@@ -32,7 +32,7 @@ function on_tick(ttime) {
     for (local i=0, n=randnum(); i < n; i++) my_func4();
 }
 
-fe.add_signal_handler("on_signal");
+::fe.add_signal_handler("on_signal");
 function on_signal(signal) {
     if (signal == "custom2") ::chart.visible = !::chart.visible;
 }

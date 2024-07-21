@@ -8,12 +8,12 @@ function _fe_display_transition_callback(ttype, var, ttime) {
 
 describe("Frontend Display Transition", function() {
     it("should have at least four displays to test", function() {
-        expect(fe.displays.len()).toBeGreaterThanOrEqual(4);
+        expect(::fe.displays.len()).toBeGreaterThanOrEqual(4);
     });
 
     before("should next_display", function() {
         tlist.clear();
-        fe.signal("next_display");
+        ::fe.signal("next_display");
         wait();
     });
     it("should next_display ToNewList", function() {
@@ -23,7 +23,7 @@ describe("Frontend Display Transition", function() {
 
     before("should prev_display", function() {
         tlist.clear();
-        fe.signal("prev_display");
+        ::fe.signal("prev_display");
         wait();
     });
     it("should prev_display ToNewList", function() {
@@ -33,7 +33,7 @@ describe("Frontend Display Transition", function() {
 
     before("should set_display", function() {
         tlist.clear();
-        fe.set_display(fe.list.display_index + 1, false, false);
+        ::fe.set_display(::fe.list.display_index + 1, false, false);
         wait();
     });
     it("should set_display ToNewList", function() {

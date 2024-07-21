@@ -5,6 +5,8 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
+local module_dir = ::fe.module_dir;
+
 ::MaskType <- {
     None = 0,
     Multiply = 1,
@@ -14,7 +16,6 @@
 };
 
 class Mask {
-    _dir = ::fe.module_dir;
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -31,7 +32,7 @@ class Mask {
 
     constructor(obj) {
         _obj = obj;
-        _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "nine-slice-mask.frag");
+        _obj.shader = ::fe.add_shader(Shader.Fragment, module_dir + "nine-slice-mask.frag");
         _prop = clone _prop_defaults;
 
         width = _obj.width;

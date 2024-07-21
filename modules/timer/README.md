@@ -8,10 +8,10 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("timer");
+::fe.load_module("timer");
 
-local start = fe.layout.time;
-set_interval(@() print((fe.layout.time - start) + "\n"), 1000);
+local start = ::fe.layout.time;
+set_interval(@() print((::fe.layout.time - start) + "\n"), 1000);
 ```
 
 ```log
@@ -29,10 +29,10 @@ set_interval(@() print((fe.layout.time - start) + "\n"), 1000);
 *Calling a function repeatedly*
 
 ```cpp
-fe.load_module("timer");
+::fe.load_module("timer");
 
-print(fe.layout.time + " - Layout started\n");
-set_timeout(@() print(fe.layout.time + " - Timeout Fired\n"), 1000);
+print(::fe.layout.time + " - Layout started\n");
+set_timeout(@() print(::fe.layout.time + " - Timeout Fired\n"), 1000);
 ```
 
 ```log

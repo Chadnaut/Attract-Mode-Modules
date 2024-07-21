@@ -5,10 +5,10 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
-fe.do_nut(fe.module_dir + "utils.nut");
+::fe.do_nut(::fe.module_dir + "utils.nut");
 
-fe.load_module("stringify");
-fe.load_module("console");
+::fe.load_module("stringify");
+::fe.load_module("console");
 
 class UnitTest {
 
@@ -55,7 +55,7 @@ class UnitTest {
         _prop = clone _prop_defaults;
         _am_log = ("log" in ::fe);
         _am_ver = format("Attract-Mode %s%s", _am_log ? "Plus " : "", getconsttable().FeVersion);
-        fe.add_ticks_callback(this, "on_tick");
+        ::fe.add_ticks_callback(this, "on_tick");
     }
 
     // =============================================
@@ -226,7 +226,7 @@ class UnitTest {
 
     // Set flags to activate on_tick test run
     function start(duration) {
-        _start = fe.layout.time;
+        _start = ::fe.layout.time;
         _running = true;
         _duration = duration;
         _suite_index = 0;
@@ -301,14 +301,14 @@ class UnitTest {
         local calls = 0;
         local callback = _spec.callback;
         local response = null;
-        local start_time = fe.layout.time;
+        local start_time = ::fe.layout.time;
 
         // Run callback as many times as possible during duration
         try {
             while (!calls || duration < run_duration) {
                 calls++;
                 response = callback();
-                duration = fe.layout.time - start_time;
+                duration = ::fe.layout.time - start_time;
             }
         } catch (error) {
             // stack info cannot reach error
@@ -387,7 +387,7 @@ class UnitTest {
 
     function print_log(message) {
         if (_am_log) {
-            fe.log(message);
+            ::fe.log(message);
         } else {
             print(message + "\n");
         }
@@ -397,7 +397,7 @@ class UnitTest {
     function print_report() {
         print_log(format("\n%s %s\n", _bench ? "Benchmark" : "Test", summary ? "Summary" : "Results"));
 
-        local end_time = fe.layout.time;
+        local end_time = ::fe.layout.time;
         local total_error = has_errors();
         local total_specs = 0;
         local total_fails = 0;

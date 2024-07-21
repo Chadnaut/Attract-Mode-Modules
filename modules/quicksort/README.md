@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("quicksort");
+::fe.load_module("quicksort");
 
 local arr = [1,4,2,5,3];
 local gen = ::quicksort_generator(arr);

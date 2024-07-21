@@ -8,9 +8,9 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("frame");
+::fe.load_module("frame");
 
-local frame = Frame(fe.add_image("frame.png", 50, 50, 400, 300));
+local frame = Frame(::fe.add_image("frame.png", 50, 50, 400, 300));
 frame.set_slice(50, 50, 50, 50);
 ```
 

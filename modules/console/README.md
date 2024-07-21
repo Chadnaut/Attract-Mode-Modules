@@ -12,7 +12,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("console");
+::fe.load_module("console");
 ::console <- Console();
 
 // the following lines animate printing, remove to print instantly

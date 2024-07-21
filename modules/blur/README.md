@@ -8,9 +8,9 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("blur");
+::fe.load_module("blur");
 
-local object = Blur(fe.add_artwork("snap", 0, 0, 400 400));
+local object = Blur(::fe.add_artwork("snap", 0, 0, 400 400));
 object.blur_size = 50;
 ```
 
@@ -21,7 +21,7 @@ Wrap your Image, Artwork or Surface with the `Blur()` class and use the resultin
 - `blur_size` *int* - (Optional, default = 0) Blur amount in pixels.
 - `blur_rotation` *float* - (Optional, default = 0) Blur direction, 0...360 clockwise from north.
 - `blur_fast` *bool* - (Optional, default = false) True to use mipmap blur.
-- `blur_mask` *fe.Image* - (Optional) Image for masking.
+- `blur_mask` *::fe.Image* - (Optional) Image for masking.
 - `blur_channel` *bool* - (Optional, default = false) True to use mask channels (see below).
 - `is_surface` *bool* - (Optional, default = auto) True to fix y-axis flipping on surfaces.
 
@@ -64,7 +64,7 @@ img.blur_rotation = 90;
 
 ### Mask
 
-Pass `blur_mask` a grayscale `fe.Image` instance to affect blur strength, multiplying `blur_size` where black is `0%` and white is `100%`.
+Pass `blur_mask` a grayscale `::fe.Image` instance to affect blur strength, multiplying `blur_size` where black is `0%` and white is `100%`.
 
 ![Example](example4.png)\
 *Mask (left), 2-Pass + Mask (right)*

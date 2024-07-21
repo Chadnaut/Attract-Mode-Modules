@@ -6,12 +6,12 @@ function _fe_filter_transition_callback(ttype, var, ttime) {
 
 describe("Frontend Filter Transition", function() {
     it("should have at least four filters to test", function() {
-        expect(fe.filters.len()).toBeGreaterThanOrEqual(4);
+        expect(::fe.filters.len()).toBeGreaterThanOrEqual(4);
     });
 
     before("should next_filter", function() {
         tlist.clear();
-        fe.signal("next_filter");
+        ::fe.signal("next_filter");
         wait();
     });
     it("should next_filter ToNewList", function() {
@@ -21,7 +21,7 @@ describe("Frontend Filter Transition", function() {
 
     before("should prev_filter", function() {
         tlist.clear();
-        fe.signal("prev_filter");
+        ::fe.signal("prev_filter");
         wait();
     });
     it("should prev_filter ToNewList", function() {
@@ -31,7 +31,7 @@ describe("Frontend Filter Transition", function() {
 
     before("should set filter_index", function() {
         tlist.clear();
-        fe.list.filter_index++;
+        ::fe.list.filter_index++;
         wait();
     });
     it("should set filter_index ToNewList", function() {

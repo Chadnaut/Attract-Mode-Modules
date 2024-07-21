@@ -12,7 +12,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("logplus");
+::fe.load_module("logplus");
 
 ::logplus.show_time = true;
 ::logplus.show_frame = true;

@@ -5,12 +5,12 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
-class Chart {
-    _dir = fe.module_dir;
+local module_dir = ::fe.module_dir;
 
+class Chart {
     _once = null;
     _once_defaults = {
-        width = fe.layout.width,
+        width = ::fe.layout.width,
         thickness = 1,
     };
 
@@ -26,7 +26,7 @@ class Chart {
         y = 0,
         height = 60,
         alpha = 235,
-        font = fe.layout.font,
+        font = ::fe.layout.font,
         char_size = 20,
         outline = 0,
         align = null,
@@ -71,7 +71,7 @@ class Chart {
         _once = clone _once_defaults;
         _prop = clone _prop_defaults;
         _timelines = {};
-        fe.add_ticks_callback(this, "on_tick");
+        ::fe.add_ticks_callback(this, "on_tick");
     }
 
     // =============================================
@@ -125,12 +125,12 @@ class Chart {
     // container gets created late so props can be adjusted beforehand
     function init_container() {
         if (_container) return;
-        _container = fe.add_surface(width + thickness, fe.layout.height);
+        _container = ::fe.add_surface(width + thickness, ::fe.layout.height);
         _container.width = width;
         _container.subimg_width = width;
         _container.repeat = true;
 
-        _bg = _container.add_image(_dir + "pixel.png", 0, 0, 0, 0);
+        _bg = _container.add_image(module_dir + "pixel.png", 0, 0, 0, 0);
         _bg.width = thickness;
 
         _head = _container.add_clone(_bg);
@@ -212,7 +212,7 @@ class Chart {
     // reset all timelines and clear the container image
     function clear() {
         _frame = 0;
-        _last_time = fe.layout.time;
+        _last_time = ::fe.layout.time;
         if (_container) {
             _container.clear = true;
             _bg.x = 0;
@@ -234,7 +234,7 @@ class Chart {
             bar.visible = false;
             refresh_bar(bar, index);
 
-            local text = fe.add_text(title, 0, 0, 0, 0);
+            local text = ::fe.add_text(title, 0, 0, 0, 0);
             text.msg = title;
             refresh_text(text, index);
 

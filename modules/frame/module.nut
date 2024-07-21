@@ -5,8 +5,9 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
+local module_dir = ::fe.module_dir;
+
 class Frame {
-    _dir = ::fe.module_dir;
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -27,7 +28,7 @@ class Frame {
 
     constructor(obj) {
         _obj = obj;
-        _obj.shader = ::fe.add_shader(Shader.Fragment, _dir + "nine-slice.frag");
+        _obj.shader = ::fe.add_shader(Shader.Fragment, module_dir + "nine-slice.frag");
         _prop = clone _prop_defaults;
 
         update_target();

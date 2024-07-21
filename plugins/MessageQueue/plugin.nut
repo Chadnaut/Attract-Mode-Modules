@@ -105,4 +105,4 @@ class MessageQueue {
     }
 }
 
-fe.plugin["MessageQueue"] <- MessageQueue();
+::fe.plugin["MessageQueue"] <- MessageQueue();

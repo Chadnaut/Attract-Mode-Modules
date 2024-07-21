@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("chart");
+::fe.load_module("chart");
 ::chart <- Chart();
 
 function my_method() {
@@ -16,7 +16,7 @@ function my_method() {
 }
 
 // Example calls method a random number of times per frame
-fe.add_ticks_callback("on_tick");
+::fe.add_ticks_callback("on_tick");
 function on_tick(ttime) {
     for (local i=0, n=(100.0 * rand() / RAND_MAX); i < n; i++) my_method();
 }

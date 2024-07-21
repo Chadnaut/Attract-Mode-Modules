@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("stringify");
+::fe.load_module("stringify");
 
 local object = { a = 1, b = 2.0, c = ["d", "e"] };
 print(stringify(object) + "\n");

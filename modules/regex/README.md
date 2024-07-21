@@ -8,7 +8,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("regex");
+::fe.load_module("regex");
 
 local matches = Regex("([A-Z])([a-z]+)").match_all("Cat Dog");
 // matches == [["Cat", "C", "at"], ["Dog", "D", "og"]]

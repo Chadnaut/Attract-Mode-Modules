@@ -7,7 +7,7 @@
 
 if ("logplus" in this) return;
 
-fe.load_module("stringify");
+::fe.load_module("stringify");
 
 class LogPlus {
 

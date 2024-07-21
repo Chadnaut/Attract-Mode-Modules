@@ -12,9 +12,9 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("sequence");
+::fe.load_module("sequence");
 
-local artwork = Sequence(fe.add_artwork("snap", 0, 0, 400, 400));
+local artwork = Sequence(::fe.add_artwork("snap", 0, 0, 400, 400));
 
 artwork
     .animate(500)

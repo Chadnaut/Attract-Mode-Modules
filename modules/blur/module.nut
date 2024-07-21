@@ -5,10 +5,10 @@
 // > Chadnaut 2024
 // > https://github.com/Chadnaut/Attract-Mode-Modules
 
+local module_dir = ::fe.module_dir;
 local log2 = 0.69314;
 
 class Blur {
-    _dir = ::fe.module_dir;
     _obj = null;
     _prop = null;
     _prop_defaults = {
@@ -29,7 +29,7 @@ class Blur {
 
         // default mask
         if (!_default.mask) {
-            _default.mask = ::fe.add_image(_dir + "pixel.png", 0, 0, 1, 1);
+            _default.mask = ::fe.add_image(module_dir + "pixel.png", 0, 0, 1, 1);
             _default.mask.visible = false;
         }
 
@@ -58,7 +58,7 @@ class Blur {
             case "blur_fast":
                 _obj.shader = ::fe.add_shader(
                     Shader.Fragment,
-                    _dir + (val ? "blur-mipmap.frag" : "blur-gaussian.frag")
+                    module_dir + (val ? "blur-mipmap.frag" : "blur-gaussian.frag")
                 );
                 if (val) _obj.mipmap = true;
                 width = _obj.width;

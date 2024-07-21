@@ -14,7 +14,7 @@
 ## Quickstart
 
 ```cpp
-fe.load_module("unittest");
+::fe.load_module("unittest");
 
 local ut <- UnitTest();
 ::describe <- ut.describe.bindenv(ut);

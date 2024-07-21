@@ -51,8 +51,13 @@ class Blur {
         switch (idx) {
             case "width":
             case "height":
-            case "is_surface":
             case "blur_channel":
+                if (!blur_fast) _obj.shader.set_param(idx, val);
+                break;
+            case "blur_rotation":
+                if (!blur_fast) _obj.shader.set_param(idx, (90 + val) / -180.0 * ::PI);
+                break;
+            case "is_surface":
                 _obj.shader.set_param(idx, val);
                 break;
             case "blur_fast":
@@ -61,6 +66,7 @@ class Blur {
                     module_dir + (val ? "blur-mipmap.frag" : "blur-gaussian.frag")
                 );
                 if (val) _obj.mipmap = true;
+                // re-apply all shader params
                 width = _obj.width;
                 height = _obj.height;
                 foreach(k, v in _prop) if (k != idx) this[k] = v;
@@ -69,9 +75,6 @@ class Blur {
                 // approximate blur_size for LOD
                 if (blur_fast) val = (::log(val) / log2) / 1.5;
                 _obj.shader.set_param(idx, val);
-                break;
-            case "blur_rotation":
-                _obj.shader.set_param(idx, (90 + val) / -180.0 * ::PI);
                 break;
             case "blur_mask":
                 _obj.shader.set_texture_param(idx, val || _default.mask);

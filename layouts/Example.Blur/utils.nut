@@ -1,8 +1,8 @@
 function draw_channels(source, x, y, w, h) {
     local xp = 10;
     local yp = 10;
-    local w2 = (w - xp) / 2;
-    local h2 = (h - yp) / 2;
+    local w2 = floor((w - xp) / 2);
+    local h2 = floor((h - yp) / 2);
 
     local r1 = ::fe.add_clone(source);
     r1.visible = true;

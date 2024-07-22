@@ -4,6 +4,12 @@
 > Chadnaut 2024  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
+## Quickstart
+
+- Download the repository using the green button `Code` > `Download ZIP`.
+- Extract the desired `module` / `plugin` / `layout` into the corresponding AM folder.
+- Configure your AM display to use the provided example layout.
+
 ## For Designers
 
 Extra features designers can use to build layouts.
@@ -20,6 +26,8 @@ Extra features designers can use to build layouts.
 |[<img src="./modules/perspective/example.png" width="120"/>](./modules/perspective/README.md)|v0.5.4|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
 |[<img src="./modules/retention/example.png" width="120"/>](./modules/retention/README.md)|v0.7.2|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
 |Coming Soon|-|[Sequence](./modules/sequence/README.md) - Stackable animation system|Coming Soon|
+
+*NOTE: Shader-based effects such as Blur, Frame, and Mask will not work simultaneously upon a single entity. This can be averted by placing the entity within a Surface, and applying one effect to the entity, and the other to the Surface.*
 
 ## For Developers
 

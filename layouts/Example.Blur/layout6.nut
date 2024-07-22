@@ -15,32 +15,39 @@ local th = y1 * 0.75;
 local x2 = x1 * 2 + w;
 local y2 = y1 * 2 + h;
 local blur = w / 5;
-local filename = "check.png";
 
 //===================================================
 
-local mask1 = ::fe.add_image("masks/noise.png");
+// This mask is 4x4 pixels, and tiles across a surface the same size as the blur target
+local mask1 = ::fe.add_surface(w, h);
+local mask1i = mask1.add_image("masks/flare.png", 0, 0, w, h);
+mask1i.repeat = true;
+mask1i.subimg_width = w;
+mask1i.subimg_height = h;
 mask1.visible = false;
 
 //===================================================
 
 ::fe.add_text("Channels", x1, y1+h, w, th);
-draw_channels(mask1, x1, y1, w, h);
+local mask2 = ::fe.add_image("masks/flare.png");
+mask2.smooth = false;
+mask2.visible = false;
+draw_channels(mask2, x1, y1, w, h);
 
-::fe.add_text("Noise", x2, y1+h, w, th);
-local b = Blur(::fe.add_image(filename, x2, y1, w, h));
+::fe.add_text("Flare", x2, y1+h, w, th);
+local b = Blur(::fe.add_artwork("snap", x2, y1, w, h));
 b.blur_size = blur;
 b.blur_mask = mask1;
 b.blur_channel = true;
 
-::fe.add_text("Noise Size Anim", x1, y2+h, w, th);
-local c = Blur(::fe.add_image(filename, x1, y2, w, h));
+::fe.add_text("Flare Size Anim", x1, y2+h, w, th);
+local c = Blur(::fe.add_artwork("snap", x1, y2, w, h));
 c.blur_size = blur;
 c.blur_mask = mask1;
 c.blur_channel = true;
 
-::fe.add_text("Noise Rotation Anim", x2, y2+h, w, th);
-local d = Blur(::fe.add_image(filename, x2, y2, w, h));
+::fe.add_text("Flare Rotation Anim", x2, y2+h, w, th);
+local d = Blur(::fe.add_artwork("snap", x2, y2, w, h));
 d.blur_size = blur;
 d.blur_mask = mask1;
 d.blur_rotation = 90;

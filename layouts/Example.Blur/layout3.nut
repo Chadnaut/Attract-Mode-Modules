@@ -6,13 +6,13 @@
 
 local flw = ::fe.layout.width;
 local flh = ::fe.layout.height;
-local x1 = flw * 0.05;
-local y1 = flh * 0.05;
+local x1 = floor(flw * 0.05);
+local y1 = floor(flh * 0.05);
 local w = (flw - (x1 * 3)) / 2;
 local h = (flh - (y1 * 5)) / 2;
-local th = y1*0.75;
-local x2 = x1*2 + w;
-local y2 = y1*2 + h;
+local th = y1 * 0.75;
+local x2 = x1 * 2 + w;
+local y2 = y1 * 2 + h;
 local blur = w / 5;
 local filename = "check.png";
 

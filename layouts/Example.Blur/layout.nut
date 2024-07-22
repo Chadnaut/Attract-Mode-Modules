@@ -6,8 +6,8 @@
 
 local flw = ::fe.layout.width;
 local flh = ::fe.layout.height;
-local x1 = flw * 0.05;
-local y1 = flh * 0.05;
+local x1 = floor(flw * 0.05);
+local y1 = floor(flh * 0.05);
 local w = (flw - (x1 * 3)) / 2;
 local h = (flh - (y1 * 5)) / 2;
 local th = y1 * 0.75;

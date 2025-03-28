@@ -1,28 +1,43 @@
-::fe.add_text(split(::fe.script_dir, "/").top(), 0, ::fe.layout.height * 0.95, ::fe.layout.width, ::fe.layout.height * 0.05).align = Align.BottomLeft;
-//===================================================
+/**
+ * Example.Timer Layout
+ *
+ * @summary How to use the timer module.
+ * @version 0.3.0 2025-03-27
+ * @author Chadnaut
+ * @url https://github.com/Chadnaut/Attract-Mode-Modules
+ *
+ * @requires
+ * @module timer 0.3.0 https://github.com/Chadnaut/Attract-Mode-Modules
+ */
 
-::fe.load_module("timer");
+// -----------------------------------------------------------------------------
 
-print(::fe.layout.time + " - Layout started\n");
-local done = false;
+// Common variables
+local flw = fe.layout.width
+local flh = fe.layout.height
 
-local title = "Interval";
-local txt = ::fe.add_text(title + "\nStart", 0, 0, ::fe.layout.width, ::fe.layout.height);
-txt.char_size = ::fe.layout.height / 10;
-txt.word_wrap = true;
+// Footer text
+local msg = split(fe.script_dir, "/").top()
+local txt = fe.add_text(msg, 0, flh * 0.95, flw, flh * 0.05)
+txt.align = Align.BottomLeft
+txt.zorder = 1000
 
-local counter = 0;
-function my_func() {
-    txt.msg = title + "\n" + counter++;
-    if (!done) print(".\n");
-}
+// -----------------------------------------------------------------------------
 
-set_interval(my_func, 200);
+// Load the module
+fe.load_module("timer");
 
-//===================================================
+// Setup some text elements
+local txt1 = fe.add_text("Interval", 0, flh * 0.4, flw, flh * 0.1);
+local txt2 = fe.add_text("Timeout", 0, flh * 0.5, flw, flh * 0.1);
+local t = 0;
 
-set_timeout(function() {
-    print(::fe.layout.time + " - Timeout Fired\n");
-    title = "Timeout";
-    done = true;
+// An interval function is called after each delay
+set_interval(function() {
+    txt1.msg = t++;
 }, 1000);
+
+// A timeout function is called once after a delay
+set_timeout(function() {
+    txt2.msg = "Done";
+}, 4000);

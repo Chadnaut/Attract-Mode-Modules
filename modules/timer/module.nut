@@ -1,13 +1,27 @@
-// Timer
-//
-// > Call a function at a later time
-// > Version 0.2.0
-// > Chadnaut 2024
-// > https://github.com/Chadnaut/Attract-Mode-Modules
+/**
+ * Timer
+ *
+ * @summary Call a function at a later time.
+ * @version 0.3.0 2025-03-27
+ * @author Chadnaut
+ * @url https://github.com/Chadnaut/Attract-Mode-Modules
+ */
 
+/**
+ * Static class used to create Timer objects
+ * @private
+ */
 class Timer {
+    /** @private Stores all created timers */
     static _timers = {};
 
+    /** @private Stores last timer id */
+    static _global = {
+        id = 0,
+        frame = 0,
+    };
+
+    /** @private Default settings for new timer */
     static _timer_defaults = {
         start_time = 0,
         start_frame = 0,
@@ -17,11 +31,15 @@ class Timer {
         iteration = 0,
     };
 
-    static _global = {
-        id = 0,
-        frame = 0,
-    };
-
+    /**
+     * Creates a new Timer
+     *
+     * Returns an id that can be use to cancel the timer.
+     * @param {function} callback The function to call
+     * @param {integer} delay The delay between calls
+     * @param {boolean} repeat Whether to repeatedly call
+     * @returns {integer}
+     */
     static add = function(callback, delay, repeat) {
         local timer_id = _global.id++;
         local timer = _timers[timer_id] <- clone _timer_defaults;
@@ -33,12 +51,21 @@ class Timer {
         return timer_id;
     }
 
+    /**
+     * Cancels a Timer
+     * @param {integer} id The id of the timer to cancel
+     * @returns {boolean}
+     */
     static remove = function(id) {
         if (!(id in _timers)) return false;
         delete _timers[id];
         return true;
     }
 
+    /**
+     * Process all registered Timers
+     * @param {integer} _ttime Milliseconds since the layout started
+     */
     static on_tick = function(_ttime) {
         _global.frame++;
         local tick_time = ::fe.layout.time;
@@ -80,10 +107,39 @@ class Timer {
     }
 }
 
+// Process the Timers every tick
 ::fe.add_ticks_callback(Timer, "on_tick");
 
-::set_timeout <- @(callback, delay = 0) Timer.add(callback, delay, false);
-::set_interval <- @(callback, delay = 0) Timer.add(callback, delay, true);
+/**
+ * Sets a timer which executes a function after a delay.
+ *
+ * Returns an id that can be passed to `clear_timeout` to cancel the timer.
+ * @param {function} callback The function to call.
+ * @param {integer} delay Milliseconds to wait before call.
+ * @returns {integer}
+ */
+set_timeout <- @(callback, delay = 0) Timer.add(callback, delay, false);
 
-::clear_timeout <- @(id) Timer.remove(id);
-::clear_interval <- @(id) Timer.remove(id);
+/**
+ * Sets a timer which repeatedly calls a function with a delay between each call.
+ *
+ * Returns an id that can be passed to `clear_interval` to cancel the timer.
+ * @param {function} callback The function to call.
+ * @param {integer} delay Milliseconds between calls.
+ * @returns {integer}
+ */
+set_interval <- @(callback, delay = 0) Timer.add(callback, delay, true);
+
+/**
+ * Cancels a `set_timeout` timer.
+ * @param {integer} id The id of the timer.
+ * @returns {boolean}
+ */
+clear_timeout <- @(id) Timer.remove(id);
+
+/**
+ * Cancels a `set_interval` timer.
+ * @param {integer} id The id of the timer.
+ * @returns {boolean}
+ */
+clear_interval <- @(id) Timer.remove(id);

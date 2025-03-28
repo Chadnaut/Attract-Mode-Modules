@@ -1,8 +1,14 @@
 # Attract Mode Modules
 
 > Attract-Mode Modules, Plugins, and Scripts  
-> Chadnaut 2024  
-> https://github.com/Chadnaut/Attract-Mode-Modules
+> Chadnaut 2025  
+> https://github.com/Chadnaut/Attract-Mode-Modules  
+>\
+>[<img src="https://github.com/Chadnaut/Attract-Mode-Plus-Squirrel/blob/master/assets/images/banner.png?raw=true" width="48" align="left">][extension]
+Get the [*AM+ Squirrel*][extension] extension for VS Code
+<br><sup><sub>A suite of support tools to enhance your AM+ development experience. Code completions, highlighting, linting, formatting, and more!</sub></sup>
+
+[extension]: https://marketplace.visualstudio.com/items?itemName=chadnaut.am-squirrel
 
 ## Quickstart
 
@@ -10,59 +16,55 @@
 - Extract the desired `module` / `plugin` / `layout` into the corresponding AM folder.
 - Configure your AM display to use the provided example layout.
 
-## For Designers
+## Modules
 
-Extra features designers can use to build layouts.
+- *Debug* - Testing or debugging during development.
+- *Element* - A new layout element with unique behaviors.
+- *Shader* - Adds an effect to an existing layout element.
+- *Utility* - Additional functions and classes.
 
-### Modules
+[Blur]: ./modules/blur/README.md
+[Chart]: ./modules/chart/README.md
+[Console]: ./modules/console/README.md
+[Ease]: ./modules/ease/README.md
+[FileSystem]: ./modules/fs/README.md
+[Frame]: ./modules/frame/README.md
+[LogPlus]: ./modules/logplus/README.md
+[Mask]: ./modules/mask/README.md
+[MessageQueue]: ./plugins/MessageQueue/README.md
+[Perspective]: ./modules/perspective/README.md
+[Quicksort]: ./modules/quicksort/README.md
+[Regex]: ./modules/regex/README.md
+[Retention]: ./modules/retention/README.md
+[Sequence]: ./modules/sequence/README.md
+[Stringify]: ./modules/stringify/README.md
+[Timer]: ./modules/timer/README.md
+[UnitTest]: ./modules/unittest/README.md
 
-|Screenshot|Version|Module|Example|
-|:-|:-|:-|:-|
-|[<img src="./modules/blur/example.png" width="120"/>](./modules/blur/README.md)|v0.1.0|[Blur](./modules/blur/README.md) - Gaussian blur|[Example](./layouts/Example.Blur/)|
-|[<img src="./modules/ease/example.png" width="120"/>](./modules/ease/README.md)|v0.9.0|[Ease](./modules/ease/README.md) - Easing methods|[Example](./layouts/Example.Ease/)|
-|[<img src="./modules/console/example.png" width="120"/>](./modules/console/README.md)|v0.9.1|[Console](./modules/console/README.md) - Coloured message list with animated typing|[Example](./layouts/Example.Console/)|
-|[<img src="./modules/frame/example.png" width="120"/>](./modules/frame/README.md)|v0.1.1|[Frame](./modules/frame/README.md) - 9-slice image scaling|[Example](./layouts/Example.Frame/)|
-|[<img src="./modules/mask/example.png" width="120"/>](./modules/mask/README.md)|v0.3.1|[Mask](./modules/mask/README.md) - 9-slice image masking|[Example](./layouts/Example.Mask/)|
-|[<img src="./modules/perspective/example.png" width="120"/>](./modules/perspective/README.md)|v0.5.4|[Perspective](./modules/perspective/README.md) - Perspective correct texture mapping|[Example](./layouts/Example.Perspective/)|
-|[<img src="./modules/retention/example.png" width="120"/>](./modules/retention/README.md)|v0.7.2|[Retention](./modules/retention/README.md) - Surface image persistence|[Example](./layouts/Example.Retention/)|
-|Coming Soon|-|[Sequence](./modules/sequence/README.md) - Stackable animation system|Coming Soon|
+|Preview|Version|Description|Type|Demo|
+|-|-|-|-|-|
+|[<img width="64" height="42" src="./modules/blur/example.png"/>][Blur]|`v0.1.0`|[Blur] - Gaussian blur|*Shader*|[Example](./layouts/Example.Blur/)|
+|[<img width="64" height="42" src="./modules/chart/example.png"/>][Chart]|`v1.2.0`|[Chart] - Plot events over time|*Element*|[Example](./layouts/Example.Chart/)|
+|[<img width="64" height="42" src="./modules/console/example.png"/>][Console]|`v0.9.1`|[Console] - Coloured message list with animated typing|*Element*|[Example](./layouts/Example.Console/)|
+|[<img width="64" height="42" src="./modules/ease/example.png"/>][Ease]|`v0.9.0`|[Ease] - Easing methods|*Utility*|[Example](./layouts/Example.Ease/)|
+|[<img width="64" height="42" src="./modules/frame/example.png"/>][Frame]|`v0.1.1`|[Frame] - 9-slice image scaling|*Shader*|[Example](./layouts/Example.Frame/)|
+|[<img width="64" height="42" src="./modules/fs/example.png"/>][FileSystem]|`v0.9.0`|[FileSystem] - File reading and writing|*Utility*|[Example](./layouts/Example.FileSystem/)|
+|[<img width="64" height="42" src="./modules/logplus/example.png"/>][LogPlus]|`v0.6.4`|[LogPlus] - Extended logging functionality|*Debug*|[Example](./layouts/Example.LogPlus/)|
+|[<img width="64" height="42" src="./modules/mask/example.png"/>][Mask]|`v0.3.1`|[Mask] - 9-slice image masking|*Shader*|[Example](./layouts/Example.Mask/)|
+|[<img width="64" height="42" src="./plugins/MessageQueue/example.png"/>][UnitTest]|`v0.1.1`|[MessageQueue] - Send messages using files|*Utility*|[Example](./plugins/MessageQueue/README.md#quickstart)|
+|[<img width="64" height="42" src="./modules/perspective/example.png"/>][Perspective]|`v0.5.4`|[Perspective] - Perspective correct texture mapping|*Shader*|[Example](./layouts/Example.Perspective/)|
+|[<img width="64" height="42" src="./modules/quicksort/example.png"/>][Quicksort]|`v0.1.1`|[Quicksort] - Yielding Quicksort|*Utility*|[Example](./layouts/Example.Quicksort/)|
+|[<img width="64" height="42" src="./modules/regex/example.png"/>][Regex]|`v0.2.1`|[Regex] - Regular Expression handler|*Utility*|[Example](./layouts/Example.Regex/)|
+|[<img width="64" height="42" src="./modules/retention/example.png"/>][Retention]|`v0.7.2`|[Retention] - Surface image persistence|*Shader*|[Example](./layouts/Example.Retention/)|
+|[<img width="64" height="42" src="./modules/sequence/example.png"/>][UnitTest]|`T.B.A.`|[Sequence] - Stackable animation system|*Utility*||
+|[<img width="64" height="42" src="./modules/stringify/example.png"/>][Stringify]|`v0.1.8`|[Stringify] - JSON-like value stringification|*Utility*|[Example](./layouts/Example.Stringify/)|
+|[<img width="64" height="42" src="./modules/timer/example.png"/>][Timer]|`v0.3.0`|[Timer] - Call a function at a later time|*Utility*|[Example](./layouts/Example.Timer/)|
+|[<img width="64" height="42" src="./modules/unittest/example.png"/>][UnitTest]|`v1.1.2`|[UnitTest] - Testing and benchmarking|*Debug*|[Test](./layouts/Example.UnitTest/)<br>[Bench](./layouts/Example.Benchmark/)|
 
-*NOTE: Shader-based effects such as Blur, Frame, and Mask will not work simultaneously upon a single entity. This can be averted by placing the entity within a Surface, and applying one effect to the entity, and the other to the Surface.*
-
-## For Developers
-
-Tools and utilities to improve workflow and debugging.
-
-### Modules
-
-|Screenshot|Version|Module|Example|
-|:-|:-|:-|:-|
-|[<img src="./modules/chart/example.png" width="120"/>](./modules/chart/README.md)|v1.2.0|[Chart](./modules/chart/README.md) - Plot events over time|[Example](./layouts/Example.Chart/)|
-|[<img src="./modules/fs/example.png" width="120"/>](./modules/fs/README.md)|v0.9.0|[FileSystem](./modules/fs/README.md) - File reading and writing|[Example](./layouts/Example.FileSystem/)|
-|[<img src="./modules/logplus/example.png" width="120"/>](./modules/logplus/README.md)|v0.6.4|[LogPlus](./modules/logplus/README.md) - Extended logging functionality|[Example](./layouts/Example.LogPlus/)|
-|[<img src="./modules/quicksort/example.png" width="120"/>](./modules/quicksort/README.md)|v0.1.1|[Quicksort](./modules/quicksort/README.md) - Yielding Quicksort|[Example](./layouts/Example.Quicksort/)|
-|[<img src="./modules/regex/example.png" width="120"/>](./modules/regex/README.md)|v0.2.1|[Regex](./modules/regex/README.md) - Regular Expression handler|[Example](./layouts/Example.Regex/)|
-|[<img src="./modules/stringify/example.png" width="120"/>](./modules/stringify/README.md)|v0.1.8|[Stringify](./modules/stringify/README.md) - JSON-like value stringification|[Example](./layouts/Example.Stringify/)|
-|[<img src="./modules/timer/example.png" width="120"/>](./modules/timer/README.md)|v0.2.0|[Timer](./modules/timer/README.md) - Call a function at a later time|[Example](./layouts/Example.Timer/)|
-|[<img src="./modules/unittest/example.png" width="120"/>](./modules/unittest/README.md)|v1.1.2|[UnitTest](./modules/unittest/README.md) - Testing and benchmarking|[Testing](./layouts/Example.UnitTest/)<br>[Benchmarking](./layouts/Example.Benchmark/)|
-
-### Plugins
-
-|Type|Version|Module|Example|
-|:-|:-|:-|:-|
-|Plugin|v0.1.1|[Message Queue](./plugins/MessageQueue/README.md) - Send messages using files|[Example](./plugins/MessageQueue/README.md#quickstart)|
-|Plugin|v0.1.0|[Reload Hotkey](./plugins/ReloadHotkey/README.md) - Reload layout when custom key pressed|[Example](./plugins/ReloadHotkey/README.md#quickstart)|
-
-### Scripts
-
-|Type|Version|Module|Example|
-|:-|:-|:-|:-|
-|Python|v0.2.0|[Keypress](./scripts/keypress/README.md) - Send keypress to a window|[Example](./scripts/keypress/README.md#example)|
-|Python|v0.3.0|[Link](./scripts/link/README.md) - Create a series of symlinks|[Example](./scripts/link/README.md#example)|
-|Python|v0.1.2|[Version](./scripts/version/README.md) - Sync version info between files|[Example](./scripts/version/README.md#example)|
+*NOTE: Shader-based effects such as Blur, Frame, and Mask will not work simultaneously upon a single element. This can be achieved by nesting elements within Surfaces and applying one effect to each element.*
 
 ## Looking for More?
 
-Sometimes short demos are created to illustrate a concept - for experiments that haven't made it to the module stage checkout:
+For experiments that haven't made it to the Module stage check out:
 
-https://github.com/Chadnaut/Attract-Mode-Experiments
+- https://github.com/Chadnaut/Attract-Mode-Experiments

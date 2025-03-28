@@ -1,55 +1,50 @@
 # Timer
 
 > Call a function at a later time  
-> Version 0.2.0  
-> Chadnaut 2024  
+> Version 0.3.0 2025-03-27  
+> Chadnaut  
 > https://github.com/Chadnaut/Attract-Mode-Modules
 
 ## Quickstart
 
 ```cpp
-::fe.load_module("timer");
+fe.load_module("timer")
 
-local start = ::fe.layout.time;
-set_interval(@() print((::fe.layout.time - start) + "\n"), 1000);
-```
+local t = 0
+set_interval(@() fe.log(format("Interval %d", t++)), 1000)
 
-```log
-1003
-2003
-3005
-4005
-5006
-6007
-7008
-8009
-9009
-10010
+/*
+Interval 0
+Interval 1
+Interval 2
+...
+*/
 ```
 *Calling a function repeatedly*
 
 ```cpp
-::fe.load_module("timer");
+fe.load_module("timer")
 
-print(::fe.layout.time + " - Layout started\n");
-set_timeout(@() print(::fe.layout.time + " - Timeout Fired\n"), 1000);
+local start = fe.layout.time
+set_timeout(@() fe.log(format("Timeout %d", fe.layout.time - start)), 1000)
+
+/*
+Timeout 1000
+*/
 ```
 
-```log
-118 - Layout started
-1131 - Timeout Fired
-```
-*Calling a function later*
+*Calling a function after a delay*
 
 ## Functions
 
-- `set_timeout(callback, delay?)` - Fire callback after delay, returns id
-- `set_interval(callback, delay?)` - Fire callback **every** delay, returns id
-- `clear_timeout(id)` - Remove timout by id
+- `set_timeout(callback, delay?)` - Fire callback once after delay, returns id
+- `set_interval(callback, delay?)` - Repeatedly fire callback after delay, returns id
+- `clear_timeout(id)` - Remove timeout by id
 - `clear_interval(id)` - Remove interval by id
 
 ## Notes
 
 - If `delay == 0` the callback will be fired on the next frame.
 - If `delay < frametime` the callback will be fired multiple times.
-- The exact callback time is dependant on frametime, and may be off by up to 16ms.
+- The exact timing of the callback is dependant on `frametime`.
+- For example, on a `60fps` system the timer with fire within a `1000/60` = `16ms` window.

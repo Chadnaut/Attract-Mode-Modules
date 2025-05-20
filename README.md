@@ -1,9 +1,9 @@
 # Attract Mode Modules
 
-> Attract-Mode Modules, Plugins, and Scripts  
-> Chadnaut 2025  
-> https://github.com/Chadnaut/Attract-Mode-Modules  
->\
+> Attract-Mode Modules, Plugins, and Scripts<br>
+> Chadnaut 2025<br>
+> https://github.com/Chadnaut/Attract-Mode-Modules<br>
+><br>
 >[<img src="https://github.com/Chadnaut/Attract-Mode-Plus-Squirrel/blob/master/assets/images/banner.png?raw=true" width="48" align="left">][extension]
 Get the [*AM+ Squirrel*][extension] extension for VS Code
 <br><sup><sub>A suite of support tools to enhance your AM+ development experience. Code completions, highlighting, linting, formatting, and more!</sub></sup>
@@ -33,6 +33,7 @@ Get the [*AM+ Squirrel*][extension] extension for VS Code
 [Mask]: ./modules/mask/README.md
 [MessageQueue]: ./plugins/MessageQueue/README.md
 [Perspective]: ./modules/perspective/README.md
+[PHYS]: ./scripts/phys/phys.ps1
 [Quicksort]: ./modules/quicksort/README.md
 [Regex]: ./modules/regex/README.md
 [Retention]: ./modules/retention/README.md
@@ -53,6 +54,7 @@ Get the [*AM+ Squirrel*][extension] extension for VS Code
 |[<img width="64" height="42" src="./modules/mask/example.png"/>][Mask]|`v0.3.1`|[Mask] - 9-slice image masking|*Shader*|[Example](./layouts/Example.Mask/)|
 |[<img width="64" height="42" src="./plugins/MessageQueue/example.png"/>][UnitTest]|`v0.1.1`|[MessageQueue] - Send messages using files|*Utility*|[Example](./plugins/MessageQueue/README.md#quickstart)|
 |[<img width="64" height="42" src="./modules/perspective/example.png"/>][Perspective]|`v0.5.4`|[Perspective] - Perspective correct texture mapping|*Shader*|[Example](./layouts/Example.Perspective/)|
+|[<img width="64" height="42" src="./scripts/example.png"/>][PHYS]|`v1.0.0`|[PHYS] - Powershell script to add PNG metadata|*Script*|[Example][PHYS]|
 |[<img width="64" height="42" src="./modules/quicksort/example.png"/>][Quicksort]|`v0.1.1`|[Quicksort] - Yielding Quicksort|*Utility*|[Example](./layouts/Example.Quicksort/)|
 |[<img width="64" height="42" src="./modules/regex/example.png"/>][Regex]|`v0.2.1`|[Regex] - Regular Expression handler|*Utility*|[Example](./layouts/Example.Regex/)|
 |[<img width="64" height="42" src="./modules/retention/example.png"/>][Retention]|`v0.7.2`|[Retention] - Surface image persistence|*Shader*|[Example](./layouts/Example.Retention/)|

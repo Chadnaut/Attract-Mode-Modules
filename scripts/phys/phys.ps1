@@ -1,5 +1,3 @@
-$version = "pHYs Metadata Utility v1.0.0 - Chadnaut 2025"
-
 <#
 ----------------------------------------------------------------------------------------
 
@@ -47,8 +45,8 @@ Powershell script to add "physical pixel" (pHYs) metadata to PNG images.
 
 - Q: The script is not responding, or has frozen?
 - A: Your computer is probably just "thinking"
-     - Generating Mame's listxml takes about 2 minutes (resulting in a 265MB file)
-     - Generating the phys.txt list takes about 20 seconds
+     - Generating Mame's listxml takes about 5 seconds (resulting in a 265MB file)
+     - Generating the phys.txt list takes about 15 seconds
      - Adding pHYs metadata to 17,500 raster snaps takes about 7.5 minutes
 
 - Q: Why is it so slow?
@@ -99,95 +97,138 @@ Powershell script to add "physical pixel" (pHYs) metadata to PNG images.
         cd C:\mame\snap
         .\phys.ps1
     - Follow the onscreen instructions
-        - Usually you'll want to run options 1, 2, 3
+        - Usually you'll want to follow the examples in order to generate xml, meta, then add metadata
         - TIP: Press "Tab" to complete paths, ie: "phys" + TAB
         - TIP: Press "Up" to enter the previous command
-
+        
 ----------------------------------------------------------------------------------------
 #>
 
-# Call this script with arguments to override these default paths
-$list_path = If ($args[0]) { $args[0] } else { "phys.txt" }
-$xml_path = IF ($args[1]) { $args[1] } else { "C:\mame\mame.xml" }
-$mame_path = (Split-Path -parent $xml_path) + "\mame.exe"
+param (
+    [string]$mame = "",
+    [string]$xml = "",
+    [string]$meta = "",
+    [string]$ext = "png",
+    [string]$ratio = "",
+    [switch]$add = $false,
+    [switch]$remove = $false,
+    [switch]$show = $false,
+    [switch]$overwrite = $false
+)
 
-$ext = "png"
-# $ext = "jpg"
-$px_arg = ($ext -match "jpe?g") ? "XResolution" : "PixelsPerUnitX"
-$py_arg = ($ext -match "jpe?g") ? "YResolution" : "PixelsPerUnitY"
-$pu_arg = ($ext -match "jpe?g") ? "ResolutionUnit" : "PixelUnits"
-$pu_val = ($ext -match "jpe?g") ? "None" : "meters"
-
-# Display available options
-Write-Host $version
-Write-Host "Usage: .\phys.ps1 <list_path> <xml_path>"
-Write-Host "- 1: Generate ""$xml_path"" from ""$mame_path"""
-Write-Host "- 2: Generate ""$list_path"" from ""$xml_path"""
-Write-Host "- 3: Add ""$list_path"" metadata to $($ext.ToUpper())s in current dir"
-Write-Host "- 4: Add ""4:3 phys"" metadata to all $($ext.ToUpper())s in current dir"
-Write-Host "- 5: Add ""3:4 phys"" metadata to all $($ext.ToUpper())s in current dir"
-Write-Host "- 6: Remove phys metadata from all $($ext.ToUpper())s in current dir"
-Write-Host "- 7: Display phys metadata from all $($ext.ToUpper())s in current dir"
-$opt = Read-Host "Select an option [1-7]"
-
-$start = Get-Date
-$ppm = 2834 # 72 pixels/in ~ 1 pixels/pt ~ 2834 pixels/m, default found on many snaps
-
-if ($opt -eq '1') {
-    if (Test-Path $xml_path) {
-        Write-Host """$xml_path"" already exists."
-        exit
-    }
-    Write-Host "Generating ""$xml_path"", please wait..."
-    Invoke-Expression "$mame_path -listxml > $xml_path"
+if (!$add -and !$remove -and !$show -and !$overwrite -and !$mame -and !$xml -and !$meta) {
+    Write-Host "pHYs Metadata Utility v1.1.0 - Chadnaut 2025"
+    Write-Host "Usage: .\phys.ps1 -option <value> -switch"
+    Write-Host "  -mame <path>       Path to ""mame.exe"", use with -xml to generate ""list.xml"""
+    Write-Host "  -xml <path>        Path to ""list.xml"", use with -meta to generate ""meta.txt"""
+    Write-Host "  -meta <path>       Path to ""meta.txt"", use with -add to apply metadata"
+    Write-Host "  -ext <extension>   Image extension to update, defaults to ""png"""
+    Write-Host "  -ratio <x:y>       Ratio to manually apply to images"
+    Write-Host "  -add               Add pHYx metadata to images, use with -meta or -ratio"
+    Write-Host "  -remove            Remove pHYx metadata from all images"
+    Write-Host "  -show              Show pHYx metadata from all images"
+    Write-Host "  -overwrite         Overwrite generated files"
+    Write-Host "Examples:"
+    Write-Host "  .\phys.ps1 -mame C:\mame\mame.exe -xml C:\mame\list.xml       # Create list xml from mame"
+    Write-Host "  .\phys.ps1 -xml C:\mame\list.xml -meta C:\mame\snap\meta.txt  # Create meta file from list xml"
+    Write-Host "  .\phys.ps1 -add -meta C:\mame\snap\meta.txt                   # Add meta metadata to matching images"
+    Write-Host "  .\phys.ps1 -add -ratio 4:3                                    # Add 4:3 ratio metadata to images"
 }
 
-if ($opt -eq '2') {
-    # Confirm output overwrite
-    if (Test-Path $list_path) {
-        $confirm = Read-Host "Overwrite ""$($list_path)"" [y/n]"
-        if ($confirm -ne 'y') { exit }
-        Clear-Content -Path $list_path
+# Validate input paths
+if ($mame -and !(Test-Path $mame)) { Write-Host "Cannot find -mame ""$mame"""; exit }
+if ($mame -and $xml -and (Test-Path $xml) -and !$overwrite) { Write-Host """$xml"" already exists, use -overwrite"; exit }
+if ($xml -and !(Test-Path (Split-Path -parent $xml))) { Write-Host "Invalid -xml dir ""$xml"""; exit }
+if ($xml -and $meta -and !(Test-Path $xml)) { Write-Host "Cannot find -xml ""$xml"""; exit }
+if ($xml -and $meta -and (Test-Path $meta) -and !$overwrite) { Write-Host """$meta"" already exists, use -overwrite"; exit }
+if ($meta -and !(Test-Path (Split-Path -parent $meta))) { Write-Host "Invalid -meta dir ""$meta"""; exit }
+if ($add -and $meta -and !$ratio -and !(Test-Path $meta)) { Write-Host "Cannot find -meta ""$meta"""; exit }
+if ($add -and !$meta -and !$ratio) { Write-Host "Nothing to add, use -meta or -ratio"; exit }
+
+$is_jpg = $ext -match "^jpe?g$"
+$px_arg = $is_jpg ? "XResolution" : "PixelsPerUnitX"
+$py_arg = $is_jpg ? "YResolution" : "PixelsPerUnitY"
+$pu_val = $is_jpg ? "ResolutionUnit=None" : "PixelUnits=meters"
+
+function Start-Timer {
+    $global:timer = Get-Date
+}
+
+function Write-Timer {
+    Write-Host "Completed in $((Get-Date) - $global:timer)"
+    $global:timer = Get-Date
+}
+
+function Write-Machines {
+    Param ( $filename, $section, $machines )
+    $names = New-Object -TypeName System.Text.StringBuilder
+    foreach ($machine in $machines) { $names.Append("$($machine.name)`n") | Out-Null }
+    Add-Content -Path $filename -Value "[$section]`n$($names.ToString())"
+}
+
+function Get-Ratio {
+    Param ( [string]$ratio_val )
+    $m = $ratio_val | Select-String -Pattern '^\[?(\d+):(\d+)\]?$' 
+    if (!$m) { throw "Invalid ratio ""$ratio_val""" }
+    Return New-Object PsObject -Property @{x=[int]$m.Matches.Groups[1].ToString(); y=[int]$m.Matches.Groups[2].ToString()}
+}
+
+function Get-Command {
+    Param ( [string]$ratio_val )
+    $r = Get-Ratio $ratio_val
+    $cx = "```${ImageWidth;```$_=```$_*$($r.y)}"
+    $cy = "```${ImageHeight;```$_=```$_*$($r.x)}"
+    Return "exiftool -ignoreMinorErrors -overwrite_original -preserve -$pu_val -$px_arg<""$cx"" -$py_arg<""$cy"""
+}
+
+Start-Timer
+
+if ($mame -and $xml) {
+    Write-Host "Generating ""$xml"", please wait..."
+    Invoke-Expression "$mame -listxml > $xml"
+    Write-Timer
+}
+
+if ($xml -and $meta) {
+    if ((Test-Path $meta) -and $overwrite) {
+        Clear-Content -Path $meta
     } else {
-        New-Item $list_path -type file | Out-Null
-    }
-    $start = Get-Date
-    
-    # Write a section to the output file
-    function Add-Machines {
-        Param ( $section, $items )
-        $names = New-Object -TypeName System.Text.StringBuilder
-        foreach ($machine in $items) { $names.Append("$($machine.name)`n") | Out-Null }
-        Add-Content -Path $list_path -Value "[$section]`n$($names.ToString())"
+        New-Item $meta -type file | Out-Null
     }
     
     # Load the XML and find machines with raster screens
-    Write-Host "Generating ""$list_path"", please wait..."
+    Write-Host "Generating ""$meta"", please wait..."
     $doc = [xml]''
-    $doc.Load(( $xml_path | Resolve-Path ))
+    $doc.Load(( $xml | Resolve-Path ))
     $raster = $doc.mame.machine | Where-Object { $_.display.type -eq 'raster' }
-    $machines = $raster | Where-Object { $_.display.tag -match '^((main|slave)pcb:)?[lmr]?screen\d?$' }
+    $machines = $raster | Where-Object { $_.display.tag -match '^((main|slave)pcb:)?[lmr]?screen\.?\d?$' }
     
     # Add sections for each screen / multi-screen ratio
-    Add-Machines "4:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 1 -and ($_.display.rotate -eq 0 -or $_.display.rotate -eq 180) })
-    Add-Machines "8:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 2 })
-    Add-Machines "12:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 3 })
-    Add-Machines "3:4" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 1 -and ($_.display.rotate -eq 90 -or $_.display.rotate -eq 270) })
-    Add-Machines "4:6" ($raster | Where-Object { $_.SelectNodes("./display").count -eq 2 -and ($_.display.tag -match '^(top|bottom)$' -or $_.name -match '^(hangpltu?|kbh|kbm(2nd|3rd)?)$') })
+    Write-Machines $meta "4:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 1 -and ($_.display.rotate -eq 0 -or $_.display.rotate -eq 180) })
+    Write-Machines $meta "8:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 2 })
+    Write-Machines $meta "12:3" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 3 })
+    Write-Machines $meta "3:4" ($machines | Where-Object { $_.SelectNodes("./display").count -eq 1 -and ($_.display.rotate -eq 90 -or $_.display.rotate -eq 270) })
+    Write-Machines $meta "4:6" ($raster | Where-Object { $_.SelectNodes("./display").count -eq 2 -and ($_.display.tag -match '^(top|bottom)$' -or $_.name -match '^(hangpltu?|kbh|kbm(2nd|3rd)?)$') })
+    Write-Timer
 }
 
-if ($opt -eq '3') {
-    Write-Host "Adding ""$list_path"" metadata, please wait..."
+if ($remove) {
+    Write-Host "Removing phys metadata from all $($ext.ToUpper())s, please wait..."
+    exiftool -ignoreMinorErrors -overwrite_original -PNG-pHYs:*= -XResolution= -YResolution= -ext $ext .
+    Write-Timer
+}
+
+if ($add -and $meta -and !$ratio) {
+    Write-Host "Adding ""$meta"" metadata to matching $($ext.ToUpper())s, please wait..."
     $batch = New-Object -TypeName System.Text.StringBuilder
     $command = ""
-    $ratio = 0
     $section = $false
     
-    # Get PNG listing to check each file exists
+    # Get image listing for future checks
     $images = Get-ChildItem -Name -Filter "*.$ext"
     
     # Process the previously created listing
-    Get-Content $list_path | ForEach-Object {
+    Get-Content $meta | ForEach-Object {
         if (!($_)) { return }
         $section = $_.StartsWith("[")
         
@@ -200,11 +241,8 @@ if ($opt -eq '3') {
         if ($section) {
             # Prepare a new command for the next batch
             Write-Host "Applying $($_) metadata..."
-            $ppu = $($_ -replace "[\[\]]", "").Split(":")
-            $ratio = $ppm * $ppu[0] / $ppu[1]
-            $calc = "```${ImageHeight;```$_=```$_ / ```$self->GetValue('ImageWidth') * $ratio}"
-            $command = "exiftool -ignoreMinorErrors -overwrite_original -preserve -$pu_arg=$pu_val -$px_arg=$ppm -$py_arg<""$calc"""
-        } elseif ($ratio) {
+            $command = Get-Command $_
+        } elseif ($command.Length) {
             # Add filename to the batch
             $filename = "$($_).$($ext)"
             if ($images -contains $filename) {
@@ -217,30 +255,18 @@ if ($opt -eq '3') {
     if ($command -and $batch.Length) { 
         Invoke-Expression "$($command)$($batch.ToString())"
     }
+    Write-Timer
 }
 
-if ($opt -eq '4') {
-    Write-Host "Adding 4:3 phys metadata, please wait..."
-    $ratio = $ppm * 4 / 3
-    $calc = "`${ImageHeight;`$_=`$_ / `$self->GetValue('ImageWidth') * $ratio}"
-    exiftool -ignoreMinorErrors -overwrite_original -preserve -$pu_arg=$pu_val -$px_arg=$ppm -$py_arg<"$calc" -ext $ext .
+if ($add -and $ratio) {
+    Write-Host "Adding ""$ratio"" phys metadata to all $($ext.ToUpper())s, please wait..."
+    $command = Get-Command $ratio
+    Invoke-Expression "$($command) -ext $ext ."
+    Write-Timer
 }
 
-if ($opt -eq '5') {
-    Write-Host "Adding 3:4 phys metadata, please wait..."
-    $ratio = $ppm * 3 / 4
-    $calc = "`${ImageHeight;`$_=`$_ / `$self->GetValue('ImageWidth') * $ratio}"
-    exiftool -ignoreMinorErrors -overwrite_original -preserve -$pu_arg=$pu_val -$px_arg=$ppm -$py_arg<"$calc" -ext $ext .
-}
-
-if ($opt -eq '6') {
-    Write-Host "Removing phys metadata, please wait..."
-    exiftool -ignoreMinorErrors -overwrite_original -PNG-pHYs:*= -XResolution= -YResolution= -ext $ext .
-}
-
-if ($opt -eq '7') {
-    Write-Host "Displaying phys metadata"
+if ($show) {
+    Write-Host "Showing phys metadata from $($ext.ToUpper())s"
     exiftool -ignoreMinorErrors -$px_arg -$py_arg -ext $ext .
+    Write-Timer
 }
-
-Write-Host "Completed in $((Get-Date) - $start)"

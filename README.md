@@ -54,7 +54,7 @@ Get the [*AM+ Squirrel*][extension] extension for VS Code
 |[<img width="64" height="42" src="./modules/mask/example.png"/>][Mask]|`v0.3.1`|[Mask] - 9-slice image masking|*Shader*|[Example](./layouts/Example.Mask/)|
 |[<img width="64" height="42" src="./plugins/MessageQueue/example.png"/>][UnitTest]|`v0.1.1`|[MessageQueue] - Send messages using files|*Utility*|[Example](./plugins/MessageQueue/README.md#quickstart)|
 |[<img width="64" height="42" src="./modules/perspective/example.png"/>][Perspective]|`v0.5.4`|[Perspective] - Perspective correct texture mapping|*Shader*|[Example](./layouts/Example.Perspective/)|
-|[<img width="64" height="42" src="./scripts/example.png"/>][PHYS]|`v1.0.0`|[PHYS] - Powershell script to add PNG metadata|*Script*|[Example][PHYS]|
+|[<img width="64" height="42" src="./scripts/example.png"/>][PHYS]|`v1.1.0`|[PHYS] - Powershell script to add PNG metadata|*Script*|[Example][PHYS]|
 |[<img width="64" height="42" src="./modules/quicksort/example.png"/>][Quicksort]|`v0.1.1`|[Quicksort] - Yielding Quicksort|*Utility*|[Example](./layouts/Example.Quicksort/)|
 |[<img width="64" height="42" src="./modules/regex/example.png"/>][Regex]|`v0.2.1`|[Regex] - Regular Expression handler|*Utility*|[Example](./layouts/Example.Regex/)|
 |[<img width="64" height="42" src="./modules/retention/example.png"/>][Retention]|`v0.7.2`|[Retention] - Surface image persistence|*Shader*|[Example](./layouts/Example.Retention/)|

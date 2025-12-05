@@ -27,6 +27,7 @@ Get the [*AM+ Squirrel*][extension] extension for VS Code
 [Chart]: ./modules/chart/README.md
 [Console]: ./modules/console/README.md
 [Ease]: ./modules/ease/README.md
+[FakeBox]: ./modules/fakebox/README.md
 [FileSystem]: ./modules/fs/README.md
 [Frame]: ./modules/frame/README.md
 [LogPlus]: ./modules/logplus/README.md
@@ -48,12 +49,13 @@ Get the [*AM+ Squirrel*][extension] extension for VS Code
 |[<img width="64" height="42" src="./modules/chart/example.png"/>][Chart]|`v1.2.0`|[Chart] - Plot events over time|*Element*|[Example](./layouts/Example.Chart/)|
 |[<img width="64" height="42" src="./modules/console/example.png"/>][Console]|`v0.9.1`|[Console] - Coloured message list with animated typing|*Element*|[Example](./layouts/Example.Console/)|
 |[<img width="64" height="42" src="./modules/ease/example.png"/>][Ease]|`v0.9.0`|[Ease] - Easing methods|*Utility*|[Example](./layouts/Example.Ease/)|
+|[<img width="64" height="42" src="./modules/fakebox/example.png"/>][FakeBox]|`v0.2.0`|[FakeBox] - A fake 3D spinning box|*Utility*|[Example](./layouts/Example.Fakebox/)|
 |[<img width="64" height="42" src="./modules/frame/example.png"/>][Frame]|`v0.1.1`|[Frame] - 9-slice image scaling|*Shader*|[Example](./layouts/Example.Frame/)|
 |[<img width="64" height="42" src="./modules/fs/example.png"/>][FileSystem]|`v0.9.0`|[FileSystem] - File reading and writing|*Utility*|[Example](./layouts/Example.FileSystem/)|
 |[<img width="64" height="42" src="./modules/logplus/example.png"/>][LogPlus]|`v0.6.4`|[LogPlus] - Extended logging functionality|*Debug*|[Example](./layouts/Example.LogPlus/)|
 |[<img width="64" height="42" src="./modules/mask/example.png"/>][Mask]|`v0.3.1`|[Mask] - 9-slice image masking|*Shader*|[Example](./layouts/Example.Mask/)|
 |[<img width="64" height="42" src="./plugins/MessageQueue/example.png"/>][UnitTest]|`v0.1.1`|[MessageQueue] - Send messages using files|*Utility*|[Example](./plugins/MessageQueue/README.md#quickstart)|
-|[<img width="64" height="42" src="./modules/perspective/example.png"/>][Perspective]|`v0.5.4`|[Perspective] - Perspective correct texture mapping|*Shader*|[Example](./layouts/Example.Perspective/)|
+|[<img width="64" height="42" src="./modules/perspective/example.png"/>][Perspective]|`v0.6.0`|[Perspective] - Perspective correct texture mapping|*Shader*|[Example](./layouts/Example.Perspective/)|
 |[<img width="64" height="42" src="./scripts/example.png"/>][PHYS]|`v1.1.0`|[PHYS] - Powershell script to add PNG metadata|*Script*|[Example][PHYS]|
 |[<img width="64" height="42" src="./modules/quicksort/example.png"/>][Quicksort]|`v0.1.1`|[Quicksort] - Yielding Quicksort|*Utility*|[Example](./layouts/Example.Quicksort/)|
 |[<img width="64" height="42" src="./modules/regex/example.png"/>][Regex]|`v0.2.1`|[Regex] - Regular Expression handler|*Utility*|[Example](./layouts/Example.Regex/)|

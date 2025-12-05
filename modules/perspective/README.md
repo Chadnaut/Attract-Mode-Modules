@@ -26,10 +26,10 @@ These properties are *optional* if you would like precise control over the verti
 
 - `offset_tl_x` *int* - Get/set the top-left x offset.
 - `offset_tl_y` *int* - Get/set the top-left y offset.
-- `offset_bl_x` *int* - Get/set the bottom-left x offset.
-- `offset_bl_y` *int* - Get/set the bottom-left y offset.
 - `offset_tr_x` *int* - Get/set the top-right x offset.
 - `offset_tr_y` *int* - Get/set the top-right y offset.
+- `offset_bl_x` *int* - Get/set the bottom-left x offset.
+- `offset_bl_y` *int* - Get/set the bottom-left y offset.
 - `offset_br_x` *int* - Get/set the bottom-right x offset.
 - `offset_br_y` *int* - Get/set the bottom-right y offset.
 
@@ -41,8 +41,8 @@ These properties are *optional* if you would like precise control over the verti
 
 - Setting `offset_*` properties does not back-fill `pinch` or `skew`.
 - Perspective fails when `pinch_x >= width/2.0` or `pinch_y >= height/2.0`, please consume responsibly.
-- Uses `#version 120` with `#extension GL_EXT_gpu_shader4` on OSX.
-- Uses `#version 130` which provides `gl_VertexID` on other operating systems, which requires `OpenGL 2.0`.
+- Uses shader `#version 120` with `#extension GL_EXT_gpu_shader4` on OSX.
+- Uses shader `#version 130` which provides `gl_VertexID` on other operating systems, which requires `OpenGL 2.0`.
 - Over-pinching no longer creates "bow-ties", since the mesh remains a 4-point object rather than a 256-sliced [triangle strip](https://github.com/oomek/attractplus/blob/master/src/sprite.cpp#L300).
 
 ## Further Reading
